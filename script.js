@@ -2219,7 +2219,7 @@ icons: bus=\ud83d\ude8c ac_bus=\ud83d\ude8c metro=\ud83d\ude87. STRICT VALID JSO
 
   function updateSavingsWidget() {
     const route = currentResult.routes[selectedRouteIndex]; if (!route) return;
-    const uberCost = 800, pathikCost = Math.max(1, Number(route.total_cost) || 45);
+    const uberCost = 500, pathikCost = Math.max(1, Number(route.total_cost) || 45);
     const pct = Math.max(4, Math.min(100, Math.round((pathikCost / uberCost) * 100)));
     const savePct = Math.max(1, Math.round(((uberCost - pathikCost) / uberCost) * 100));
     dom.pathikLabel.textContent = `Pathik AI (\u09f3${pathikCost})`;
