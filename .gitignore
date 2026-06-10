@@ -11,3 +11,4 @@ benchmark-result-*.json
 benchmark-all-result-*.json
 .aye/
 .aye/
+config.js
