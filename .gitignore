@@ -1,0 +1,13 @@
+node_modules/
+.DS_Store
+
+# Keep real API keys out of public repos.
+config.js
+config.local.js
+.env
+.env.*
+feedback.json
+benchmark-result-*.json
+benchmark-all-result-*.json
+.aye/
+.aye/

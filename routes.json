@@ -1,0 +1,6283 @@
+{
+  "_note": "Auto-converted from route.txt. 183 corridors.",
+  "places": {
+    "gabtoli": [],
+    "technical": [],
+    "ansar camp": [],
+    "mirpur 1": [],
+    "sony cinema hall": [],
+    "mirpur 2": [],
+    "mirpur 10": [],
+    "mirpur 11": [],
+    "purobi": [],
+    "kalshi": [],
+    "ecb square": [],
+    "mes": [],
+    "shewra": [],
+    "kuril bishwa road": [],
+    "jamuna future park": [],
+    "bashundhara": [],
+    "nadda": [],
+    "notun bazar": [],
+    "bashtola": [],
+    "shahjadpur": [],
+    "uttar badda": [],
+    "badda": [],
+    "madhya badda": [],
+    "merul": [],
+    "rampura bridge": [],
+    "banasree": [],
+    "demra staff quarter": [],
+    "shia masjid": [],
+    "adabor": [],
+    "shyamoli": [],
+    "sony hall": [],
+    "shewrapara": [],
+    "khilkhet": [],
+    "airport": [],
+    "jashimuddin": [],
+    "rajlakshmi": [],
+    "azampur": [],
+    "house building": [],
+    "abdullahpur": [],
+    "savar": ["ashulia", "baipayl", "nobinagar"],
+    "hemayetpur": [],
+    "amin bazar": [],
+    "kallyanpur": [],
+    "shishu mela": [],
+    "agargaon": [],
+    "zia uddyan": [],
+    "bijoy sarani": [],
+    "jahangir gate": [],
+    "mohakhali": [],
+    "wireless": [],
+    "gulshan 1": [],
+    "badda link road": [],
+    "fulbaria": [],
+    "golap shah mazar": [],
+    "gpo": [],
+    "paltan": [],
+    "press club": [],
+    "high court": [],
+    "matsya bhaban": [],
+    "shahbag": [],
+    "bangla motor": [],
+    "kawran bazar": [],
+    "farmgate": [],
+    "chairman bari": [],
+    "sainik club": [],
+    "banani": [],
+    "kakali": [],
+    "staff road": [],
+    "jashimuddin (uttara)": [],
+    "sadarghat": [],
+    "ray saheb bazar": [],
+    "naya bazar": [],
+    "kakrail": [],
+    "shantinagar": [],
+    "malibagh moor": [],
+    "mouchak": [],
+    "nabisco": [],
+    "tongi": [],
+    "station road": [],
+    "mill gate": [],
+    "board bazar": [],
+    "gazipur bypass": [],
+    "konabari": [],
+    "chandra": [],
+    "college gate": [],
+    "asad gate": [],
+    "dhanmondi 27": [],
+    "dhanmondi 32": [],
+    "kalabagan": [],
+    "city college": [],
+    "new market": [],
+    "nilkhet": [],
+    "azimpur": [],
+    "bakshi bazar": [],
+    "gulistan": [],
+    "chittagong road": [],
+    "kadamtali": [],
+    "keraniganj": [],
+    "babubazar": [],
+    "malibagh railgate": [],
+    "hazipara": [],
+    "rampura bazar": [],
+    "motijheel": [],
+    "mogbazar": [],
+    "nandan park": [],
+    "zirani bazar": [],
+    "baipayl": [],
+    "nobinagar": [],
+    "khamar bari": [],
+    "kamalapur": [],
+    "mirpur 14": [],
+    "sony cenema hall": [],
+    "mazar road": [],
+    "rupnagar": [],
+    "beribadh": [],
+    "birulia": [],
+    "ashulia": [],
+    "zirabo": [],
+    "fantasy kingdom": [],
+    "shia mosque": [],
+    "japan garden city": [],
+    "kazipara": [],
+    "ring road": [],
+    "old airport": [],
+    "kakoli": [],
+    "sign board": [],
+    "shonir akhra": [],
+    "jatrabari": [],
+    "sayedabad": [],
+    "mugdapara": [],
+    "bashabo": [],
+    "khilgaon": [],
+    "gazipur chourasta": [],
+    "duaripara": [],
+    "rupnagar abashik": [],
+    "shiyal bari": [],
+    "proshika moor": [],
+    "shukrabad": [],
+    "jamgora": [],
+    "ashulia bazar": [],
+    "kamarpara": [],
+    "sat rasta": [],
+    "dhour": [],
+    "tarabo": [],
+    "madanpur": [],
+    "mohammadpur bus stand": [],
+    "kalabagan city college": [],
+    "science lab": [],
+    "katabon": [],
+    "bata signal": [],
+    "arambagh notre dame college": [],
+    "chiriyakhana": [],
+    "taltola": [],
+    "rajarbag": [],
+    "bangla college": [],
+    "darussalam": [],
+    "dhanmondi 32 kalabagan": [],
+    "dainik bangla moor": [],
+    "arambagh": [],
+    "kamlapur": [],
+    "manik nagar": [],
+    "tt para": [],
+    "satrasta": [],
+    "manik mia avenue": [],
+    "bangla motor shahbag": [],
+    "maowa": [],
+    "diabari": [],
+    "ittefaq moor": [],
+    "mirpur 12": [],
+    "gulshan bridge": [],
+    "pallabi": [],
+    "dhakeshwari": [],
+    "college": [],
+    "palashi": [],
+    "meghna ghat": [],
+    "kalshi pallabi": [],
+    "nobinagar chandra": [],
+    "kanchpur": [],
+    "matuail": [],
+    "rayerbag": [],
+    "rajluxmi": [],
+    "kawlar": [],
+    "elevated expressway": [],
+    "tejgaon college (farmgate)": [],
+    "khejur bagan": [],
+    "songsod bhaban": [],
+    "bijoy soroni": [],
+    "mohammadpur": [],
+    "vulta": [],
+    "kanchan bridge": [],
+    "nila market": [],
+    "300 feet": [],
+    "bashundhara (300 feet gate)": [],
+    "shankar": [],
+    "star kabab": [],
+    "dhanmondi 15": [],
+    "jigatola": [],
+    "balughat": [],
+    "cantonment": [],
+    "kachukhet": [],
+    "vashantek": [],
+    "bosila": [],
+    "ghatar char": [],
+    "chankhar pul": [],
+    "dhamra": [],
+    "dhamrai": [],
+    "kalampur": [],
+    "tajmahal road": [],
+    "postagola": [],
+    "dholairpar": [],
+    "malibagh": [],
+    "kuril chourasta": [],
+    "eden college": [],
+    "police plaza": [],
+    "gulshan 2": [],
+    "shukrabad kalabagan": [],
+    "uttara": [],
+    "gazipur": [],
+    "shib bari": [],
+    "salimullah road": [],
+    "jakir hossen road": [],
+    "baitul mukarram": [],
+    "kolabagan": [],
+    "panthopoth": [],
+    "karwan bazar": [],
+    "gulshan link road": [],
+    "kuril bissho road": [],
+    "rajlakshmi house building": [],
+    "khamar bari farmgate": [],
+    "motso vobon": [],
+    "malibagg moor": [],
+    "malibagh rail gate": [],
+    "natun bazar": [],
+    "uttara house building": [],
+    "janapath moor": [],
+    "chashara": [],
+    "shibu market": [],
+    "jalkuri": [],
+    "mirpur sony cinema hall": [],
+    "khilgaon khidma hospital": [],
+    "metro hall": [],
+    "farmgate bijoy sarani": [],
+    "purobi pallabi": [],
+    "bangladesh bank": [],
+    "mogbazar mohakhali": [],
+    "sony cinema hall mirpur 1": [],
+    "nobinagar baipayl": [],
+    "kuril flyover": [],
+    "beribadh tin rastar moor": [],
+    "rayer bazar": [],
+    "sikder medical college": [],
+    "hazaribag": [],
+    "nawabganj": [],
+    "kamrangirchar": [],
+    "showari ghat": [],
+    "mitford ghat": [],
+    "airport jashimuddin (uttara)": [],
+    "abdulla": [],
+    "narshinghapur": [],
+    "sura bari": [],
+    "kashimpur": [],
+    "jarun": [],
+    "khilgaon flyover": [],
+    "golapbag chourasta": [],
+    "kazla": [],
+    "dayaganj": [],
+    "dhupkhola": [],
+    "ittefaq moor sayedabad": [],
+    "shanir akhra": [],
+    "tolarbag": [],
+    "kazipara shewrapara": [],
+    "new market nilkhet": [],
+    "arambagh kingdom": [],
+    "manikganj": [],
+    "paturia": [],
+    "mirpur 14 bus stand": [],
+    "dhaka college": [],
+    "chalantika moor": [],
+    "mirpur 6": [],
+    "joydebpur": [],
+    "sreepur": [],
+    "baromi": [],
+    "dia bari": [],
+    "jurain": [],
+    "fakirapul": [],
+    "rajendrapur": [],
+    "tikatuli": [],
+    "gandaria": [],
+    "idb": [],
+    "shimultola": [],
+    "palli bidyut": [],
+    "savar cantonment": [],
+    "rainkhola": [],
+    "sayedabad janapath moor": [],
+    "victoria park": [],
+    "sanarpar": [],
+    "south banasree": [],
+    "adabor shyamoli": [],
+    "shonbari sreenagar": [],
+    "nimtola": [],
+    "kuchimura": [],
+    "hasnabad": [],
+    "press club paltan": [],
+    "mirpur 13": [],
+    "workshop": [],
+    "saudi colony": [],
+    "mirpur dohs": [],
+    "garrison (cantonment)": [],
+    "adamjee school": [],
+    "panthapath": [],
+    "bot tola": [],
+    "signal": [],
+    "cmh": [],
+    "adamjee college": []
+  },
+  "corridors": [
+    {
+      "from": "gabtoli",
+      "to": "demra staff quarter",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Achim Paribahan"
+        ],
+        "stops": [
+          "Gabtoli",
+          "Technical",
+          "Ansar Camp",
+          "Mirpur 1",
+          "Sony Cinema Hall",
+          "Mirpur 2",
+          "Mirpur 10",
+          "Mirpur 11",
+          "Purobi",
+          "Kalshi",
+          "ECB Square",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Jamuna Future Park",
+          "Bashundhara",
+          "Nadda",
+          "Notun Bazar",
+          "Bashtola",
+          "Shahjadpur",
+          "Uttar Badda",
+          "Badda",
+          "Madhya Badda",
+          "Merul",
+          "Rampura Bridge",
+          "Banasree",
+          "Demra Staff Quarter"
+        ]
+      }
+    },
+    {
+      "from": "shia masjid",
+      "to": "abdullahpur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Active Paribahan"
+        ],
+        "stops": [
+          "Shia Masjid",
+          "Adabor",
+          "Shyamoli",
+          "Technical",
+          "Ansar Camp",
+          "Mirpur 1",
+          "Sony Hall",
+          "Mirpur 2",
+          "Mirpur 10",
+          "Mirpur 11",
+          "Purobi",
+          "Kalshi",
+          "ECB Square",
+          "MES",
+          "Shewrapara",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur"
+        ]
+      }
+    },
+    {
+      "from": "savar",
+      "to": "notun bazar",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Agradut"
+        ],
+        "stops": [
+          "Savar",
+          "Hemayetpur",
+          "Amin Bazar",
+          "Gabtoli",
+          "Technical",
+          "Kallyanpur",
+          "Shyamoli",
+          "Shishu Mela",
+          "Agargaon",
+          "Zia Uddyan",
+          "Bijoy Sarani",
+          "Jahangir Gate",
+          "Mohakhali",
+          "Wireless",
+          "Gulshan 1",
+          "Badda Link Road",
+          "Bashtola",
+          "Shahjadpur",
+          "Uttar Badda",
+          "Notun Bazar"
+        ]
+      }
+    },
+    {
+      "from": "fulbaria",
+      "to": "abdullahpur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Airport Bangabandhu Avenue Transport"
+        ],
+        "stops": [
+          "Fulbaria",
+          "Golap Shah Mazar",
+          "GPO",
+          "Paltan",
+          "Press Club",
+          "High Court",
+          "Matsya Bhaban",
+          "Shahbag",
+          "Bangla Motor",
+          "Kawran Bazar",
+          "Farmgate",
+          "Bijoy Sarani",
+          "Jahangir Gate",
+          "Mohakhali",
+          "Chairman Bari",
+          "Sainik Club",
+          "Banani",
+          "Kakali",
+          "Staff Road",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur"
+        ]
+      }
+    },
+    {
+      "from": "sadarghat",
+      "to": "chandra",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Ajmeri Glory"
+        ],
+        "stops": [
+          "Sadarghat",
+          "Ray Saheb Bazar",
+          "Naya Bazar",
+          "Golap Shah Mazar",
+          "GPO",
+          "Paltan",
+          "Kakrail",
+          "Shantinagar",
+          "Malibagh Moor",
+          "Mouchak",
+          "Nabisco",
+          "Mohakhali",
+          "Sainik Club",
+          "Banani",
+          "Kakali",
+          "Staff Road",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur",
+          "Tongi",
+          "Station Road",
+          "Mill Gate",
+          "Board Bazar",
+          "Gazipur Bypass",
+          "Konabari",
+          "Chandra"
+        ]
+      }
+    },
+    {
+      "from": "kallyanpur",
+      "to": "chittagong road",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Ajmi"
+        ],
+        "stops": [
+          "Kallyanpur",
+          "Shyamoli",
+          "Shishu Mela",
+          "College Gate",
+          "Asad gate",
+          "Dhanmondi 27",
+          "Dhanmondi 32",
+          "Kalabagan",
+          "City College",
+          "New Market",
+          "Nilkhet",
+          "Azimpur",
+          "Bakshi Bazar",
+          "Gulistan",
+          "Chittagong Road"
+        ]
+      }
+    },
+    {
+      "from": "kadamtali",
+      "to": "tongi",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Akash"
+        ],
+        "stops": [
+          "Kadamtali",
+          "Keraniganj",
+          "Babubazar",
+          "Naya Bazar",
+          "Golap Shah Mazar",
+          "GPO",
+          "Paltan",
+          "Kakrail",
+          "Shantinagar",
+          "Malibagh Moor",
+          "Mouchak",
+          "Malibagh Railgate",
+          "Hazipara",
+          "Rampura Bazar",
+          "Rampura Bridge",
+          "Merul",
+          "Badda",
+          "Shahjadpur",
+          "Bashtola",
+          "Notun Bazar",
+          "Nadda",
+          "Bashundhara",
+          "Jamuna Future Park",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur",
+          "Tongi"
+        ]
+      }
+    },
+    {
+      "from": "ansar camp",
+      "to": "uttar badda",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Akik"
+        ],
+        "stops": [
+          "Ansar Camp",
+          "Mirpur 1",
+          "Sony Cinema Hall",
+          "Mirpur 2",
+          "Mirpur 10",
+          "Mirpur 11",
+          "Purobi",
+          "Kalshi",
+          "ECB Square",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Jamuna Future Park",
+          "Bashundhara",
+          "Nadda",
+          "Notun Bazar",
+          "Bashtola",
+          "Shahjadpur",
+          "Uttar Badda"
+        ]
+      }
+    },
+    {
+      "from": "motijheel",
+      "to": "mirpur 1",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Al Makka"
+        ],
+        "stops": [
+          "Motijheel",
+          "Gulistan",
+          "GPO",
+          "Paltan",
+          "Kakrail",
+          "Shantinagar",
+          "Malibagh Moor",
+          "Mouchak",
+          "Mogbazar",
+          "Nabisco",
+          "Mohakhali",
+          "Chairman Bari",
+          "Kakali",
+          "Banani",
+          "ECB Square",
+          "Kalshi",
+          "Purobi",
+          "Mirpur 10",
+          "Mirpur 2",
+          "Mirpur 1"
+        ]
+      }
+    },
+    {
+      "from": "nandan park",
+      "to": "kamalapur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Al Madina Plus One"
+        ],
+        "stops": [
+          "Nandan Park",
+          "Zirani Bazar",
+          "Baipayl",
+          "Nobinagar",
+          "Savar",
+          "Hemayetpur",
+          "Amin Bazar",
+          "Gabtoli",
+          "Technical",
+          "Kallyanpur",
+          "Shyamoli",
+          "Shishu Mela",
+          "College Gate",
+          "Asad Gate",
+          "Khamar Bari",
+          "Farmgate",
+          "Kawran Bazar",
+          "Bangla Motor",
+          "Shahbag",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "GPO",
+          "Gulistan",
+          "Motijheel",
+          "Kamalapur"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 14",
+      "to": "nandan park",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Alif"
+        ],
+        "stops": [
+          "Mirpur 14",
+          "Mirpur 10",
+          "Mirpur 2",
+          "Sony Cenema Hall",
+          "Mirpur 1",
+          "Mazar Road",
+          "Konabari",
+          "Rupnagar",
+          "Beribadh",
+          "Birulia",
+          "Ashulia",
+          "Zirabo",
+          "Fantasy Kingdom",
+          "Nandan Park"
+        ]
+      }
+    },
+    {
+      "from": "shia mosque",
+      "to": "banasree",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Alif"
+        ],
+        "stops": [
+          "Shia Mosque",
+          "Japan Garden City",
+          "Adabor",
+          "Shyamoli",
+          "Shishu Mela",
+          "Agargaon",
+          "Zia Uddyan",
+          "Bijoy Sarani",
+          "Jahangir Gate",
+          "Mohakhali",
+          "Wireless",
+          "Gulshan 1",
+          "Badda Link Road",
+          "Madhya Badda",
+          "Merul",
+          "Rampura Bridge",
+          "Banasree"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 1",
+      "to": "banasree",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Alif"
+        ],
+        "stops": [
+          "Mirpur 1",
+          "Mirpur 2",
+          "Mirpur 10",
+          "Kazipara",
+          "Shewrapara",
+          "Agargaon",
+          "Bijoy Sarani",
+          "Jahangir Gate",
+          "Mohakhali",
+          "Wireless",
+          "Gulshan 1",
+          "Badda Link Road",
+          "Madhya Badda",
+          "Merul",
+          "Rampura Bridge",
+          "Banasree"
+        ]
+      }
+    },
+    {
+      "from": "japan garden city",
+      "to": "abdullahpur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Alif"
+        ],
+        "stops": [
+          "Japan Garden City",
+          "Ring Road",
+          "Adabor",
+          "Shyamoli",
+          "Shishu Mela",
+          "Agargaon",
+          "Zia Uddyan",
+          "Bijoy Sarani",
+          "Old Airport",
+          "Jahangir Gate",
+          "Mohakhali",
+          "Chairman Bari",
+          "Sainik Club",
+          "kakoli",
+          "Banani",
+          "Staff Road",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur"
+        ]
+      }
+    },
+    {
+      "from": "sign board",
+      "to": "gazipur chourasta",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Anabil Super"
+        ],
+        "stops": [
+          "Sign Board",
+          "Shonir Akhra",
+          "Jatrabari",
+          "Sayedabad",
+          "Mugdapara",
+          "Bashabo",
+          "Khilgaon",
+          "Malibagh Railgate",
+          "Hazipara",
+          "Rampura Bazar",
+          "Rampura Bridge",
+          "Merul",
+          "Badda",
+          "Uttar Badda",
+          "Shahjadpur",
+          "Bashtola",
+          "Notun Bazar",
+          "Nadda",
+          "Bashundhara",
+          "Jamuna Future Park",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur",
+          "Tongi",
+          "Station Road",
+          "Mill Gate",
+          "Board Bazar",
+          "Gazipur Bypass",
+          "Gazipur Chourasta"
+        ]
+      }
+    },
+    {
+      "from": "hemayetpur",
+      "to": "demra staff quarter",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Arnob"
+        ],
+        "stops": [
+          "Hemayetpur",
+          "Amin Bazar",
+          "Gabtoli",
+          "Technical",
+          "Kallyanpur",
+          "Shyamoli",
+          "Shishu Mela",
+          "Agargaon",
+          "Zia Uddyan",
+          "Bijoy Sarani",
+          "Jahangir Gate",
+          "Mohakhali",
+          "Wireless",
+          "Gulshan 1",
+          "Badda Link Road",
+          "Madhya Badda",
+          "Merul",
+          "Rampura Bridge",
+          "Banasree",
+          "Demra Staff Quarter"
+        ]
+      }
+    },
+    {
+      "from": "duaripara",
+      "to": "azimpur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Ashirbad Pahibahan"
+        ],
+        "stops": [
+          "Duaripara",
+          "Rupnagar Abashik",
+          "Shiyal Bari",
+          "Proshika Moor",
+          "Mirpur 2",
+          "Mirpur 1",
+          "Ansar Camp",
+          "Technical",
+          "Kallyanpur",
+          "Shyamoli",
+          "Shishu Mela",
+          "College Gate",
+          "Asad Gate",
+          "Dhanmondi 27",
+          "Shukrabad",
+          "Dhanmondi 32",
+          "Kalabagan",
+          "City College",
+          "New Market",
+          "Nilkhet",
+          "Azimpur"
+        ]
+      }
+    },
+    {
+      "from": "nobinagar",
+      "to": "sat rasta",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Ashulia Classic"
+        ],
+        "stops": [
+          "Nobinagar",
+          "Baipayl",
+          "Jamgora",
+          "Fantasy Kingdom",
+          "Zirabo",
+          "Ashulia Bazar",
+          "Kamarpara",
+          "Abdullahpur",
+          "House Building",
+          "Azampur",
+          "Rajlakshmi",
+          "Jashimuddin (Uttara)",
+          "Airport",
+          "Khilkhet",
+          "Kuril Bishwa Road",
+          "Shewra",
+          "MES",
+          "Kakali",
+          "Banani",
+          "Chairman Bari",
+          "Mohakhali",
+          "Nabisco",
+          "Sat rasta"
+        ]
+      }
+    },
+    {
+      "from": "dhour",
+      "to": "madanpur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Asmani"
+        ],
+        "stops": [
+          "Dhour",
+          "Abdullahpur",
+          "House Building",
+          "Azampur",
+          "Rajlakshmi",
+          "Jashimuddin (Uttara)",
+          "Airport",
+          "Khilkhet",
+          "Kuril Bishwa Road",
+          "Jamuna Future Park",
+          "Bashundhara",
+          "Nadda",
+          "Notun Bazar",
+          "Bashtola",
+          "Shahjadpur",
+          "Uttar Badda",
+          "Badda",
+          "Madhya Badda",
+          "Merul",
+          "Rampura Bridge",
+          "Banasree",
+          "Demra Staff Quarter",
+          "Tarabo",
+          "Madanpur"
+        ]
+      }
+    },
+    {
+      "from": "mohammadpur bus stand",
+      "to": "arambagh notre dame college",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "ATCL"
+        ],
+        "stops": [
+          "Mohammadpur Bus Stand",
+          "Asad Gate",
+          "Shukrabad",
+          "Kalabagan City College",
+          "Science Lab",
+          "Katabon",
+          "Bata Signal",
+          "Shahbag",
+          "Matsya Bhaban",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "GPO",
+          "Gulistan",
+          "Arambagh Notre Dame College"
+        ]
+      }
+    },
+    {
+      "from": "chiriyakhana",
+      "to": "kamalapur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Ayat"
+        ],
+        "stops": [
+          "Chiriyakhana",
+          "Sony Cinema Hall",
+          "Mirpur 2",
+          "Mirpur 10",
+          "Kazipara",
+          "Shewrapara",
+          "Taltola",
+          "Agargaon",
+          "Khamar Bari",
+          "Farmgate",
+          "Kawran Bazar",
+          "Bangla Motor",
+          "Mogbazar",
+          "Mouchak",
+          "Malibagh Moor",
+          "Rajarbag",
+          "Kamalapur"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 14",
+      "to": "khilgaon",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Bahon"
+        ],
+        "stops": [
+          "Mirpur 14",
+          "Mirpur 10",
+          "Mirpur 2",
+          "Mirpur 1",
+          "Ansar Camp",
+          "Bangla College",
+          "Technical",
+          "Darussalam",
+          "Kallyanpur",
+          "Shyamoli",
+          "Asad Gate",
+          "Dhanmondi 27",
+          "Dhanmondi 32 Kalabagan",
+          "Science Lab",
+          "Katabon",
+          "Shahbag",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "Dainik Bangla Moor",
+          "Motijheel",
+          "Arambagh",
+          "Kamlapur",
+          "Mugdapara",
+          "Bashabo",
+          "Khilgaon"
+        ]
+      }
+    },
+    {
+      "from": "savar",
+      "to": "notun bazar",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Baishakhi"
+        ],
+        "stops": [
+          "Savar",
+          "Hemayetpur",
+          "Amin Bazar",
+          "Gabtoli",
+          "Technical",
+          "Kallyanpur",
+          "Shyamoli",
+          "Shishu Mela",
+          "Agargaon",
+          "Bijoy Sarani",
+          "Jahangir Gate",
+          "Mohakhali",
+          "Gulshan 1",
+          "Badda Link Road",
+          "Bashtola",
+          "Uttar Badda",
+          "Notun Bazar"
+        ]
+      }
+    },
+    {
+      "from": "sayedabad",
+      "to": "gazipur chourasta",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Balaka"
+        ],
+        "stops": [
+          "Sayedabad",
+          "Manik Nagar",
+          "TT Para",
+          "Kamalapur",
+          "Malibagh Moor",
+          "Mouchak",
+          "Mogbazar",
+          "Satrasta",
+          "Nabisco",
+          "Mohakhali",
+          "Chairman Bari",
+          "Banani",
+          "Kakali",
+          "Staff Road",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur",
+          "Tongi",
+          "Station Road",
+          "Mill Gate",
+          "Board Bazar",
+          "Gazipur Bypass",
+          "Gazipur Chourasta"
+        ]
+      }
+    },
+    {
+      "from": "gabtoli",
+      "to": "maowa",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Basumati"
+        ],
+        "stops": [
+          "Gabtoli",
+          "Technical",
+          "Kallyanpur",
+          "Shyamoli",
+          "Shishu Mela",
+          "College Gate",
+          "Asad Gate",
+          "Manik Mia Avenue",
+          "Khamar Bari",
+          "Farmgate",
+          "Kawran Bazar",
+          "Bangla Motor Shahbag",
+          "Matsya Bhaban",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "GPO",
+          "Golap Shah Mazar",
+          "Naya Bazar",
+          "Babubazar",
+          "Keraniganj",
+          "Maowa"
+        ]
+      }
+    },
+    {
+      "from": "gabtoli",
+      "to": "gazipur chourasta",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Basumati Transport"
+        ],
+        "stops": [
+          "Gabtoli",
+          "Mirpur 1",
+          "Sony Cinema Hall",
+          "Mirpur 2",
+          "Mirpur 10",
+          "Mirpur 11",
+          "Purobi",
+          "Kalshi",
+          "ECB Square",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur",
+          "Tongi",
+          "Station Road",
+          "Mill Gate",
+          "Board Bazar",
+          "Gazipur Chourasta"
+        ]
+      }
+    },
+    {
+      "from": "azimpur",
+      "to": "diabari",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Best Satabdi AC"
+        ],
+        "stops": [
+          "Azimpur",
+          "Nilkhet",
+          "New Market",
+          "City College",
+          "Kalabagan",
+          "Dhanmondi 32",
+          "Dhanmondi 27",
+          "Khamar Bari",
+          "Farmgate",
+          "Jahangir Gate",
+          "Mohakhali",
+          "Chairman Bari",
+          "Sainik Club",
+          "Banani",
+          "Kakali",
+          "Staff Road",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Diabari"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 10",
+      "to": "jatrabari",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Best Transport"
+        ],
+        "stops": [
+          "Mirpur 10",
+          "Kazipara",
+          "Shewrapara",
+          "Taltola",
+          "Agargaon",
+          "Khamar Bari",
+          "Farmgate",
+          "Kawran Bazar",
+          "Bangla Motor",
+          "Shahbag",
+          "Matsya Bhaban",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "GPO",
+          "Gulistan",
+          "Motijheel",
+          "Ittefaq Moor",
+          "Sayedabad",
+          "Jatrabari"
+        ]
+      }
+    },
+    {
+      "from": "japan garden city",
+      "to": "abdullahpur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Bhuiyan Paribahan"
+        ],
+        "stops": [
+          "Japan Garden City",
+          "Ring Road",
+          "Adabor",
+          "Shyamoli",
+          "Shishu Mela",
+          "Agargaon",
+          "Zia Uddyan",
+          "Bijoy Sarani",
+          "Old Airport",
+          "Jahangir Gate",
+          "Mohakhali",
+          "Chairman Bari",
+          "Sainik Club",
+          "Kakali",
+          "Banani",
+          "Staff Road",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 12",
+      "to": "notun bazar",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Bihanga"
+        ],
+        "stops": [
+          "Mirpur 12",
+          "Mirpur 11",
+          "Mirpur 10",
+          "Kazipara",
+          "Shewrapara",
+          "Agargaon",
+          "Bijoy Sarani",
+          "Jahangir Gate",
+          "Mohakhali",
+          "Wireless",
+          "Gulshan Bridge",
+          "Gulshan 1",
+          "Badda",
+          "Notun Bazar"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 12",
+      "to": "motijheel",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Bikalpa Auto Service"
+        ],
+        "stops": [
+          "Mirpur 12",
+          "Pallabi",
+          "Purobi",
+          "Mirpur 11",
+          "Mirpur 1",
+          "Kazipara",
+          "Shewrapara",
+          "Taltola",
+          "Agargaon",
+          "Bijoy Sarani",
+          "Farmgate",
+          "Kawran Bazar",
+          "Bangla Motor",
+          "Shahbag",
+          "Matsya Bhaban",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "GPO",
+          "Gulistan",
+          "Motijheel"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 12",
+      "to": "dhakeshwari",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Bikalpa City Super Service"
+        ],
+        "stops": [
+          "Mirpur 12",
+          "Pallabi",
+          "Purobi",
+          "Mirpur 11",
+          "Mirpur 10",
+          "Kazipara",
+          "Shewrapara",
+          "Taltola",
+          "Agargaon",
+          "Shyamoli",
+          "Shishu Mela",
+          "College Gate",
+          "Asad Gate",
+          "Dhanmondi 27",
+          "Dhanmondi 32",
+          "Kalabagan",
+          "City College",
+          "New Market",
+          "Nilkhet",
+          "Azimpur",
+          "Dhakeshwari"
+        ]
+      }
+    },
+    {
+      "from": "azimpur",
+      "to": "kamarpara",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Bikash"
+        ],
+        "stops": [
+          "Azimpur",
+          "Nilkhet",
+          "New Market",
+          "City College",
+          "Kalabagan",
+          "Dhanmondi 27",
+          "Dhanmondi 32",
+          "Khamar Bari",
+          "Farmgate",
+          "Jahangir Gate",
+          "Mohakhali",
+          "Sainik Club",
+          "Banani",
+          "Kakali",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Abdullahpur",
+          "Kamarpara"
+        ]
+      }
+    },
+    {
+      "from": "college",
+      "to": "dhour",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Bikash Paribahan"
+        ],
+        "stops": [
+          "College",
+          "Kalabagan",
+          "Dhanmondi 32",
+          "Dhanmondi 27",
+          "Khamar Bari",
+          "Farmgate",
+          "Jahangir Gate",
+          "Mohakhali",
+          "Chairman Bari",
+          "Sainik Club",
+          "Banani",
+          "Kakali",
+          "Staff Road",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur",
+          "Kamarpara",
+          "Dhour"
+        ]
+      }
+    },
+    {
+      "from": "gulistan",
+      "to": "notun bazar",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Bondhu Paribahan"
+        ],
+        "stops": [
+          "Gulistan",
+          "GPO",
+          "Paltan",
+          "Kakrail",
+          "Shantinagar",
+          "Malibagh Moor",
+          "Mouchak",
+          "Malibagh Railgate",
+          "Hazipara",
+          "Rampura Bazar",
+          "Rampura Bridge",
+          "Merul",
+          "Badda",
+          "Shahjadpur",
+          "Bashtola",
+          "Notun Bazar"
+        ]
+      }
+    },
+    {
+      "from": "palashi",
+      "to": "meghna ghat",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Borak"
+        ],
+        "stops": [
+          "Palashi",
+          "Meghna Ghat"
+        ]
+      }
+    },
+    {
+      "from": "gazipur chourasta",
+      "to": "gabtoli",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Bashumoti"
+        ],
+        "stops": [
+          "Gazipur Chourasta",
+          "Tongi",
+          "Airport",
+          "Khilkhet",
+          "Kalshi Pallabi",
+          "Mirpur 11",
+          "Mirpur 10",
+          "Mirpur 1",
+          "Gabtoli"
+        ]
+      }
+    },
+    {
+      "from": "chiriyakhana",
+      "to": "nobinagar chandra",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Brihottor Mirpur"
+        ],
+        "stops": [
+          "Chiriyakhana",
+          "Mirpur 1",
+          "Gabtoli",
+          "Amin Bazar",
+          "Savar",
+          "Nobinagar Chandra"
+        ]
+      }
+    },
+    {
+      "from": "madanpur",
+      "to": "savar",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "BRTC"
+        ],
+        "stops": [
+          "Madanpur",
+          "Kanchpur",
+          "Chittagong Road",
+          "Sign Board",
+          "Matuail",
+          "Rayerbag",
+          "Shonir Akhra",
+          "Jatrabari",
+          "Sayedabad",
+          "Gulistan",
+          "GPO",
+          "Paltan",
+          "Press Club",
+          "High Court",
+          "Matsya Bhaban",
+          "Shahbag",
+          "Bangla Motor",
+          "Kawran Bazar",
+          "Farmgate",
+          "Khamar Bari",
+          "Asad Gate",
+          "College Gate",
+          "Shishu Mela",
+          "Shyamoli",
+          "Kallyanpur",
+          "Technical",
+          "Gabtoli",
+          "Amin Bazar",
+          "Hemayetpur",
+          "Savar"
+        ]
+      }
+    },
+    {
+      "from": "rajluxmi",
+      "to": "rajluxmi",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "BRTC Elevated Expressway"
+        ],
+        "stops": [
+          "Rajluxmi",
+          "Airport",
+          "Kawlar",
+          "Elevated Expressway",
+          "Tejgaon College (Farmgate)",
+          "Khejur Bagan",
+          "Songsod Bhaban",
+          "Bijoy Soroni",
+          "Elevated Expressway",
+          "Kawlar",
+          "Airport",
+          "Rajluxmi"
+        ]
+      }
+    },
+    {
+      "from": "motijheel",
+      "to": "tongi",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "BRTC"
+        ],
+        "stops": [
+          "Motijheel",
+          "Gulistan",
+          "GPO",
+          "Paltan",
+          "Press Club",
+          "High Court",
+          "Matsya Bhaban",
+          "Shahbag",
+          "Bangla Motor",
+          "Kawran Bazar",
+          "Farmgate",
+          "Jahangir Gate",
+          "Mohakhali",
+          "Chairman Bari",
+          "Kakali",
+          "Banani",
+          "Staff Road",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur",
+          "Tongi"
+        ]
+      }
+    },
+    {
+      "from": "motijheel",
+      "to": "chandra",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "BRTC"
+        ],
+        "stops": [
+          "Motijheel",
+          "Gulistan",
+          "GPO",
+          "Paltan",
+          "Press Club",
+          "High Court",
+          "Matsya Bhaban",
+          "Shahbag",
+          "Bangla Motor",
+          "Kawran Bazar",
+          "Farmgate",
+          "Khamar Bari",
+          "Asad Gate",
+          "College Gate",
+          "Shishu Mela",
+          "Shyamoli",
+          "Kallyanpur",
+          "Technical",
+          "Gabtoli",
+          "Amin Bazar",
+          "Hemayetpur",
+          "Baipayl",
+          "Zirani Bazar",
+          "Chandra"
+        ]
+      }
+    },
+    {
+      "from": "mohammadpur",
+      "to": "kuril bishwa road",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "BRTC"
+        ],
+        "stops": [
+          "Mohammadpur",
+          "Asad Gate",
+          "Khamar Bari",
+          "Farmgate",
+          "Jahangir Gate",
+          "Mohakhali",
+          "Wireless",
+          "Gulshan 1",
+          "Badda Link Road",
+          "Uttar Badda",
+          "Shahjadpur",
+          "Bashtola",
+          "Notun Bazar",
+          "Nadda",
+          "Bashundhara",
+          "Jamuna Future Park",
+          "Kuril Bishwa Road"
+        ]
+      }
+    },
+    {
+      "from": "kamalapur",
+      "to": "kuril bishwa road",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "BRTC"
+        ],
+        "stops": [
+          "Kamalapur",
+          "Motijheel",
+          "Gulistan",
+          "GPO",
+          "Paltan",
+          "Press Club",
+          "High Court",
+          "Matsya Bhaban",
+          "Shahbag",
+          "Bangla Motor",
+          "Kawran Bazar",
+          "Farmgate",
+          "Jahangir Gate",
+          "Mohakhali",
+          "Wireless",
+          "Gulshan 1",
+          "Badda Link Road",
+          "Uttar Badda",
+          "Shahjadpur",
+          "Bashtola",
+          "Notun Bazar",
+          "Nadda",
+          "Bashundhara",
+          "Jamuna Future Park",
+          "Kuril Bishwa Road"
+        ]
+      }
+    },
+    {
+      "from": "vulta",
+      "to": "kuril bishwa road",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "BRTC"
+        ],
+        "stops": [
+          "Vulta",
+          "Kanchan Bridge",
+          "Nila Market",
+          "300 Feet",
+          "Bashundhara (300 Feet Gate)",
+          "Kuril Bishwa Road"
+        ]
+      }
+    },
+    {
+      "from": "motijheel",
+      "to": "abdullahpur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "BRTC"
+        ],
+        "stops": [
+          "Motijheel",
+          "Gulistan",
+          "GPO",
+          "Paltan",
+          "Kakrail",
+          "Shantinagar",
+          "Malibagh Moor",
+          "Mouchak",
+          "Malibagh Railgate",
+          "Hazipara",
+          "Rampura Bazar",
+          "Rampura Bridge",
+          "Merul",
+          "Badda",
+          "Shahjadpur",
+          "Bashtola",
+          "Notun Bazar",
+          "Nadda",
+          "Bashundhara",
+          "Jamuna Future Park",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur"
+        ]
+      }
+    },
+    {
+      "from": "mohammadpur",
+      "to": "motijheel",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "BRTC"
+        ],
+        "stops": [
+          "Mohammadpur",
+          "Shankar",
+          "Star Kabab",
+          "Dhanmondi 15",
+          "Jigatola",
+          "City College",
+          "Science Lab",
+          "Bata Signal",
+          "Shahbag",
+          "Matsya Bhaban",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "GPO",
+          "Gulistan",
+          "Motijheel"
+        ]
+      }
+    },
+    {
+      "from": "gabtoli",
+      "to": "gazipur chourasta",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "BRTC"
+        ],
+        "stops": [
+          "Gabtoli",
+          "Mirpur 1",
+          "Sony Cinema Hall",
+          "Mirpur 2",
+          "Mirpur 10",
+          "Mirpur 11",
+          "Purobi",
+          "Kalshi",
+          "ECB Square",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur",
+          "Tongi",
+          "Mill Gate",
+          "Board Bazar",
+          "Gazipur Bypass",
+          "Gazipur Chourasta"
+        ]
+      }
+    },
+    {
+      "from": "balughat",
+      "to": "motijheel",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "BRTC Articulated"
+        ],
+        "stops": [
+          "Balughat",
+          "Cantonment",
+          "Bijoy Sarani",
+          "Farmgate",
+          "Bangla Motor",
+          "Shahbag",
+          "Paltan",
+          "Gulistan",
+          "Motijheel"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 14",
+      "to": "savar",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Cantonment"
+        ],
+        "stops": [
+          "Mirpur 14",
+          "Mirpur 10",
+          "Mirpur 2",
+          "Sony Cinema Hall",
+          "Mirpur 1",
+          "Ansar Camp",
+          "Technical",
+          "Gabtoli",
+          "Amin Bazar",
+          "Hemayetpur",
+          "Savar"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 14",
+      "to": "mohakhali",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Cantonment Mini Service"
+        ],
+        "stops": [
+          "Mirpur 14",
+          "Kachukhet",
+          "Sainik Club",
+          "Kakali",
+          "Banani",
+          "Mohakhali"
+        ]
+      }
+    },
+    {
+      "from": "vashantek",
+      "to": "gabtoli",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Champion"
+        ],
+        "stops": [
+          "Vashantek",
+          "Mirpur 14",
+          "Mirpur 10",
+          "Mirpur 2",
+          "Sony Cenema Hall",
+          "Mirpur 1",
+          "Ansar Camp",
+          "Technical",
+          "Gabtoli"
+        ]
+      }
+    },
+    {
+      "from": "chittagong road",
+      "to": "ghatar char",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "City Link"
+        ],
+        "stops": [
+          "Chittagong Road",
+          "Sign Board",
+          "Matuail",
+          "Rayerbag",
+          "Shonir Akhra",
+          "Jatrabari",
+          "Sayedabad",
+          "Gulistan",
+          "GPO",
+          "Paltan",
+          "Press Club",
+          "High Court",
+          "Matsya Bhaban",
+          "Shahbag",
+          "Bata Signal",
+          "Science Lab",
+          "City College",
+          "Jigatola",
+          "Dhanmondi 15",
+          "Star Kabab",
+          "Shankar",
+          "Mohammadpur",
+          "Bosila",
+          "Ghatar Char"
+        ]
+      }
+    },
+    {
+      "from": "fulbaria",
+      "to": "dhamra",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "D Link Bus Route"
+        ],
+        "stops": [
+          "Fulbaria",
+          "Chankhar Pul",
+          "Bakshi Bazar",
+          "Azimpur",
+          "Nilkhet",
+          "New Market",
+          "City College",
+          "Kalabagan",
+          "Dhanmondi 32",
+          "Dhanmondi 27",
+          "Asad Gate",
+          "College Gate",
+          "Shishu Mela",
+          "Shyamoli",
+          "Kallyanpur",
+          "Darussalam",
+          "Technical",
+          "Gabtoli",
+          "Amin Bazar",
+          "Hemayetpur",
+          "Savar",
+          "Dhamra"
+        ]
+      }
+    },
+    {
+      "from": "motijheel",
+      "to": "kalampur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "D One Transport"
+        ],
+        "stops": [
+          "Motijheel",
+          "Dainik Bangla Moor",
+          "Paltan",
+          "Press Club",
+          "Matsya Bhaban",
+          "High Court",
+          "Shahbag",
+          "Bangla Motor",
+          "Kawran Bazar",
+          "Farmgate",
+          "Asad Gate",
+          "College Gate",
+          "Shishu Mela",
+          "Shyamoli",
+          "Kallyanpur",
+          "Technical",
+          "Gabtoli",
+          "Amin Bazar",
+          "Nobinagar",
+          "Dhamrai",
+          "Kalampur"
+        ]
+      }
+    },
+    {
+      "from": "tajmahal road",
+      "to": "arambagh",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Deepan"
+        ],
+        "stops": [
+          "Tajmahal Road",
+          "Shankar",
+          "Dhanmondi 15",
+          "Jigatola",
+          "City College",
+          "Science Lab",
+          "Shahbag",
+          "Matsya Bhaban",
+          "Paltan",
+          "Gulistan",
+          "Motijheel",
+          "Arambagh"
+        ]
+      }
+    },
+    {
+      "from": "postagola",
+      "to": "kamarpara",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Desh Bangla"
+        ],
+        "stops": [
+          "Postagola",
+          "Dholairpar",
+          "Jatrabari",
+          "Sayedabad",
+          "Mugdapara",
+          "Bashabo",
+          "Khilgaon",
+          "Malibagh",
+          "Rampura Bazar",
+          "Rampura Bridge",
+          "Merul",
+          "Badda",
+          "Uttar Badda",
+          "Bashtola",
+          "Notun Bazar",
+          "Nadda",
+          "Bashundhara",
+          "Jamuna Future Park",
+          "Kuril Chourasta",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur",
+          "Kamarpara"
+        ]
+      }
+    },
+    {
+      "from": "azimpur",
+      "to": "kuril bishwa road",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Dewan"
+        ],
+        "stops": [
+          "Azimpur",
+          "Eden College",
+          "Nilkhet",
+          "New Market",
+          "Science Lab",
+          "City College",
+          "Science Lab",
+          "Katabon",
+          "Shahbag",
+          "Bangla Motor",
+          "Kawran Bazar",
+          "Farmgate",
+          "Jahangir Gate",
+          "Mohakhali",
+          "Wireless",
+          "Gulshan 1",
+          "Badda",
+          "Badda Link Road",
+          "Uttar Badda",
+          "Shahjadpur",
+          "Bashtola",
+          "Notun Bazar",
+          "Nadda",
+          "Bashundhara",
+          "Jamuna Future Park",
+          "Kuril Bishwa Road"
+        ]
+      }
+    },
+    {
+      "from": "police plaza",
+      "to": "gulshan 2",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Dhakar Chaka"
+        ],
+        "stops": [
+          "Police Plaza",
+          "Gulshan 1",
+          "Gulshan 2"
+        ]
+      }
+    },
+    {
+      "from": "banani",
+      "to": "notun bazar",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Dhakar Chaka"
+        ],
+        "stops": [
+          "Banani",
+          "Gulshan 2",
+          "Notun Bazar"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 1",
+      "to": "azimpur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Dhaka Metro Service"
+        ],
+        "stops": [
+          "Mirpur 1",
+          "Kallyanpur",
+          "Shyamoli",
+          "Asad Gate",
+          "Shukrabad Kalabagan",
+          "Science Lab",
+          "New Market",
+          "Nilkhet",
+          "Azimpur"
+        ]
+      }
+    },
+    {
+      "from": "gulistan",
+      "to": "shib bari",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Dhaka Paribahan"
+        ],
+        "stops": [
+          "Gulistan",
+          "Shahbag",
+          "Farmgate",
+          "Banani",
+          "Uttara",
+          "Gazipur",
+          "Shib Bari"
+        ]
+      }
+    },
+    {
+      "from": "tajmahal road",
+      "to": "arambagh",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Dipon"
+        ],
+        "stops": [
+          "Tajmahal Road",
+          "Salimullah Road",
+          "Jakir Hossen Road",
+          "Shankar",
+          "Star Kabab",
+          "Dhanmondi 15",
+          "Jigatola",
+          "City College",
+          "Science Lab",
+          "Bata Signal",
+          "Shahbag",
+          "Matsya Bhaban",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "Baitul Mukarram",
+          "Gulistan",
+          "Motijheel",
+          "Arambagh"
+        ]
+      }
+    },
+    {
+      "from": "azimpur",
+      "to": "kuril bissho road",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Dip Paribahan"
+        ],
+        "stops": [
+          "Azimpur",
+          "City College",
+          "Kolabagan",
+          "Panthopoth",
+          "Karwan Bazar",
+          "Nabisco",
+          "Gulshan Link Road",
+          "Gulshan 1",
+          "Kuril Bissho Road"
+        ]
+      }
+    },
+    {
+      "from": "chiriyakhana",
+      "to": "keraniganj",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Dishari Bus Route"
+        ],
+        "stops": [
+          "Chiriyakhana",
+          "Mirpur 1",
+          "Ansar Camp",
+          "Technical",
+          "Kallyanpur",
+          "Shyamoli",
+          "Shishu Mela",
+          "College Gate",
+          "Asad Gate",
+          "Khamar Bari",
+          "Farmgate",
+          "Kawran Bazar",
+          "Bangla Motor",
+          "Shahbag",
+          "Matsya Bhaban",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "GPO",
+          "Golap Shah Mazar",
+          "Naya Bazar",
+          "Babubazar",
+          "Keraniganj"
+        ]
+      }
+    },
+    {
+      "from": "agargaon",
+      "to": "abdullahpur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Elite Bus Route"
+        ],
+        "stops": [
+          "Agargaon",
+          "Taltola",
+          "Shewrapara",
+          "Kazipara",
+          "Mirpur 10",
+          "Mirpur 11",
+          "Purobi",
+          "Pallabi",
+          "Kalshi",
+          "Kuril Bishwa Road",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi House Building",
+          "Abdullahpur"
+        ]
+      }
+    },
+    {
+      "from": "golap shah mazar",
+      "to": "mirpur 12",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "ETC Bus Route"
+        ],
+        "stops": [
+          "Golap Shah Mazar",
+          "Shahbag",
+          "Bangla Motor",
+          "Farmgate",
+          "Agargaon",
+          "Shewrapara",
+          "Kazipara",
+          "Mirpur 10",
+          "Pallabi",
+          "Mirpur 12"
+        ]
+      }
+    },
+    {
+      "from": "golap shah mazar",
+      "to": "mirpur 12",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "ETC Transport Bus Route"
+        ],
+        "stops": [
+          "Golap Shah Mazar",
+          "GPO",
+          "Paltan",
+          "Press Club",
+          "High Court",
+          "Matsya Bhaban",
+          "Shahbag",
+          "Bangla Motor",
+          "Kawran Bazar",
+          "Farmgate",
+          "Khamar Bari",
+          "Agargaon",
+          "Taltola",
+          "Shewrapara",
+          "Kazipara",
+          "Mirpur 10",
+          "Mirpur 11",
+          "Purobi",
+          "Pallabi",
+          "Mirpur 12"
+        ]
+      }
+    },
+    {
+      "from": "rupnagar abashik",
+      "to": "keraniganj",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Everest Paribahan"
+        ],
+        "stops": [
+          "Rupnagar Abashik",
+          "Mirpur 2",
+          "Mirpur 1",
+          "Khamar Bari Farmgate",
+          "Gulistan",
+          "Keraniganj"
+        ]
+      }
+    },
+    {
+      "from": "azimpur",
+      "to": "uttara house building",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Falgun Art Transport Private Limited"
+        ],
+        "stops": [
+          "Azimpur",
+          "Nilkhet",
+          "New Market",
+          "Science Lab",
+          "Bata Signal",
+          "Katabon",
+          "Shahbag",
+          "Motso Vobon",
+          "Kakrail",
+          "Shantinagar",
+          "Malibagg Moor",
+          "Mouchak",
+          "Malibagh Rail Gate",
+          "Rampura Bazar",
+          "Rampura Bridge",
+          "Merul",
+          "Madhya Badda",
+          "Badda",
+          "Shahjadpur",
+          "Natun Bazar",
+          "Nadda",
+          "Bashundhara",
+          "Jamuna Future Park",
+          "Kuril Bissho Road",
+          "Khilkhet",
+          "Airport",
+          "Rajlakshmi",
+          "Uttara House Building"
+        ]
+      }
+    },
+    {
+      "from": "vashantek",
+      "to": "gabtoli",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "First Ten Bus Route"
+        ],
+        "stops": [
+          "Vashantek",
+          "Mirpur 14",
+          "Mirpur 10",
+          "Mirpur 2",
+          "Sony Cenema Hall",
+          "Mirpur 1",
+          "Ansar Camp",
+          "Technical",
+          "Gabtoli"
+        ]
+      }
+    },
+    {
+      "from": "mohammadpur",
+      "to": "chittagong road",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "FTCL"
+        ],
+        "stops": [
+          "Mohammadpur",
+          "Shankar",
+          "Star Kabab",
+          "Jigatola",
+          "City College",
+          "Science Lab",
+          "Bata Signal",
+          "Shahbag",
+          "Matsya Bhaban",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "GPO",
+          "Gulistan",
+          "Sayedabad",
+          "Janapath Moor",
+          "Jatrabari",
+          "Shonir Akhra",
+          "Rayerbag",
+          "Matuail",
+          "Sign Board",
+          "Chittagong Road"
+        ]
+      }
+    },
+    {
+      "from": "mohammadpur",
+      "to": "arambagh",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "FTCL"
+        ],
+        "stops": [
+          "Mohammadpur",
+          "Shankar",
+          "Dhanmondi 15",
+          "Jigatola",
+          "City College",
+          "Science Lab",
+          "Shahbag",
+          "Matsya Bhaban",
+          "Paltan",
+          "Gulistan",
+          "Motijheel",
+          "Arambagh"
+        ]
+      }
+    },
+    {
+      "from": "motijheel",
+      "to": "shib bari",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Gazipur Paribahan"
+        ],
+        "stops": [
+          "Motijheel",
+          "Paltan",
+          "Kakrail",
+          "Shantinagar",
+          "Malibagh Moor",
+          "Mouchak",
+          "Mogbazar",
+          "Nabisco",
+          "Mohakhali",
+          "Chairman Bari",
+          "Sainik Club",
+          "Kakali",
+          "Banani",
+          "Staff Road",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur",
+          "Tongi",
+          "Station Road",
+          "Mill Gate",
+          "Board Bazar",
+          "Gazipur Chourasta",
+          "Shib Bari"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 14",
+      "to": "gabtoli",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Grameen"
+        ],
+        "stops": [
+          "Mirpur 14",
+          "Mirpur 10",
+          "Mirpur 2",
+          "Sony Cinema Hall",
+          "Mirpur 1",
+          "Ansar Camp",
+          "Technical",
+          "Gabtoli"
+        ]
+      }
+    },
+    {
+      "from": "fulbaria",
+      "to": "chandra",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Grameen Suveccha"
+        ],
+        "stops": [
+          "Fulbaria",
+          "Chankhar Pul",
+          "Bakshi Bazar",
+          "Azimpur",
+          "Nilkhet",
+          "New Market",
+          "City College",
+          "Kalabagan",
+          "Dhanmondi 32",
+          "Dhanmondi 27",
+          "Asad Gate",
+          "College Gate",
+          "Shishu Mela",
+          "Shyamoli",
+          "Kallyanpur",
+          "Darussalam",
+          "Technical",
+          "Gabtoli",
+          "Amin Bazar",
+          "Hemayetpur",
+          "Savar",
+          "Baipayl",
+          "Zirani Bazar",
+          "Nandan Park",
+          "Chandra"
+        ]
+      }
+    },
+    {
+      "from": "chashara",
+      "to": "gazipur chourasta",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Green Anabil"
+        ],
+        "stops": [
+          "Chashara",
+          "Shibu Market",
+          "Jalkuri",
+          "Sign Board",
+          "Matuail",
+          "Rayerbag",
+          "Shonir Akhra",
+          "Jatrabari",
+          "Sayedabad",
+          "Mugdapara",
+          "Bashabo",
+          "Khilgaon",
+          "Malibagh Railgate",
+          "Hazipara",
+          "Rampura Bazar",
+          "Rampura Bridge",
+          "Merul",
+          "Badda",
+          "Uttar Badda",
+          "Shahjadpur",
+          "Bashtola",
+          "Notun Bazar",
+          "Nadda",
+          "Bashundhara",
+          "Jamuna Future Park",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur",
+          "Tongi",
+          "Station Road",
+          "Mill Gate",
+          "Board Bazar",
+          "Gazipur Bypass",
+          "Gazipur Chourasta"
+        ]
+      }
+    },
+    {
+      "from": "motijheel",
+      "to": "abdullahpur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Green Dhaka"
+        ],
+        "stops": [
+          "Motijheel",
+          "Gulistan",
+          "GPO",
+          "Paltan",
+          "Kakrail",
+          "Shantinagar",
+          "Malibagh Moor",
+          "Mouchak",
+          "Malibagh Railgate",
+          "Hazipara",
+          "Rampura Bazar",
+          "Rampura Bridge",
+          "Merul",
+          "Badda",
+          "Uttar Badda",
+          "Shahjadpur",
+          "Bashtola",
+          "Notun Bazar",
+          "Nadda",
+          "Bashundhara",
+          "Jamuna Future Park",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur"
+        ]
+      }
+    },
+    {
+      "from": "banani",
+      "to": "notun bazar",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Gulshan Chaka"
+        ],
+        "stops": [
+          "Banani",
+          "Gulshan 2",
+          "Notun Bazar"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 12",
+      "to": "motijheel",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Hazi Transport"
+        ],
+        "stops": [
+          "Mirpur 12",
+          "Pallabi",
+          "Purobi",
+          "Mirpur 10",
+          "Kazipara",
+          "Shewrapara",
+          "Agargaon",
+          "Bijoy Sarani",
+          "Farmgate",
+          "Kawran Bazar",
+          "Bangla Motor",
+          "Shahbag",
+          "Matsya Bhaban",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "GPO",
+          "Gulistan",
+          "Motijheel"
+        ]
+      }
+    },
+    {
+      "from": "mirpur sony cinema hall",
+      "to": "khilgaon khidma hospital",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Himachal"
+        ],
+        "stops": [
+          "Mirpur Sony Cinema Hall",
+          "Mirpur 10",
+          "Kazipara",
+          "Shewrapara",
+          "Mohakhali",
+          "Gulshan 1",
+          "Badda",
+          "Rampura Bridge",
+          "Rampura Bazar",
+          "Khilgaon Khidma Hospital"
+        ]
+      }
+    },
+    {
+      "from": "metro hall",
+      "to": "mirpur 12",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Himachal Suveccha"
+        ],
+        "stops": [
+          "Metro Hall",
+          "Chashara",
+          "Shibu Market",
+          "Jalkuri",
+          "Sign Board",
+          "Matuail",
+          "Rayerbag",
+          "Shonir Akhra",
+          "Jatrabari",
+          "Janapath Moor",
+          "Gulistan",
+          "GPO",
+          "Paltan",
+          "Press Club",
+          "High Court",
+          "Matsya Bhaban",
+          "Shahbag",
+          "Bangla Motor",
+          "Kawran Bazar",
+          "Farmgate Bijoy Sarani",
+          "Agargaon",
+          "Taltola",
+          "Shewrapara",
+          "Kazipara",
+          "Mirpur 10",
+          "Mirpur 11",
+          "Purobi Pallabi",
+          "Mirpur 12"
+        ]
+      }
+    },
+    {
+      "from": "madanpur",
+      "to": "tongi",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Himalay"
+        ],
+        "stops": [
+          "Madanpur",
+          "Jatrabari",
+          "Bangladesh Bank",
+          "Mogbazar Mohakhali",
+          "Tongi"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 14",
+      "to": "chandra",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Itihash"
+        ],
+        "stops": [
+          "Mirpur 14",
+          "Mirpur 10",
+          "Mirpur 2",
+          "Sony Cinema Hall Mirpur 1",
+          "Ansar Camp",
+          "Technical",
+          "Gabtoli",
+          "Amin Bazar",
+          "Hemayetpur",
+          "Savar",
+          "Nobinagar Baipayl",
+          "Zirani Bazar",
+          "Nandan Park",
+          "Chandra"
+        ]
+      }
+    },
+    {
+      "from": "jatrabari",
+      "to": "tongi",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "J M Super Paribahan"
+        ],
+        "stops": [
+          "Jatrabari",
+          "Sayedabad",
+          "Mugdapara",
+          "Bashabo",
+          "Khilgaon",
+          "Malibagh Railgate",
+          "Hazipara",
+          "Rampura Bazar",
+          "Rampura Bridge",
+          "Merul",
+          "Badda",
+          "Uttar Badda",
+          "Shahjadpur",
+          "Bashtola",
+          "Notun Bazar",
+          "Nadda",
+          "Bashundhara",
+          "Jamuna Future Park",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur",
+          "Tongi"
+        ]
+      }
+    },
+    {
+      "from": "agargaon",
+      "to": "abdullahpur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Jabale Noor Paribahan"
+        ],
+        "stops": [
+          "Agargaon",
+          "Taltola",
+          "Shewrapara",
+          "Kazipara",
+          "Mirpur 10",
+          "Mirpur 11",
+          "Purobi",
+          "Pallabi",
+          "Kalshi",
+          "Kuril Bishwa Road",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi House Building",
+          "Abdullahpur"
+        ]
+      }
+    },
+    {
+      "from": "gabtoli",
+      "to": "notun bazar",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Jabale Noor Paribahan"
+        ],
+        "stops": [
+          "Gabtoli",
+          "Mirpur 1",
+          "Mirpur 10",
+          "Kalshi",
+          "Kuril Flyover",
+          "Notun Bazar"
+        ]
+      }
+    },
+    {
+      "from": "gabtoli",
+      "to": "babubazar",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Janjabil"
+        ],
+        "stops": [
+          "Gabtoli",
+          "Beribadh Tin Rastar Moor",
+          "Rayer Bazar",
+          "Sikder Medical College",
+          "Hazaribag",
+          "Nawabganj",
+          "Kamrangirchar",
+          "Showari Ghat",
+          "Mitford Ghat",
+          "Babubazar"
+        ]
+      }
+    },
+    {
+      "from": "chittagong road",
+      "to": "ghatar char",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Kamal Plus Paribahan"
+        ],
+        "stops": [
+          "Chittagong Road",
+          "Sign Board",
+          "Matuail",
+          "Rayerbag",
+          "Shonir Akhra",
+          "Jatrabari",
+          "Sayedabad",
+          "Gulistan",
+          "Chankhar Pul",
+          "Bakshi Bazar",
+          "Azimpur",
+          "Nilkhet",
+          "New Market",
+          "Science Lab",
+          "City College",
+          "Jigatola",
+          "Dhanmondi 15",
+          "Star Kabab",
+          "Shankar",
+          "Mohammadpur",
+          "Ghatar Char"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 1",
+      "to": "abdulla",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "kanak Bus Route"
+        ],
+        "stops": [
+          "Mirpur 1",
+          "Sony Cinema Hall",
+          "Mirpur 2",
+          "Mirpur 10",
+          "Mirpur 11",
+          "Purobi",
+          "Kalshi",
+          "ECB Square",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdulla"
+        ]
+      }
+    },
+    {
+      "from": "jatrabari",
+      "to": "mirpur 12",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Khajababa"
+        ],
+        "stops": [
+          "Jatrabari",
+          "Sayedabad",
+          "Gulistan",
+          "GPO",
+          "Paltan",
+          "Press Club",
+          "High Court",
+          "Matsya Bhaban",
+          "Shahbag",
+          "Bangla Motor",
+          "Kawran Bazar",
+          "Farmgate",
+          "Khamar Bari",
+          "Agargaon",
+          "Taltola",
+          "Shewrapara",
+          "Kazipara",
+          "Mirpur 10",
+          "Mirpur 11",
+          "Purobi",
+          "Pallabi",
+          "Mirpur 12"
+        ]
+      }
+    },
+    {
+      "from": "chiriyakhana",
+      "to": "konabari",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Kironmala Paribahan"
+        ],
+        "stops": [
+          "Chiriyakhana",
+          "Mirpur 1",
+          "Sony Cinema Hall",
+          "Rupnagar",
+          "Birulia",
+          "Ashulia",
+          "Zirabo",
+          "Narshinghapur",
+          "Sura Bari",
+          "Kashimpur",
+          "Jarun",
+          "Konabari"
+        ]
+      }
+    },
+    {
+      "from": "savar",
+      "to": "sign board",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Labbayek"
+        ],
+        "stops": [
+          "Savar",
+          "Hemayetpur",
+          "Amin Bazar",
+          "Gabtoli",
+          "Technical",
+          "Kallyanpur",
+          "Shyamoli",
+          "Shishu Mela",
+          "College Gate",
+          "Asad Gate",
+          "Khamar Bari",
+          "Farmgate",
+          "Kawran Bazar",
+          "Bangla Motor",
+          "Mogbazar",
+          "Mouchak",
+          "Malibagh Moor",
+          "Rajarbag",
+          "Khilgaon Flyover",
+          "Bashabo",
+          "Mugdapara",
+          "Manik Nagar",
+          "Golapbag Chourasta",
+          "Sayedabad",
+          "Janapath Moor",
+          "Jatrabari",
+          "Kazla",
+          "Shonir Akhra",
+          "Rayerbag",
+          "Matuail",
+          "Sign Board"
+        ]
+      }
+    },
+    {
+      "from": "nandan park",
+      "to": "motijheel",
+      "direct": {
+        "mode": "ac_bus",
+        "names": [
+          "Lal Sabuj"
+        ],
+        "stops": [
+          "Nandan Park",
+          "Zirani Bazar",
+          "Baipayl",
+          "Nobinagar",
+          "Savar",
+          "Hemayetpur",
+          "Amin Bazar",
+          "Gabtoli",
+          "Technical",
+          "Kallyanpur",
+          "Shyamoli",
+          "Shishu Mela",
+          "College Gate",
+          "Asad Gate",
+          "Khamar Bari",
+          "Farmgate",
+          "Kawran Bazar",
+          "Bangla Motor",
+          "Shahbag",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "GPO",
+          "Gulistan",
+          "Motijheel"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 12",
+      "to": "motijheel",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Lams Paribahan"
+        ],
+        "stops": [
+          "Mirpur 12",
+          "Pallabi",
+          "Purobi",
+          "Mirpur 11",
+          "Mirpur 1",
+          "Kazipara",
+          "Shewrapara",
+          "Taltola",
+          "Agargaon",
+          "Bijoy Sarani",
+          "Farmgate",
+          "Kawran Bazar",
+          "Bangla Motor",
+          "Shahbag",
+          "Matsya Bhaban",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "Dainik Bangla Moor",
+          "Motijheel"
+        ]
+      }
+    },
+    {
+      "from": "mohammadpur",
+      "to": "dhupkhola",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Malancha"
+        ],
+        "stops": [
+          "Mohammadpur",
+          "Shankar",
+          "Star Kabab",
+          "Dhanmondi 15",
+          "Jigatola",
+          "City College",
+          "Science Lab",
+          "Bata Signal",
+          "Shahbag",
+          "Matsya Bhaban",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "GPO",
+          "Gulistan",
+          "Dayaganj",
+          "Dhupkhola"
+        ]
+      }
+    },
+    {
+      "from": "chittagong road",
+      "to": "abdullahpur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Manjil Express"
+        ],
+        "stops": [
+          "Chittagong Road",
+          "Sign Board",
+          "Matuail",
+          "Rayerbag",
+          "Shonir Akhra",
+          "Jatrabari",
+          "Sayedabad",
+          "Gulistan",
+          "GPO",
+          "Paltan",
+          "Kakrail",
+          "Malibagh Moor",
+          "Mouchak",
+          "Mogbazar",
+          "Satrasta",
+          "Nabisco",
+          "Mohakhali",
+          "Chairman Bari",
+          "Banani",
+          "Kakali",
+          "Staff Road",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur"
+        ]
+      }
+    },
+    {
+      "from": "kalabagan",
+      "to": "vulta",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Meghla Transport"
+        ],
+        "stops": [
+          "Kalabagan",
+          "Science Lab",
+          "Katabon",
+          "Bata Signal",
+          "Shahbag",
+          "Matsya Bhaban",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "GPO",
+          "Gulistan",
+          "Sayedabad",
+          "Jatrabari",
+          "Shonir Akhra",
+          "Sign Board",
+          "Kanchpur",
+          "Vulta"
+        ]
+      }
+    },
+    {
+      "from": "mohammadpur",
+      "to": "chittagong road",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Meshkat"
+        ],
+        "stops": [
+          "Mohammadpur",
+          "Asad Gate",
+          "Khamar Bari",
+          "Farmgate",
+          "Bangla Motor",
+          "Shahbag",
+          "Matsya Bhaban",
+          "Paltan",
+          "Dainik Bangla Moor",
+          "Motijheel",
+          "Ittefaq Moor Sayedabad",
+          "Jatrabari",
+          "Shanir Akhra",
+          "Rayerbag",
+          "Matuail",
+          "Sign Board",
+          "Chittagong Road"
+        ]
+      }
+    },
+    {
+      "from": "mohammadpur",
+      "to": "khilgaon",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Midline"
+        ],
+        "stops": [
+          "Mohammadpur",
+          "Shankar",
+          "Star Kabab",
+          "Dhanmondi 15",
+          "Jigatola",
+          "City College",
+          "Science Lab",
+          "Bata Signal",
+          "Shahbag",
+          "Matsya Bhaban",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "Gulistan",
+          "Motijheel",
+          "Arambagh",
+          "Kamalapur",
+          "Bashabo",
+          "Khilgaon"
+        ]
+      }
+    },
+    {
+      "from": "azimpur",
+      "to": "mirpur 1",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Mirpur Metro Services"
+        ],
+        "stops": [
+          "Azimpur",
+          "Nilkhet",
+          "New Market",
+          "Science Lab",
+          "City College",
+          "Kalabagan",
+          "Dhanmondi 32",
+          "Dhanmondi 27",
+          "Asad Gate",
+          "College Gate",
+          "Shishu Mela",
+          "Shyamoli",
+          "Kallyanpur",
+          "Darussalam",
+          "Technical",
+          "Bangla College",
+          "Tolarbag",
+          "Ansar Camp",
+          "Mirpur 1"
+        ]
+      }
+    },
+    {
+      "from": "ecb square",
+      "to": "azimpur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Mirpur Link"
+        ],
+        "stops": [
+          "ECB Square",
+          "Purobi",
+          "Mirpur 11",
+          "Mirpur 10",
+          "Kazipara Shewrapara",
+          "Agargaon",
+          "Khamar Bari",
+          "Dhanmondi 27",
+          "Dhanmondi 32",
+          "City College",
+          "New Market Nilkhet",
+          "Azimpur"
+        ]
+      }
+    },
+    {
+      "from": "chiriyakhana",
+      "to": "motijheel",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Mirpur Mission"
+        ],
+        "stops": [
+          "Chiriyakhana",
+          "Mirpur 1",
+          "Khamar Bari",
+          "Farmgate",
+          "Press Club",
+          "Motijheel"
+        ]
+      }
+    },
+    {
+      "from": "gulistan",
+      "to": "mirpur 12",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Mirpur Transport Service"
+        ],
+        "stops": [
+          "Gulistan",
+          "Golap Shah Mazar",
+          "GPO",
+          "Paltan",
+          "Press Club",
+          "High Court",
+          "Matsya Bhaban",
+          "Shahbag",
+          "Bangla Motor",
+          "Kawran Bazar",
+          "Farmgate",
+          "Khamar Bari",
+          "Agargaon",
+          "Taltola",
+          "Shewrapara",
+          "Kazipara",
+          "Mirpur 10",
+          "Mirpur 11",
+          "Purobi",
+          "Pallabi",
+          "Mirpur 12"
+        ]
+      }
+    },
+    {
+      "from": "sadarghat",
+      "to": "mirpur 12",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Mirpur United Service"
+        ],
+        "stops": [
+          "Sadarghat",
+          "Ray Saheb Bazar",
+          "Naya Bazar",
+          "Golap Shah Mazar",
+          "GPO",
+          "Paltan",
+          "Press Club",
+          "High Court",
+          "Matsya Bhaban",
+          "Shahbag",
+          "Bangla Motor",
+          "Kawran Bazar",
+          "Farmgate",
+          "Khamar Bari",
+          "Agargaon",
+          "Taltola",
+          "Shewrapara",
+          "Kazipara",
+          "Mirpur 10",
+          "Mirpur 11",
+          "Purobi",
+          "Pallabi",
+          "Mirpur 12"
+        ]
+      }
+    },
+    {
+      "from": "savar",
+      "to": "sign board",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "MM Lovely"
+        ],
+        "stops": [
+          "Savar",
+          "Hemayetpur",
+          "Amin Bazar",
+          "Gabtoli",
+          "Technical",
+          "Kallyanpur",
+          "Shyamoli",
+          "Shishu Mela",
+          "College Gate",
+          "Asad Gate",
+          "Khamar Bari",
+          "Farmgate",
+          "Kawran Bazar",
+          "Bangla Motor",
+          "Mogbazar",
+          "Mouchak",
+          "Malibagh Moor",
+          "Rajarbag",
+          "Khilgaon Flyover",
+          "Bashabo",
+          "Mugdapara",
+          "Manik Nagar",
+          "Golapbag Chourasta",
+          "Sayedabad",
+          "Janapath Moor",
+          "Jatrabari",
+          "Kazla",
+          "Shonir Akhra",
+          "Rayerbag",
+          "Matuail",
+          "Sign Board"
+        ]
+      }
+    },
+    {
+      "from": "chiriyakhana",
+      "to": "demra staff quarter",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Modhumita"
+        ],
+        "stops": [
+          "Chiriyakhana",
+          "Sony Cinema Hall",
+          "Mirpur 2",
+          "Mirpur 1",
+          "Ansar Camp",
+          "Technical",
+          "Kallyanpur",
+          "Shyamoli",
+          "Shishu Mela",
+          "Agargaon",
+          "Bijoy Sarani",
+          "Jahangir Gate",
+          "Mohakhali",
+          "Wireless",
+          "Gulshan 1",
+          "Badda Link Road",
+          "Merul",
+          "Rampura Bridge",
+          "Banasree",
+          "Demra Staff Quarter"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 14",
+      "to": "fantasy kingdom",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Mohona"
+        ],
+        "stops": [
+          "Mirpur 14",
+          "Mirpur 10",
+          "Mirpur 2",
+          "Sony Cinema Hall",
+          "Mirpur 1",
+          "Mazar Road",
+          "Konabari",
+          "Rupnagar",
+          "Beribadh",
+          "Birulia",
+          "Ashulia",
+          "Zirabo",
+          "Fantasy Kingdom"
+        ]
+      }
+    },
+    {
+      "from": "mohammadpur",
+      "to": "arambagh",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Moitri"
+        ],
+        "stops": [
+          "Mohammadpur",
+          "Shankar",
+          "Star Kabab",
+          "Dhanmondi 15",
+          "Jigatola",
+          "City College",
+          "Science Lab",
+          "Bata Signal",
+          "Shahbag",
+          "Matsya Bhaban",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "GPO",
+          "Gulistan",
+          "Motijheel",
+          "Arambagh"
+        ]
+      }
+    },
+    {
+      "from": "chashara",
+      "to": "chandra",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Moumita"
+        ],
+        "stops": [
+          "Chashara",
+          "Shibu Market",
+          "Jalkuri",
+          "Sign Board",
+          "Matuail",
+          "Rayerbag",
+          "Shonir Akhra",
+          "Jatrabari",
+          "Sayedabad",
+          "Gulistan",
+          "Chankhar Pul",
+          "Bakshi Bazar",
+          "Azimpur",
+          "Nilkhet",
+          "New Market",
+          "City College",
+          "Kalabagan",
+          "Dhanmondi 32",
+          "Dhanmondi 27",
+          "Asad Gate",
+          "College Gate",
+          "Shishu Mela",
+          "Shyamoli",
+          "Kallyanpur",
+          "Darussalam",
+          "Technical",
+          "Gabtoli",
+          "Amin Bazar",
+          "Hemayetpur",
+          "Savar",
+          "Baipayl",
+          "Zirani Bazar",
+          "Nandan Park",
+          "Chandra"
+        ]
+      }
+    },
+    {
+      "from": "mohammadpur",
+      "to": "arambagh kingdom",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "MTCL-2"
+        ],
+        "stops": [
+          "Mohammadpur",
+          "Asad Gate",
+          "Dhanmondi 27",
+          "Dhanmondi 32",
+          "Shukrabad",
+          "Kalabagan",
+          "City College",
+          "Science Lab",
+          "Bata Signal",
+          "Shahbag",
+          "Matsya Bhaban",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "GPO",
+          "Gulistan",
+          "Motijheel",
+          "Arambagh Kingdom"
+        ]
+      }
+    },
+    {
+      "from": "chiriyakhana",
+      "to": "malibagh railgate",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Nur E Makka"
+        ],
+        "stops": [
+          "Chiriyakhana",
+          "Sony Cinema Hall",
+          "Mirpur 2",
+          "Mirpur 10",
+          "Mirpur 11",
+          "Purobi",
+          "Kalshi",
+          "ECB Square",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Jamuna Future Park",
+          "Bashundhara",
+          "Nadda",
+          "Notun Bazar",
+          "Bashtola",
+          "Shahjadpur",
+          "Uttar Badda",
+          "Badda",
+          "Madhya Badda",
+          "Merul",
+          "Rampura Bridge",
+          "Rampura Bazar",
+          "Hazipara",
+          "Malibagh Railgate"
+        ]
+      }
+    },
+    {
+      "from": "chiriyakhana",
+      "to": "keraniganj",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Nabakali"
+        ],
+        "stops": [
+          "Chiriyakhana",
+          "Mirpur 1",
+          "Ansar Camp",
+          "Technical",
+          "Kallyanpur",
+          "Shyamoli",
+          "Shishu Mela",
+          "College Gate",
+          "Asad Gate",
+          "Dhanmondi 27",
+          "Shukrabad",
+          "Dhanmondi 32",
+          "Kalabagan",
+          "Science Lab",
+          "Katabon",
+          "Shahbag",
+          "High Court",
+          "Fulbaria",
+          "Naya Bazar",
+          "Babubazar",
+          "Keraniganj"
+        ]
+      }
+    },
+    {
+      "from": "chiriyakhana",
+      "to": "motijheel",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "New Vision"
+        ],
+        "stops": [
+          "Chiriyakhana",
+          "Mirpur 1",
+          "Ansar Camp",
+          "Technical",
+          "Kallyanpur",
+          "Shyamoli",
+          "Shishu Mela",
+          "College Gate",
+          "Asad Gate",
+          "Khamar Bari",
+          "Farmgate",
+          "Kawran Bazar",
+          "Bangla Motor",
+          "Shahbag",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "Dainik Bangla Moor",
+          "Motijheel"
+        ]
+      }
+    },
+    {
+      "from": "chittagong road",
+      "to": "paturia",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Nilachol"
+        ],
+        "stops": [
+          "Chittagong Road",
+          "Sign Board",
+          "Matuail",
+          "Rayerbag",
+          "Shonir Akhra",
+          "Jatrabari",
+          "Sayedabad",
+          "Gulistan",
+          "Chankhar Pul",
+          "Bakshi Bazar",
+          "Azimpur",
+          "Nilkhet",
+          "New Market",
+          "City College",
+          "Kalabagan",
+          "Dhanmondi 32",
+          "Dhanmondi 27",
+          "Asad Gate",
+          "College Gate",
+          "Shishu Mela",
+          "Shyamoli",
+          "Kallyanpur",
+          "Darussalam",
+          "Technical",
+          "Gabtoli",
+          "Amin Bazar",
+          "Hemayetpur",
+          "Savar",
+          "Nobinagar",
+          "Manikganj",
+          "Paturia"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 14 bus stand",
+      "to": "azimpur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Nishorgo"
+        ],
+        "stops": [
+          "Mirpur 14 Bus Stand",
+          "Mirpur 10",
+          "Kazipara",
+          "Shewrapara",
+          "Taltola",
+          "Agargaon",
+          "Asad Gate",
+          "Shyamoli",
+          "Mohammadpur",
+          "Shankar",
+          "Dhanmondi 15",
+          "Jigatola",
+          "Science Lab",
+          "Dhaka College",
+          "New Market",
+          "Nilkhet",
+          "Eden College",
+          "Azimpur"
+        ]
+      }
+    },
+    {
+      "from": "motijheel",
+      "to": "airport",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Omama International"
+        ],
+        "stops": [
+          "Motijheel",
+          "Dainik Bangla Moor",
+          "Paltan",
+          "Press Club",
+          "Matsya Bhaban",
+          "High Court",
+          "Shahbag",
+          "Bangla Motor",
+          "Kawran Bazar",
+          "Farmgate",
+          "Jahangir Gate",
+          "Mohakhali",
+          "Chairman Bari",
+          "Sainik Club",
+          "Banani",
+          "Kakali",
+          "Staff Road",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport"
+        ]
+      }
+    },
+    {
+      "from": "nandan park",
+      "to": "motijheel",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "One Transport"
+        ],
+        "stops": [
+          "Nandan Park",
+          "Zirani Bazar",
+          "Baipayl",
+          "Nobinagar",
+          "Savar",
+          "Hemayetpur",
+          "Amin Bazar",
+          "Gabtoli",
+          "Technical",
+          "Kallyanpur",
+          "Shyamoli",
+          "Shishu Mela",
+          "College Gate",
+          "Asad Gate",
+          "Khamar Bari",
+          "Farmgate",
+          "Kawran Bazar",
+          "Bangla Motor",
+          "Shahbag",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "GPO",
+          "Gulistan",
+          "Motijheel"
+        ]
+      }
+    },
+    {
+      "from": "asad gate",
+      "to": "mirpur 12",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Pallabi Local Service"
+        ],
+        "stops": [
+          "Asad Gate",
+          "College Gate",
+          "Shishu Mela",
+          "Shyamoli",
+          "Kallyanpur",
+          "Technical",
+          "Mirpur 1",
+          "Sony Cinema Hall",
+          "Mirpur 2",
+          "Chalantika Moor",
+          "Mirpur 6",
+          "Mirpur 11",
+          "Mirpur 12"
+        ]
+      }
+    },
+    {
+      "from": "gabtoli",
+      "to": "kamarpara",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Pallabi Super"
+        ],
+        "stops": [
+          "Gabtoli",
+          "Technical",
+          "Ansar Camp",
+          "Mirpur 1",
+          "Sony Cinema Hall",
+          "Mirpur 2",
+          "Mirpur 10",
+          "Mirpur 11",
+          "Purobi",
+          "Kalshi",
+          "ECB Square",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur",
+          "Kamarpara"
+        ]
+      }
+    },
+    {
+      "from": "bosila",
+      "to": "abdullahpur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Paristhan"
+        ],
+        "stops": [
+          "Bosila",
+          "Mohammadpur",
+          "Asad Gate",
+          "College Gate",
+          "Shyamoli",
+          "Kallyanpur",
+          "Darussalam",
+          "Technical",
+          "Bangla College",
+          "Tolarbag",
+          "Ansar Camp",
+          "Mirpur 1",
+          "Mirpur 2",
+          "Mirpur 10",
+          "Mirpur 11",
+          "Purobi",
+          "Kalshi",
+          "ECB Square",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "House Building",
+          "Abdullahpur"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 14",
+      "to": "konabari",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Power Paribahan"
+        ],
+        "stops": [
+          "Mirpur 14",
+          "Mirpur 10",
+          "Mirpur 2",
+          "Sony Cinema Hall",
+          "Mirpur 1",
+          "Mazar Road",
+          "Konabari",
+          "Rupnagar",
+          "Beribadh",
+          "Birulia",
+          "Ashulia",
+          "Zirabo",
+          "Narshinghapur",
+          "Sura Bari",
+          "Kashimpur",
+          "Jarun",
+          "Konabari"
+        ]
+      }
+    },
+    {
+      "from": "gabtoli",
+      "to": "babubazar",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Prattay"
+        ],
+        "stops": [
+          "Gabtoli",
+          "Beribadh Tin Rastar Moor",
+          "Rayer Bazar",
+          "Sikder Medical College",
+          "Hazaribag",
+          "Nawabganj",
+          "Kamrangirchar",
+          "Showari Ghat",
+          "Mitford Ghat",
+          "Babubazar"
+        ]
+      }
+    },
+    {
+      "from": "maowa",
+      "to": "abdullahpur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Prochesta"
+        ],
+        "stops": [
+          "Maowa",
+          "Keraniganj",
+          "Babubazar",
+          "Naya Bazar",
+          "Golap Shah Mazar",
+          "GPO",
+          "Paltan",
+          "Kakrail",
+          "Shantinagar",
+          "Malibagh Moor",
+          "Mouchak",
+          "Malibagh Railgate",
+          "Hazipara",
+          "Rampura Bazar",
+          "Rampura Bridge",
+          "Merul",
+          "Badda",
+          "Uttar Badda",
+          "Shahjadpur",
+          "Bashtola",
+          "Notun Bazar",
+          "Nadda",
+          "Bashundhara",
+          "Jamuna Future Park",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur"
+        ]
+      }
+    },
+    {
+      "from": "bosila",
+      "to": "kamarpara",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Projapati"
+        ],
+        "stops": [
+          "Bosila",
+          "Mohammadpur",
+          "Asad Gate",
+          "College Gate",
+          "Shyamoli",
+          "Kallyanpur",
+          "Darussalam",
+          "Technical",
+          "Bangla College",
+          "Ansar Camp",
+          "Mirpur 1",
+          "Mirpur 2",
+          "Mirpur 10",
+          "Mirpur 11",
+          "Purobi",
+          "Kalshi",
+          "ECB Square",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "House Building",
+          "Abdullahpur",
+          "Kamarpara"
+        ]
+      }
+    },
+    {
+      "from": "fulbaria",
+      "to": "baromi",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Provati Banasree"
+        ],
+        "stops": [
+          "Fulbaria",
+          "Golap Shah Mazar",
+          "GPO",
+          "Paltan",
+          "Kakrail",
+          "Shantinagar",
+          "Malibagh Moor",
+          "Mogbazar",
+          "Satrasta",
+          "Nabisco",
+          "Mohakhali",
+          "Chairman Bari",
+          "Banani",
+          "Kakali",
+          "Staff Road",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur",
+          "Tongi",
+          "Station Road",
+          "Mill Gate",
+          "Board Bazar",
+          "Gazipur Chourasta",
+          "Joydebpur",
+          "Sreepur",
+          "Baromi"
+        ]
+      }
+    },
+    {
+      "from": "vashantek",
+      "to": "chandra",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Purbachol Logistics and Transport"
+        ],
+        "stops": [
+          "Vashantek",
+          "Mirpur 14",
+          "Mirpur 10",
+          "Mirpur 2",
+          "Sony Cinema Hall",
+          "Mirpur 1",
+          "Ansar Camp",
+          "Technical",
+          "Gabtoli",
+          "Amin Bazar",
+          "Hemayetpur",
+          "Savar",
+          "Baipayl",
+          "Zirani Bazar",
+          "Nandan Park",
+          "Chandra"
+        ]
+      }
+    },
+    {
+      "from": "postagola",
+      "to": "dia bari",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Raida"
+        ],
+        "stops": [
+          "Postagola",
+          "Dholairpar",
+          "Jatrabari",
+          "Janapath Moor",
+          "Sayedabad",
+          "Mugdapara",
+          "Bashabo",
+          "Khilgaon",
+          "Malibagh Railgate",
+          "Rampura Bazar",
+          "Rampura Bridge",
+          "Merul",
+          "Badda",
+          "Uttar Badda",
+          "Bashtola",
+          "Notun Bazar",
+          "Nadda",
+          "Bashundhara",
+          "Jamuna Future Park",
+          "Kuril Chourasta",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Dia Bari"
+        ]
+      }
+    },
+    {
+      "from": "postagola",
+      "to": "ghatar char",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Raja City"
+        ],
+        "stops": [
+          "Postagola",
+          "Jurain",
+          "Dayaganj",
+          "Gulistan",
+          "GPO",
+          "Paltan",
+          "Press Club",
+          "High Court",
+          "Shahbag",
+          "Bata Signal",
+          "Science Lab",
+          "City College",
+          "Jigatola",
+          "Dhanmondi 15",
+          "Star Kabab",
+          "Shankar",
+          "Mohammadpur",
+          "Bosila",
+          "Ghatar Char"
+        ]
+      }
+    },
+    {
+      "from": "chittagong road",
+      "to": "mohammadpur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Rajanigandha"
+        ],
+        "stops": [
+          "Chittagong Road",
+          "Sign Board",
+          "Matuail",
+          "Rayerbag",
+          "Shonir Akhra",
+          "Jatrabari",
+          "Sayedabad",
+          "Gulistan",
+          "GPO",
+          "Paltan",
+          "Press Club",
+          "High Court",
+          "Shahbag",
+          "Bata Signal",
+          "Science Lab",
+          "Jigatola",
+          "Dhanmondi 15",
+          "Star Kabab",
+          "Shankar",
+          "Mohammadpur"
+        ]
+      }
+    },
+    {
+      "from": "hemayetpur",
+      "to": "demra staff quarter",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Rajdhani Super"
+        ],
+        "stops": [
+          "Hemayetpur",
+          "Gabtoli",
+          "Technical",
+          "Ansar Camp",
+          "Mirpur 1",
+          "Sony Cinema Hall",
+          "Mirpur 2",
+          "Mirpur 10",
+          "Mirpur 11",
+          "Purobi",
+          "Kalshi",
+          "ECB Square",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Jamuna Future Park",
+          "Bashundhara",
+          "Nadda",
+          "Notun Bazar",
+          "Bashtola",
+          "Shahjadpur",
+          "Uttar Badda",
+          "Badda",
+          "Madhya Badda",
+          "Merul",
+          "Rampura Bridge",
+          "Banasree",
+          "Demra Staff Quarter"
+        ]
+      }
+    },
+    {
+      "from": "gabtoli",
+      "to": "demra staff quarter",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Ramjan"
+        ],
+        "stops": [
+          "Gabtoli",
+          "Technical",
+          "Kallyanpur",
+          "Shyamoli",
+          "Shishu Mela",
+          "College Gate",
+          "Asad Gate",
+          "Mohammadpur",
+          "Shankar",
+          "Star Kabab",
+          "Dhanmondi 15",
+          "Jigatola",
+          "City College",
+          "Science Lab",
+          "Bata Signal",
+          "Shahbag",
+          "Matsya Bhaban",
+          "Kakrail",
+          "Shantinagar",
+          "Malibagh Moor",
+          "Mouchak",
+          "Malibagh Railgate",
+          "Hazipara",
+          "Rampura Bazar",
+          "Rampura Bridge",
+          "Banasree",
+          "Demra Staff Quarter"
+        ]
+      }
+    },
+    {
+      "from": "gabtoli",
+      "to": "banasree",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Robrob"
+        ],
+        "stops": [
+          "Gabtoli",
+          "Technical",
+          "Ansar Camp",
+          "Mirpur 1",
+          "Mirpur 2",
+          "Mirpur 10",
+          "Purobi",
+          "Kalshi",
+          "ECB Square",
+          "MES",
+          "Banani",
+          "Kakali",
+          "Gulshan 2",
+          "Gulshan 1",
+          "Badda Link Road",
+          "Merul",
+          "Rampura Bridge",
+          "Banasree"
+        ]
+      }
+    },
+    {
+      "from": "mirpur sony cinema hall",
+      "to": "banasree",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Rois"
+        ],
+        "stops": [
+          "Mirpur Sony Cinema Hall",
+          "Mirpur 2",
+          "Mirpur 10",
+          "Kazipara",
+          "Shewrapara",
+          "Agargaon",
+          "Mohakhali",
+          "Gulshan 1",
+          "Badda",
+          "Rampura Bridge",
+          "Banasree"
+        ]
+      }
+    },
+    {
+      "from": "adabor",
+      "to": "postagola",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Rongdhonu Express"
+        ],
+        "stops": [
+          "Adabor",
+          "Mohammadpur",
+          "Shia Mosque",
+          "Shyamoli",
+          "College Gate",
+          "Asad Gate",
+          "Kalabagan",
+          "Science Lab",
+          "Katabon",
+          "Bata Signal",
+          "Shahbag",
+          "Kakrail",
+          "Fakirapul",
+          "Motijheel",
+          "Dayaganj",
+          "Postagola"
+        ]
+      }
+    },
+    {
+      "from": "keraniganj",
+      "to": "ecb square",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Runway Express"
+        ],
+        "stops": [
+          "Keraniganj",
+          "Kadamtali",
+          "Babubazar",
+          "Naya Bazar",
+          "Golap Shah Mazar",
+          "GPO",
+          "Paltan",
+          "Press Club",
+          "High Court",
+          "Matsya Bhaban",
+          "Shahbag",
+          "Bangla Motor",
+          "Kawran Bazar",
+          "Farmgate",
+          "Agargaon",
+          "Shewrapara",
+          "Kazipara",
+          "Mirpur 10",
+          "Mirpur 11",
+          "Mirpur 12",
+          "ECB Square"
+        ]
+      }
+    },
+    {
+      "from": "gabtoli",
+      "to": "vashantek",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Rupa Paribahan"
+        ],
+        "stops": [
+          "Gabtoli",
+          "Technical",
+          "Ansar Camp",
+          "Mirpur 1",
+          "Sony CInema Hall",
+          "Mirpur 2",
+          "Mirpur 10",
+          "Mirpur 14",
+          "Vashantek"
+        ]
+      }
+    },
+    {
+      "from": "gabtoli",
+      "to": "abdullahpur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Rupkotha"
+        ],
+        "stops": [
+          "Gabtoli",
+          "Mirpur 1",
+          "Sony Cinema Hall",
+          "Mirpur 2",
+          "Mirpur 10",
+          "Mirpur 11",
+          "Purobi",
+          "Kalshi",
+          "ECB Square",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 12",
+      "to": "azimpur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Safety Druti"
+        ],
+        "stops": [
+          "Mirpur 12",
+          "Pallabi",
+          "Purobi",
+          "Mirpur 11",
+          "Mirpur 10",
+          "Kazipara",
+          "Shewrapara",
+          "Taltola",
+          "Agargaon",
+          "Khamar Bari",
+          "Dhanmondi 27",
+          "Dhanmondi 32",
+          "Kalabagan",
+          "City College",
+          "New Market",
+          "Nilkhet",
+          "Azimpur"
+        ]
+      }
+    },
+    {
+      "from": "chiriyakhana",
+      "to": "kamalapur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Sakalpa Transport"
+        ],
+        "stops": [
+          "Chiriyakhana",
+          "Mirpur 1",
+          "Sony Cinema Hall",
+          "Mirpur 2",
+          "Mirpur 10",
+          "Kazipara",
+          "Shewrapara",
+          "Agargaon",
+          "Bijoy Sarani",
+          "Farmgate",
+          "Bangla Motor",
+          "Mogbazar",
+          "Malibagh Moor",
+          "Kamalapur"
+        ]
+      }
+    },
+    {
+      "from": "postagola",
+      "to": "gazipur chourasta",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Salsabil"
+        ],
+        "stops": [
+          "Postagola",
+          "Dholairpar",
+          "Jatrabari",
+          "Sayedabad",
+          "Mugdapara",
+          "Bashabo",
+          "Khilgaon",
+          "Malibagh Railgate",
+          "Rampura Bazar",
+          "Rampura Bridge",
+          "Merul",
+          "Badda",
+          "Uttar Badda",
+          "Bashtola",
+          "Notun Bazar",
+          "Nadda",
+          "Bashundhara",
+          "Jamuna Future Park",
+          "Kuril Chourasta",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur",
+          "Tongi",
+          "Station Road",
+          "Mill Gate",
+          "Board Bazar",
+          "Gazipur Bypass",
+          "Gazipur Chourasta"
+        ]
+      }
+    },
+    {
+      "from": "sadarghat",
+      "to": "nandan park",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Savar Paribahan"
+        ],
+        "stops": [
+          "Sadarghat",
+          "Golap Shah Mazar",
+          "GPO",
+          "Paltan",
+          "Press Club",
+          "High Court",
+          "Matsya Bhaban",
+          "Shahbag",
+          "Science Lab",
+          "Kalabagan",
+          "Dhanmondi 32",
+          "Dhanmondi 27",
+          "Asad Gate",
+          "College Gate",
+          "Shishu Mela",
+          "Shyamoli",
+          "Kallyanpur",
+          "Darussalam",
+          "Technical",
+          "Gabtoli",
+          "Amin Bazar",
+          "Hemayetpur",
+          "Savar",
+          "Baipayl",
+          "Zirani Bazar",
+          "Nandan Park"
+        ]
+      }
+    },
+    {
+      "from": "bosila",
+      "to": "demra staff quarter",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Shadhin"
+        ],
+        "stops": [
+          "Bosila",
+          "Mohammadpur",
+          "Asad Gate",
+          "Khamar Bari",
+          "Farmgate",
+          "Kawran Bazar",
+          "Bangla Motor",
+          "Mogbazar",
+          "Mouchak",
+          "Malibagh Railgate",
+          "Hazipara",
+          "Rampura Bazar",
+          "Rampura Bridge",
+          "Banasree",
+          "Demra Staff Quarter"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 12",
+      "to": "maowa",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Shadhin Express"
+        ],
+        "stops": [
+          "Mirpur 12",
+          "Pallabi",
+          "Purobi",
+          "Mirpur 11",
+          "Mirpur 10",
+          "Kazipara",
+          "Shewrapara",
+          "Taltola",
+          "Agargaon",
+          "Khamar Bari",
+          "Farmgate",
+          "Kawran Bazar",
+          "Bangla Motor",
+          "Shahbag",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "GPO",
+          "Golap Shah Mazar",
+          "Naya Bazar",
+          "Babubazar",
+          "Keraniganj",
+          "Kadamtali",
+          "Rajendrapur",
+          "Maowa"
+        ]
+      }
+    },
+    {
+      "from": "gabtoli",
+      "to": "postagola",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Shahria Enterprise"
+        ],
+        "stops": [
+          "Gabtoli",
+          "Technical",
+          "Kallyanpur",
+          "Shyamoli",
+          "Shishu Mela",
+          "College Gate",
+          "Asad Gate",
+          "Dhanmondi 27",
+          "Dhanmondi 32",
+          "Shukrabad",
+          "Kalabagan",
+          "City College",
+          "Science Lab",
+          "Katabon",
+          "Shahbag",
+          "Matsya Bhaban",
+          "Kakrail",
+          "Fakirapul",
+          "Arambagh",
+          "Motijheel",
+          "Ittefaq Moor",
+          "Tikatuli",
+          "Dayaganj",
+          "Gandaria",
+          "Jurain",
+          "Postagola"
+        ]
+      }
+    },
+    {
+      "from": "motijheel",
+      "to": "kamarpara",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Shatabdi"
+        ],
+        "stops": [
+          "Motijheel",
+          "Paltan",
+          "Kakrail",
+          "Malibagh Moor",
+          "Mouchak",
+          "Mogbazar",
+          "Satrasta",
+          "Nabisco",
+          "Mohakhali",
+          "Chairman Bari",
+          "Banani",
+          "Kakali",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur",
+          "Kamarpara"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 12",
+      "to": "jatrabari",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Shikhor Paribahan"
+        ],
+        "stops": [
+          "Mirpur 12",
+          "Pallabi",
+          "Purobi",
+          "Mirpur 11",
+          "Mirpur 10",
+          "Kazipara",
+          "Shewrapara",
+          "Taltola",
+          "Agargaon",
+          "Bijoy Sarani",
+          "Farmgate",
+          "Kawran Bazar",
+          "Bangla Motor",
+          "Shahbag",
+          "Matsya Bhaban",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "GPO",
+          "Gulistan",
+          "Janapath Moor",
+          "Jatrabari"
+        ]
+      }
+    },
+    {
+      "from": "jatrabari",
+      "to": "mirpur 12",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Shikhor Paribahan"
+        ],
+        "stops": [
+          "Jatrabari",
+          "Sayedabad",
+          "Gulistan",
+          "GPO",
+          "Paltan",
+          "Press Club",
+          "High Court",
+          "Matsya Bhaban",
+          "Shahbag",
+          "Bangla Motor",
+          "Kawran Bazar",
+          "Farmgate",
+          "Bijoy Sarani",
+          "Agargaon",
+          "IDB",
+          "Taltola",
+          "Shewrapara",
+          "Kazipara",
+          "Mirpur 10",
+          "Mirpur 11",
+          "Pallabi",
+          "Purobi",
+          "Mirpur 12"
+        ]
+      }
+    },
+    {
+      "from": "chittagong road",
+      "to": "chandra",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Suveccha"
+        ],
+        "stops": [
+          "Chittagong Road",
+          "Sign Board",
+          "Matuail",
+          "Rayerbag",
+          "Shonir Akhra",
+          "Jatrabari",
+          "Sayedabad",
+          "Gulistan",
+          "Chankhar Pul",
+          "Bakshi Bazar",
+          "Dhakeshwari",
+          "Azimpur",
+          "Nilkhet",
+          "New Market",
+          "City College",
+          "Kalabagan",
+          "Dhanmondi 32",
+          "Dhanmondi 27",
+          "Asad Gate",
+          "College Gate",
+          "Shishu Mela",
+          "Shyamoli",
+          "Kallyanpur",
+          "Darussalam",
+          "Technical",
+          "Gabtoli",
+          "Amin Bazar",
+          "Hemayetpur",
+          "Savar",
+          "Nobinagar",
+          "Baipayl",
+          "Zirani Bazar",
+          "Nandan Park",
+          "Chandra"
+        ]
+      }
+    },
+    {
+      "from": "fulbaria",
+      "to": "manikganj",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Suvojatri"
+        ],
+        "stops": [
+          "Fulbaria",
+          "Golap Shah Mazar",
+          "GPO",
+          "Paltan",
+          "Press Club",
+          "High Court",
+          "Matsya Bhaban",
+          "Shahbag",
+          "Bata Signal",
+          "Science Lab",
+          "Kalabagan",
+          "Dhanmondi 32",
+          "Dhanmondi 27",
+          "Asad Gate",
+          "College Gate",
+          "Shishu Mela",
+          "Shyamoli",
+          "Kallyanpur",
+          "Darussalam",
+          "Technical",
+          "Gabtoli",
+          "Amin Bazar",
+          "Hemayetpur",
+          "Manikganj"
+        ]
+      }
+    },
+    {
+      "from": "banasree",
+      "to": "nobinagar",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Siam Transport"
+        ],
+        "stops": [
+          "Banasree",
+          "Rampura Bridge",
+          "Merul",
+          "Badda",
+          "Shahjadpur",
+          "Bashtola",
+          "Notun Bazar",
+          "Nadda",
+          "Bashundhara",
+          "Jamuna Future Park",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur",
+          "Kamarpara",
+          "Dhour",
+          "Beribadh",
+          "Ashulia",
+          "Zirabo",
+          "Fantasy Kingdom",
+          "Jamgora",
+          "Shimultola",
+          "Baipayl",
+          "Palli Bidyut",
+          "Savar Cantonment",
+          "Nobinagar"
+        ]
+      }
+    },
+    {
+      "from": "sadarghat",
+      "to": "gazipur chourasta",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Skyline"
+        ],
+        "stops": [
+          "Sadarghat",
+          "Ray Saheb Bazar",
+          "Naya Bazar",
+          "Golap Shah Mazar",
+          "GPO",
+          "Paltan",
+          "Kakrail",
+          "Shantinagar",
+          "Malibagh Moor",
+          "Mouchak",
+          "Nabisco",
+          "Mohakhali",
+          "Chairman Bari",
+          "Sainik Club",
+          "Banani",
+          "Kakali",
+          "Staff Road",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur",
+          "Tongi",
+          "Station Road",
+          "Mill Gate",
+          "Board Bazar",
+          "Gazipur Chourasta"
+        ]
+      }
+    },
+    {
+      "from": "chittagong road",
+      "to": "chiriyakhana",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Somota Paribahan"
+        ],
+        "stops": [
+          "Chittagong Road",
+          "Sign Board",
+          "Matuail",
+          "Rayerbag",
+          "Shonir Akhra",
+          "Jatrabari",
+          "Sayedabad",
+          "Gulistan",
+          "Chankhar Pul",
+          "Bakshi Bazar",
+          "Dhakeshwari",
+          "Azimpur",
+          "Nilkhet",
+          "New Market",
+          "City College",
+          "Kalabagan",
+          "Dhanmondi 32",
+          "Dhanmondi 27",
+          "Asad Gate",
+          "College Gate",
+          "Shishu Mela",
+          "Shyamoli",
+          "Kallyanpur",
+          "Darussalam",
+          "Technical",
+          "Ansar Camp",
+          "Mirpur 1",
+          "Rainkhola",
+          "Chiriyakhana"
+        ]
+      }
+    },
+    {
+      "from": "sign board",
+      "to": "mirpur 12",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Somoy"
+        ],
+        "stops": [
+          "Sign Board",
+          "Matuail",
+          "Rayerbag",
+          "Shonir Akhra",
+          "Jatrabari",
+          "Sayedabad Janapath Moor",
+          "Gulistan",
+          "GPO",
+          "Paltan",
+          "Press Club",
+          "High Court",
+          "Matsya Bhaban",
+          "Shahbag",
+          "Bangla Motor",
+          "Kawran Bazar",
+          "Farmgate",
+          "Bijoy Sarani",
+          "Agargaon",
+          "IDB",
+          "Taltola",
+          "Shewrapara",
+          "Kazipara",
+          "Mirpur 10",
+          "Mirpur 11",
+          "Pallabi",
+          "Purobi",
+          "Mirpur 12"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 12",
+      "to": "keraniganj",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Somoy Niyantran"
+        ],
+        "stops": [
+          "Mirpur 12",
+          "Pallabi",
+          "Purobi",
+          "Mirpur 11",
+          "Mirpur 10",
+          "Kazipara",
+          "Shewrapara",
+          "Taltola",
+          "Agargaon",
+          "Bijoy Sarani",
+          "Farmgate",
+          "Kawran Bazar",
+          "Bangla Motor",
+          "Shahbag",
+          "Matsya Bhaban",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "GPO",
+          "Golap Shah Mazar",
+          "Naya Bazar",
+          "Babubazar",
+          "Keraniganj"
+        ]
+      }
+    },
+    {
+      "from": "gulistan",
+      "to": "nobinagar",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Super"
+        ],
+        "stops": [
+          "Gulistan",
+          "Shahbag",
+          "Farmgate",
+          "Shyamoli",
+          "Gabtoli",
+          "Savar",
+          "Nobinagar"
+        ]
+      }
+    },
+    {
+      "from": "victoria park",
+      "to": "tongi",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Supravat"
+        ],
+        "stops": [
+          "Victoria Park",
+          "Sadarghat",
+          "Ray Saheb Bazar",
+          "Golap Shah Mazar",
+          "GPO",
+          "Paltan",
+          "Kakrail",
+          "Shantinagar",
+          "Malibagh Moor",
+          "Mouchak",
+          "Malibagh Railgate",
+          "Hazipara",
+          "Rampura Bazar",
+          "Rampura Bridge",
+          "Merul",
+          "Badda",
+          "Shahjadpur",
+          "Bashtola",
+          "Notun Bazar",
+          "Nadda",
+          "Bashundhara",
+          "Jamuna Future Park",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur",
+          "Tongi"
+        ]
+      }
+    },
+    {
+      "from": "savar",
+      "to": "sadarghat",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Swajan Paribahan"
+        ],
+        "stops": [
+          "Savar",
+          "Hemayetpur",
+          "Amin Bazar",
+          "Gabtoli",
+          "Technical",
+          "Kallyanpur",
+          "Shyamoli",
+          "Shishu Mela",
+          "College Gate",
+          "Asad Gate",
+          "Khamar Bari",
+          "Farmgate",
+          "Kawran Bazar",
+          "Bangla Motor",
+          "Shahbag",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "GPO",
+          "Golap Shah Mazar",
+          "Naya Bazar",
+          "Ray Saheb Bazar",
+          "Sadarghat"
+        ]
+      }
+    },
+    {
+      "from": "chiriyakhana",
+      "to": "chittagong road",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Talukdar"
+        ],
+        "stops": [
+          "Chiriyakhana",
+          "Mirpur 1",
+          "Ansar Camp",
+          "Technical",
+          "Kallyanpur",
+          "Shyamoli",
+          "Shishu Mela",
+          "College Gate",
+          "Asad Gate",
+          "Khamar Bari",
+          "Farmgate",
+          "Kawran Bazar",
+          "Bangla Motor",
+          "Mogbazar",
+          "Mouchak",
+          "Malibagh Moor",
+          "Rajarbag",
+          "Khilgaon Flyover",
+          "Bashabo",
+          "Mugdapara",
+          "Manik Nagar",
+          "Golapbag Chourasta",
+          "Sayedabad",
+          "Janapath Moor",
+          "Jatrabari",
+          "Kazla",
+          "Shonir Akhra",
+          "Rayerbag",
+          "Matuail",
+          "Sign Board",
+          "Sanarpar",
+          "Chittagong Road"
+        ]
+      }
+    },
+    {
+      "from": "chiriyakhana",
+      "to": "sadarghat",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Tanjil Paribahan"
+        ],
+        "stops": [
+          "Chiriyakhana",
+          "Mirpur 1",
+          "Ansar Camp",
+          "Technical",
+          "Kallyanpur",
+          "Shyamoli",
+          "Shishu Mela",
+          "College Gate",
+          "Asad Gate",
+          "Khamar Bari",
+          "Farmgate",
+          "Kawran Bazar",
+          "Bangla Motor",
+          "Shahbag",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "GPO",
+          "Golap Shah Mazar",
+          "Naya Bazar",
+          "Ray Saheb Bazar",
+          "Sadarghat"
+        ]
+      }
+    },
+    {
+      "from": "mohammadpur bus stand",
+      "to": "south banasree",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Taranga Plus"
+        ],
+        "stops": [
+          "Mohammadpur Bus Stand",
+          "Shankar",
+          "Star Kabab",
+          "Dhanmondi 15",
+          "Jigatola",
+          "City College",
+          "Science Lab",
+          "Bata Signal",
+          "Shahbag",
+          "Matsya Bhaban",
+          "Kakrail",
+          "Shantinagar",
+          "Malibagh Moor",
+          "Mouchak",
+          "Malibagh Railgate",
+          "Hazipara",
+          "Rampura Bazar",
+          "Rampura Bridge",
+          "Banasree",
+          "South Banasree"
+        ]
+      }
+    },
+    {
+      "from": "shia mosque",
+      "to": "abdullahpur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Tetulia"
+        ],
+        "stops": [
+          "Shia Mosque",
+          "Japan Garden City",
+          "Ring road",
+          "Adabor Shyamoli",
+          "Shishu Mela",
+          "Agargaon",
+          "Taltola",
+          "Shewrapara",
+          "Kazipara",
+          "Mirpur 10",
+          "Mirpur 11",
+          "Purobi",
+          "Pallabi",
+          "Kalshi",
+          "ECB Square",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "House Building",
+          "Abdullahpur"
+        ]
+      }
+    },
+    {
+      "from": "sign board",
+      "to": "chandra",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Thikana"
+        ],
+        "stops": [
+          "Sign Board",
+          "Matuail",
+          "Rayerbag",
+          "Shonir Akhra",
+          "Jatrabari",
+          "Sayedabad",
+          "Gulistan",
+          "Chankhar Pul",
+          "Bakshi Bazar",
+          "Dhakeshwari",
+          "Azimpur",
+          "Nilkhet",
+          "New Market",
+          "City College",
+          "Kalabagan",
+          "Dhanmondi 32",
+          "Dhanmondi 27",
+          "Asad Gate",
+          "College Gate",
+          "Shishu Mela",
+          "Shyamoli",
+          "Kallyanpur",
+          "Darussalam",
+          "Technical",
+          "Gabtoli",
+          "Amin Bazar",
+          "Hemayetpur",
+          "Savar",
+          "Baipayl",
+          "Zirani Bazar",
+          "Nandan Park",
+          "Chandra"
+        ]
+      }
+    },
+    {
+      "from": "shonbari sreenagar",
+      "to": "chandra",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Thikana Express"
+        ],
+        "stops": [
+          "Shonbari Sreenagar",
+          "Nimtola",
+          "Kuchimura",
+          "Rajendrapur",
+          "Hasnabad",
+          "Postagola",
+          "Jurain",
+          "Dholairpar",
+          "Jatrabari",
+          "Sayedabad",
+          "Gulistan",
+          "Chankhar Pul",
+          "Bakshi Bazar",
+          "Azimpur",
+          "Nilkhet",
+          "New Market",
+          "City College",
+          "Kalabagan",
+          "Dhanmondi 32",
+          "Dhanmondi 27",
+          "Asad Gate",
+          "College Gate",
+          "Shishu Mela",
+          "Shyamoli",
+          "Kallyanpur",
+          "Darussalam",
+          "Technical",
+          "Gabtoli",
+          "Amin Bazar",
+          "Hemayetpur",
+          "Savar",
+          "Baipayl",
+          "Zirani Bazar",
+          "Nandan Park",
+          "Chandra"
+        ]
+      }
+    },
+    {
+      "from": "chiriyakhana",
+      "to": "nobinagar chandra",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Titas"
+        ],
+        "stops": [
+          "Chiriyakhana",
+          "Mirpur 1",
+          "Gabtoli",
+          "Savar",
+          "Nobinagar Chandra"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 1",
+      "to": "jatrabari",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Transilva"
+        ],
+        "stops": [
+          "Mirpur 1",
+          "Ansar Camp",
+          "Technical",
+          "Kallyanpur",
+          "Shyamoli",
+          "Shishu Mela",
+          "College Gate",
+          "Asad Gate",
+          "Dhanmondi 27",
+          "Dhanmondi 32",
+          "Kalabagan",
+          "Science Lab",
+          "Bata Signal",
+          "Shahbag",
+          "Matsya Bhaban",
+          "High Court",
+          "Press Club Paltan",
+          "GPO",
+          "Gulistan",
+          "Motijheel",
+          "Sayedabad",
+          "Janapath Moor",
+          "Jatrabari"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 10",
+      "to": "banani",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Trust Transport Services"
+        ],
+        "stops": [
+          "Mirpur 10",
+          "Mirpur 13",
+          "Mirpur 14",
+          "Kachukhet",
+          "Sainik Club",
+          "Banani"
+        ]
+      }
+    },
+    {
+      "from": "mirpur 10",
+      "to": "shahbag",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Trust Transport Services"
+        ],
+        "stops": [
+          "Mirpur 10",
+          "Mirpur 13",
+          "Mirpur 14",
+          "Kachukhet",
+          "Workshop",
+          "Saudi Colony",
+          "Jahangir Gate",
+          "Farmgate",
+          "Kawran Bazar",
+          "Bangla Motor",
+          "Shahbag"
+        ]
+      }
+    },
+    {
+      "from": "mirpur dohs",
+      "to": "motijheel",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Trust Transport Services"
+        ],
+        "stops": [
+          "Mirpur DOHS",
+          "Kalshi",
+          "ECB Square",
+          "Garrison (Cantonment)",
+          "Adamjee School",
+          "Workshop",
+          "Saudi Colony",
+          "Jahangir Gate",
+          "Farmgate",
+          "Kawran Bazar",
+          "Bangla Motor",
+          "Shahbag",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "Dainik Bangla Moor",
+          "Motijheel"
+        ]
+      }
+    },
+    {
+      "from": "mirpur dohs",
+      "to": "kawran bazar",
+      "direct": {
+        "mode": "ac_bus",
+        "names": [
+          "Trust Transport Services"
+        ],
+        "stops": [
+          "Mirpur DOHS",
+          "Kalshi",
+          "ECB Square",
+          "Garrison (Cantonment)",
+          "Adamjee School",
+          "Workshop",
+          "Saudi Colony",
+          "Jahangir Gate",
+          "Farmgate",
+          "Kawran Bazar"
+        ]
+      }
+    },
+    {
+      "from": "jatrabari",
+      "to": "tongi",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Turag"
+        ],
+        "stops": [
+          "Jatrabari",
+          "Sayedabad",
+          "Mugdapara",
+          "Bashabo",
+          "Khilgaon",
+          "Malibagh Moor",
+          "Rampura Bazar",
+          "Rampura Bridge",
+          "Merul",
+          "Badda",
+          "Uttar Badda",
+          "Bashtola",
+          "Notun Bazar",
+          "Nadda",
+          "Bashundhara",
+          "Jamuna Future Park",
+          "Kuril Chourasta",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur",
+          "Tongi"
+        ]
+      }
+    },
+    {
+      "from": "sadarghat",
+      "to": "diabari",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Victor Classic"
+        ],
+        "stops": [
+          "Sadarghat",
+          "Ray Saheb Bazar",
+          "Naya Bazar",
+          "Golap Shah Mazar",
+          "GPO",
+          "Paltan",
+          "Kakrail",
+          "Shantinagar",
+          "Malibagh Moor",
+          "Mouchak",
+          "Malibagh Railgate",
+          "Hazipara",
+          "Rampura Bazar",
+          "Rampura Bridge",
+          "Merul",
+          "Badda",
+          "Shahjadpur",
+          "Bashtola",
+          "Notun Bazar",
+          "Nadda",
+          "Bashundhara",
+          "Jamuna Future Park",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Diabari"
+        ]
+      }
+    },
+    {
+      "from": "sadarghat",
+      "to": "kuril bishwa road",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Victor Paribahan"
+        ],
+        "stops": [
+          "Sadarghat",
+          "Ray Saheb Bazar",
+          "Naya Bazar",
+          "Golap Shah Mazar",
+          "GPO",
+          "Paltan",
+          "Kakrail",
+          "Shantinagar",
+          "Malibagh Moor",
+          "Mouchak",
+          "Malibagh Railgate",
+          "Hazipara",
+          "Rampura Bazar",
+          "Rampura Bridge",
+          "Merul",
+          "Badda",
+          "Shahjadpur",
+          "Bashtola",
+          "Notun Bazar",
+          "Nadda",
+          "Bashundhara",
+          "Jamuna Future Park",
+          "Kuril Bishwa Road"
+        ]
+      }
+    },
+    {
+      "from": "azimpur",
+      "to": "gazipur chourasta",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "VIP 27"
+        ],
+        "stops": [
+          "Azimpur",
+          "Nilkhet",
+          "New Market",
+          "City College",
+          "Kalabagan",
+          "Banani",
+          "Kakali",
+          "MES",
+          "Shewra",
+          "Kuril Bishwa Road",
+          "Khilkhet",
+          "Airport",
+          "Jashimuddin (Uttara)",
+          "Rajlakshmi",
+          "Azampur",
+          "House Building",
+          "Abdullahpur",
+          "Tongi",
+          "Station Road",
+          "Mill Gate",
+          "Board Bazar",
+          "Gazipur Chourasta"
+        ]
+      }
+    },
+    {
+      "from": "nandan park",
+      "to": "motijheel",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Welcome"
+        ],
+        "stops": [
+          "Nandan Park",
+          "Zirani Bazar",
+          "Baipayl",
+          "Nobinagar",
+          "Savar",
+          "Hemayetpur",
+          "Amin Bazar",
+          "Gabtoli",
+          "Technical",
+          "Kallyanpur",
+          "Shyamoli",
+          "Shishu Mela",
+          "College Gate",
+          "Asad Gate",
+          "Khamar Bari",
+          "Farmgate",
+          "Kawran Bazar",
+          "Bangla Motor",
+          "Shahbag",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "GPO",
+          "Gulistan",
+          "Motijheel"
+        ]
+      }
+    },
+    {
+      "from": "azimpur",
+      "to": "kuril bishwa road",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Winner"
+        ],
+        "stops": [
+          "Azimpur",
+          "Eden College",
+          "Nilkhet",
+          "New Market",
+          "Science Lab",
+          "City College",
+          "Kalabagan",
+          "Panthapath",
+          "Kawran Bazar",
+          "Bot tola",
+          "Nabisco",
+          "Mohakhali",
+          "Wireless",
+          "Gulshan 1",
+          "Badda",
+          "Badda Link Road",
+          "Uttar Badda",
+          "Shahjadpur",
+          "Bashtola",
+          "Notun Bazar",
+          "Nadda",
+          "Bashundhara",
+          "Jamuna Future Park",
+          "Kuril Bishwa Road"
+        ]
+      }
+    },
+    {
+      "from": "mohammadpur",
+      "to": "azimpur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "13 No. Bus Route Dhaka"
+        ],
+        "stops": [
+          "Mohammadpur",
+          "Shankar",
+          "Star Kabab",
+          "Dhanmondi 15",
+          "Jigatola",
+          "City College",
+          "Science Lab",
+          "New Market",
+          "Nilkhet",
+          "Azimpur"
+        ]
+      }
+    },
+    {
+      "from": "balughat",
+      "to": "motijheel",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "4 No. Alike Bus Route Dhaka"
+        ],
+        "stops": [
+          "Balughat",
+          "Signal",
+          "CMH",
+          "Garrison (Cantonment)",
+          "Adamjee College",
+          "Workshop",
+          "Jahangir Gate",
+          "Bijoy Sarani",
+          "Farmgate",
+          "Bangla Motor",
+          "Shahbag",
+          "Paltan",
+          "Gulistan",
+          "Motijheel"
+        ]
+      }
+    },
+    {
+      "from": "kamalapur",
+      "to": "notun bazar",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "6 No. Bus Route Dhaka"
+        ],
+        "stops": [
+          "Kamalapur",
+          "Motijheel",
+          "Gulistan",
+          "GPO",
+          "Paltan",
+          "Kakrail",
+          "Shantinagar",
+          "Malibagh Moor",
+          "Mouchak",
+          "Mogbazar",
+          "Kawran Bazar",
+          "Farmgate",
+          "Jahangir Gate",
+          "Bijoy Sarani",
+          "Mohakhali",
+          "Gulshan 1",
+          "Gulshan 2",
+          "Notun Bazar"
+        ]
+      }
+    },
+    {
+      "from": "kamalapur",
+      "to": "notun bazar",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "6 No. Motijheel Banani Transport Bus Route Dhaka"
+        ],
+        "stops": [
+          "Kamalapur",
+          "Motijheel",
+          "Gulistan",
+          "GPO",
+          "Paltan",
+          "Kakrail",
+          "Shantinagar",
+          "Malibagh Moor",
+          "Mouchak",
+          "Mogbazar",
+          "Kawran Bazar",
+          "Farmgate",
+          "Jahangir Gate",
+          "Bijoy Sarani",
+          "Mohakhali",
+          "Gulshan 1",
+          "Gulshan 2",
+          "Notun Bazar"
+        ]
+      }
+    },
+    {
+      "from": "gabtoli",
+      "to": "sadarghat",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "7 No. Bus Route Dhaka"
+        ],
+        "stops": [
+          "Gabtoli",
+          "Technical",
+          "Kallyanpur",
+          "Shyamoli",
+          "Shishu Mela",
+          "College Gate",
+          "Asad Gate",
+          "Dhanmondi 27",
+          "Dhanmondi 32",
+          "Kalabagan",
+          "Science Lab",
+          "Katabon",
+          "Shahbag",
+          "High Court",
+          "Press Club",
+          "Paltan",
+          "GPO",
+          "Golap Shah Mazar",
+          "Gulistan",
+          "Naya Bazar",
+          "Ray Saheb Bazar",
+          "Sadarghat"
+        ]
+      }
+    },
+    {
+      "from": "jatrabari",
+      "to": "gabtoli",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "8 No. Bus Route Dhaka"
+        ],
+        "stops": [
+          "Jatrabari",
+          "Janapath Moor",
+          "Sayedabad",
+          "Motijheel",
+          "Dainik Bangla Moor",
+          "Paltan",
+          "Press Club",
+          "Matsya Bhaban",
+          "High Court",
+          "Shahbag",
+          "Bangla Motor",
+          "Kawran Bazar",
+          "Farmgate",
+          "Khamar Bari",
+          "Asad Gate",
+          "College Gate",
+          "Shishu Mela",
+          "Shyamoli",
+          "Kallyanpur",
+          "Technical",
+          "Gabtoli"
+        ]
+      }
+    },
+    {
+      "from": "college gate",
+      "to": "mirpur 12",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "9 No. Bus Route Dhaka"
+        ],
+        "stops": [
+          "College Gate",
+          "Shishu Mela",
+          "Shyamoli",
+          "Kallyanpur",
+          "Darussalam",
+          "Technical",
+          "Bangla College",
+          "Tolarbag",
+          "Ansar Camp",
+          "Mirpur 1",
+          "Sony Cinema Hall",
+          "Mirpur 2",
+          "Proshika Moor",
+          "Pallabi",
+          "Mirpur 12"
+        ]
+      }
+    },
+    {
+      "from": "bashundhara",
+      "to": "farmgate",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Achim Paribahan",
+          "Rajdhani Super",
+          "Victor Paribahan"
+        ],
+        "stops": [
+          "Bashundhara",
+          "Nadda",
+          "Notun Bazar",
+          "Bashtola",
+          "Shahjadpur",
+          "Uttar Badda",
+          "Badda",
+          "Madhya Badda",
+          "Merul",
+          "Rampura Bridge",
+          "Banasree",
+          "Demra Staff Quarter",
+          "Shia Masjid",
+          "Mugdapara",
+          "Sayedabad",
+          "Jatrabari",
+          "Sign Board",
+          "Shonir Akhra",
+          "Chittagong Road",
+          "Shahbag",
+          "Farmgate"
+        ]
+      }
+    },
+    {
+      "from": "bashundhara",
+      "to": "kallyanpur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Achim Paribahan",
+          "BRTC"
+        ],
+        "stops": [
+          "Bashundhara",
+          "Nadda",
+          "Notun Bazar",
+          "Bashtola",
+          "Shahjadpur",
+          "Uttar Badda",
+          "Badda",
+          "Madhya Badda",
+          "Merul",
+          "Rampura Bridge",
+          "Banasree",
+          "Demra Staff Quarter",
+          "Shyamoli",
+          "Shishu Mela",
+          "College Gate",
+          "Asad Gate",
+          "Mohammadpur",
+          "Shankar",
+          "Dhanmondi 15",
+          "Jigatola",
+          "City College",
+          "Science Lab",
+          "Kallyanpur"
+        ]
+      }
+    },
+    {
+      "from": "azimpur",
+      "to": "motijheel",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Bikash",
+          "Dewan",
+          "Mirpur Metro Services"
+        ],
+        "stops": [
+          "Azimpur",
+          "Bakshi Bazar",
+          "Gulistan",
+          "GPO",
+          "Paltan",
+          "Press Club",
+          "High Court",
+          "Motijheel"
+        ]
+      }
+    },
+    {
+      "from": "ashulia bazar",
+      "to": "abdullahpur",
+      "direct": {
+        "mode": "bus",
+        "names": [
+          "Locals"
+        ],
+        "stops": [
+          "Ashulia Bazar",
+          "Kamarpara",
+          "Abdullahpur"
+        ]
+      }
+    }
+  ]
+}
