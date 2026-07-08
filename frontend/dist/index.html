@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Pathik - Dhaka Public Transit Route Finder" />
+  <meta name="theme-color" content="#10b981" />
+  <title>পথিক · Pathik Premium Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <style>
+    :root {
+      --primary: #2E7D32;
+      --secondary: #4CAF50;
+      --accent: #FFC107;
+      --bg: #f3f7f3;
+      --text: #1f2937;
+      --muted: #6b7280;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    [hidden] { display: none !important; }
+    .glass {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+    }
+    .route-card {
+      transition: all 0.15s ease;
+    }
+    .route-card:hover {
+      border-color: #86efac !important;
+      transform: translateY(-1px);
+    }
+    .input-premium:focus {
+      border-color: #4CAF50 !important;
+      box-shadow: 0 0 0 3px rgba(76,175,80,0.15);
+    }
+    .text-gradient {
+      background: linear-gradient(135deg, #059669, #0d9488);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .pulse-dot {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .grid-premium {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    @media (min-width: 1024px) {
+      .grid-premium {
+        grid-template-columns: 1fr 380px;
+      }
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/index-C3VX2EFx.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/vendor-xxE1au3H.js">
+</head>
+<body>
+  <div id="auth-root"></div>
+  <div id="ai-explain-root"></div>
+  <div id="feed-react-root"></div>
+  <div id="pathik-react-bootstrap"></div>
+</body>
+</html>
