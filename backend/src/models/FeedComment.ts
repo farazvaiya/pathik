@@ -7,6 +7,8 @@ export interface IFeedComment extends Document {
   authorId: mongoose.Types.ObjectId | null;
   deviceId: string | null;
   message: string;
+  media: string | null;
+  mediaType: 'image' | 'video' | null;
   status: 'active' | 'deleted';
   isDeleted: boolean;
   createdAt: Date;
@@ -20,6 +22,8 @@ const FeedCommentSchema = new Schema<IFeedComment>(
     authorId: { type: Schema.Types.ObjectId, ref: 'User', default: null, index: true },
     deviceId: { type: String, default: null, index: true },
     message: { type: String, required: true, trim: true, maxlength: 600 },
+    media: { type: String, default: null, maxlength: 500 },
+    mediaType: { type: String, enum: ['image', 'video', null], default: null },
     status: { type: String, enum: ['active', 'deleted'], default: 'active', index: true },
     isDeleted: { type: Boolean, default: false, index: true },
   },

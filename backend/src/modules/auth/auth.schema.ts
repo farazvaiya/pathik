@@ -11,7 +11,7 @@ export const registerSchema = z.object({
     .refine((p) => /[a-z]/.test(p), 'Password must contain a lowercase letter')
     .refine((p) => /[0-9]/.test(p), 'Password must contain a number')
     .refine((p) => /[^A-Za-z0-9]/.test(p), 'Password must contain a special character')
-    .refine((p) => zxcvbn(p).score >= 3, 'Password is too weak — try a longer or more unique password'),
+    .refine((p) => zxcvbn(p).score >= 2, 'Password is too weak — try a longer or more unique password'),
   displayName: z.string().min(2, 'Display name must be at least 2 characters').max(80, 'Display name too long').trim(),
 });
 

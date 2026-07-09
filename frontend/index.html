@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>পথিক - Pathik</title>
+
+  <!-- PWA Meta Tags -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#dc2626" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Pathik" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+  <meta name="description" content="AI-powered public transport safety platform for Bangladesh" />
+  <meta name="mobile-web-app-capable" content="yes" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2E7D32',
+            secondary: '#4CAF50',
+            accent: '#FFC107',
+            pathbg: '#f3f7f3',
+          },
+          borderRadius: {
+            card: '8px',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    body { font-family: 'Inter', sans-serif; margin: 0; background: #f3f7f3; }
+    * { box-sizing: border-box; }
+    .card { background: #fff; border-radius: 8px; box-shadow: 0 6px 24px rgba(0,0,0,0.08); padding: 16px; }
+    .search-input { border: 1px solid #d1d5db; border-radius: 8px; padding: 10px 12px; font-size: 0.95rem; width: 100%; outline: none; }
+    .search-input:focus { border-color: #4CAF50; box-shadow: 0 0 0 2px rgba(76,175,80,0.15); }
+    .btn-primary { background: #2E7D32; color: #fff; border: none; border-radius: 10px; font-weight: 600; padding: 10px 16px; cursor: pointer; }
+    .btn-primary:disabled { opacity: 0.7; cursor: not-allowed; }
+    .btn-secondary { background: #4CAF50; color: #fff; border: none; border-radius: 10px; font-weight: 600; padding: 8px 14px; cursor: pointer; }
+    .btn-secondary:disabled { opacity: 0.6; cursor: not-allowed; }
+    .loc-btn { background: #e8f5e9; border: 1px solid #a5d6a7; color: #2e7d32; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; white-space: nowrap; transition: background 0.2s; }
+    .loc-btn:hover { background: #c8e6c9; }
+    .badge-amber { background: #FFC107; color: #1f2937; padding: 6px 10px; border-radius: 999px; font-size: 0.8rem; font-weight: 700; }
+    .badge-green { background: #e8f5e9; color: #2E7D32; padding: 2px 8px; border-radius: 999px; font-weight: 600; font-size: 0.8rem; }
+    .badge-blue { background: #dbeafe; color: #1e40af; padding: 2px 10px; border-radius: 999px; font-size: 0.85rem; font-weight: 700; }
+    .bar-track { width: 100%; background: #e5e7eb; border-radius: 999px; height: 16px; overflow: hidden; }
+    .bar { height: 100%; border-radius: 999px; }
+    .bar-uber { background: #ef4444; }
+    .bar-pathik { background: #4CAF50; }
+    .tab-btn { background: #e2e8f0; border: 1px solid #cbd5e1; border-radius: 8px; padding: 6px 12px; font-size: 0.82rem; cursor: pointer; transition: all 0.15s; }
+    .tab-btn:hover { background: #cbd5e1; }
+    .tab-btn.active { background: #2563eb; color: #fff; border-color: #2563eb; }
+    .feed-filter { background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 999px; padding: 5px 12px; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+    .feed-filter:hover { background: #e5e7eb; }
+    .feed-filter.active { background: #2563eb; color: #fff; border-color: #2563eb; }
+    .route-card { border: 1px solid #e5e7eb; border-radius: 14px; padding: 12px; cursor: pointer; transition: all 0.15s ease; background: #fff; }
+    .route-card:hover { border-color: #86efac; transform: translateY(-1px); }
+    .route-card.active { border-color: #4CAF50; box-shadow: 0 0 0 3px rgba(76,175,80,0.15); }
+    .step { border: 1px solid #e5e7eb; border-radius: 12px; padding: 10px; font-size: 0.92rem; background: #fcfffd; }
+    .region-select { border: 1px solid #7dd3fc; border-radius: 8px; padding: 10px 12px; font-size: 0.95rem; width: 100%; background: #fff; color: #1f2937; cursor: pointer; }
+    .region-select:focus { outline: 2px solid #38bdf8; outline-offset: -2px; }
+    .crowd-form input, .crowd-form textarea, .crowd-form select { border: 1px solid #d1d5db; border-radius: 8px; padding: 8px 10px; font-size: 0.9rem; font-family: inherit; width: 100%; }
+    .submit-status { min-height: 22px; margin-top: 6px; font-size: 0.85rem; color: #047857; }
+    @media (min-width: 768px) {
+      .routes-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    }
+    @media (max-width: 767px) {
+      .routes-grid { display: grid; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+  <script>
+    // Service worker only outside Vite dev — SW can break HMR WebSocket on :5173.
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        if (location.port === '5173') {
+          navigator.serviceWorker.getRegistrations()
+            .then((regs) => regs.forEach((r) => r.unregister()))
+            .catch(() => {});
+          return;
+        }
+        navigator.serviceWorker.register('/sw.js')
+          .then((reg) => console.log('SW registered:', reg.scope))
+          .catch((err) => console.error('SW registration failed:', err));
+      });
+    }
+  </script>
+</body>
+</html>

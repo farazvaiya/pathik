@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { toast } from './Toast';
 
 export default function AuthSection() {
-  const { user, login, register, logout } = useAuth();
+  const { user, fullProfile, login, register, logout } = useAuth();
   const [mode, setMode] = useState('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -30,19 +30,54 @@ export default function AuthSection() {
   }
 
   if (user) {
+    const trust = fullProfile?.trustScore ?? 0.5;
+    const totalReports = fullProfile?.totalReports ?? 0;
+    const verifiedReports = fullProfile?.verifiedReports ?? 0;
+    const trustPercent = Math.round(trust * 100);
+    const trustColor = trust >= 0.7 ? '#22c55e' : trust >= 0.4 ? '#eab308' : '#ef4444';
+
     return (
-      <section className="bg-white rounded-2xl shadow-lg p-4 border border-slate-100 flex items-center justify-between gap-3">
-        <div>
-          <h2 className="text-sm font-bold text-slate-800">👤 {user.displayName || user.email}</h2>
-          <p className="text-xs text-slate-500">Signed in — post & vote enabled</p>
+      <section className="bg-white rounded-2xl shadow-lg p-4 border border-slate-100">
+        <div className="flex items-center justify-between gap-3 flex-wrap">
+          <div className="flex items-center gap-3">
+            <div className="w-11 h-11 rounded-full flex items-center justify-center text-white font-bold text-lg" style={{ background: trustColor }}>
+              {(user.displayName || user.email || '?')[0].toUpperCase()}
+            </div>
+            <div>
+              <h2 className="text-sm font-bold text-slate-800 m-0">{user.displayName || user.email}</h2>
+              <p className="text-xs text-slate-500 m-0">{user.email} • {user.role || 'user'}</p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={logout}
+            className="text-xs font-bold bg-slate-100 hover:bg-slate-200 px-4 py-2 rounded-xl transition"
+          >
+            Sign Out
+          </button>
         </div>
-        <button
-          type="button"
-          onClick={logout}
-          className="text-xs font-bold bg-slate-100 hover:bg-slate-200 px-4 py-2 rounded-xl transition"
-        >
-          Sign Out
-        </button>
+
+        <div className="mt-3 grid grid-cols-3 gap-2">
+          <div className="text-center p-2 rounded-xl bg-slate-50">
+            <div className="text-lg font-bold" style={{ color: trustColor }}>{trustPercent}%</div>
+            <div className="text-[10px] text-slate-500">Trust Score</div>
+          </div>
+          <div className="text-center p-2 rounded-xl bg-slate-50">
+            <div className="text-lg font-bold text-slate-700">{totalReports}</div>
+            <div className="text-[10px] text-slate-500">Reports</div>
+          </div>
+          <div className="text-center p-2 rounded-xl bg-slate-50">
+            <div className="text-lg font-bold text-emerald-600">{verifiedReports}</div>
+            <div className="text-[10px] text-slate-500">Verified</div>
+          </div>
+        </div>
+
+        <div className="mt-2">
+          <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+            <div className="h-full rounded-full transition-all" style={{ width: `${trustPercent}%`, background: trustColor }} />
+          </div>
+          <p className="text-[10px] text-slate-400 mt-1 text-center">Trust builds with verified reports</p>
+        </div>
       </section>
     );
   }

@@ -1,92 +1,101 @@
-const MODE_ICONS = {
-  bus: '🚌',
-  metro: '🚇',
-  walk: '🚶',
-};
+const MODE_ICONS = { bus: '🚌', ac_bus: '🚌', metro: '🚇', walk: '🚶' };
 
-const MODE_COLORS = {
-  bus: 'border-emerald-300 bg-emerald-50',
-  metro: 'border-blue-300 bg-blue-50',
-  walk: 'border-slate-200 bg-slate-50',
-};
-
-function StepRow({ step, isLast }) {
-  const icon = MODE_ICONS[step.mode] ?? '🚌';
-  const color = MODE_COLORS[step.mode] ?? 'border-slate-200 bg-slate-50';
-
-  return (
-    <div className="flex gap-3">
-      <div className="flex flex-col items-center">
-        <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm ${color}`}>
-          {icon}
-        </div>
-        {!isLast && <div className="w-0.5 flex-1 bg-slate-200 my-1" />}
-      </div>
-      <div className="pb-4 flex-1 min-w-0">
-        <p className="text-sm font-semibold text-slate-800 truncate">
-          {step.instruction ?? step.description ?? `${step.mode} leg`}
-        </p>
-        <div className="flex gap-3 text-xs text-slate-500 mt-0.5">
-          {step.from && <span>From: {step.from}</span>}
-          {step.to && <span>→ {step.to}</span>}
-        </div>
-        <div className="flex gap-3 text-xs text-slate-400 mt-0.5">
-          {step.duration && <span>⏱ {step.duration}</span>}
-          {step.fare != null && <span>৳{step.fare}</span>}
-          {step.busName && <span>🚌 {step.busName}</span>}
-          {step.line && <span>Line: {step.line}</span>}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default function RouteDetails({ route }) {
+export default function RouteDetails({ route, origin, destination }) {
   if (!route) {
-    return (
-      <div className="text-center text-sm text-slate-400 py-8">
-        Select a route to see details 🗺️
-      </div>
-    );
+    return <div className="route-details empty" style={{ color: '#6b7280', textAlign: 'center', padding: '32px 0' }}>Search to view route steps.</div>;
   }
 
-  const legs = route.legs ?? route.steps ?? [];
-  const fare = route.fare ?? route.totalFare ?? route.estimatedFare;
-  const duration = route.duration ?? route.estimatedTime;
+  const steps = route.steps || [];
+  const costStr = route.total_cost_range || `৳${route.total_cost}`;
+  const tmStr = route.total_time_range || `${route.total_time_minutes || '?'} মিনিট`;
 
   return (
-    <div className="space-y-2">
-      <div className="flex items-center justify-between mb-3">
-        <h3 className="text-sm font-bold text-slate-700">Route Details</h3>
-        <div className="flex gap-3 text-xs text-slate-500">
-          {duration && <span>⏱ {duration}</span>}
-          {fare != null && <span className="font-bold text-emerald-700">৳{fare}</span>}
-        </div>
+    <div className="route-details">
+      {/* Source pills */}
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 10 }}>
+        <span style={{
+          display: 'inline-flex', alignItems: 'center', minHeight: 26,
+          border: '1px solid #bbf7d0', background: '#f0fdf4', color: '#166534',
+          borderRadius: 999, padding: '4px 9px', fontSize: '0.78rem', fontWeight: 700
+        }}>Local DB</span>
+        <span style={{
+          display: 'inline-flex', alignItems: 'center', minHeight: 26,
+          border: '1px solid #bbf7d0', background: '#f0fdf4', color: '#166534',
+          borderRadius: 999, padding: '4px 9px', fontSize: '0.78rem', fontWeight: 700
+        }}>Confidence: High</span>
+        <span style={{
+          display: 'inline-flex', alignItems: 'center', minHeight: 26,
+          border: '1px solid #bbf7d0', background: '#f0fdf4', color: '#166534',
+          borderRadius: 999, padding: '4px 9px', fontSize: '0.78rem', fontWeight: 700
+        }}>Fare logic: BRTA/DMTCL</span>
       </div>
 
-      {route.from && route.to && (
-        <div className="text-xs text-slate-500 bg-slate-50 rounded-xl px-3 py-2 mb-3">
-          📍 {route.from} → {route.to}
-        </div>
-      )}
+      {/* Header */}
+      <div style={{ marginBottom: 12, fontWeight: 700, fontSize: '0.95rem', color: '#1f2937' }}>
+        {origin || route.origin || ''} → {destination || route.destination || ''} | মোট খরচ: {costStr} | সময়: {tmStr}
+      </div>
 
-      {legs.length > 0 ? (
-        <div>
-          {legs.map((step, i) => (
-            <StepRow key={i} step={step} isLast={i === legs.length - 1} />
-          ))}
-        </div>
-      ) : (
-        <div className="text-xs text-slate-400 text-center py-4">
-          No step-by-step breakdown available.
-        </div>
-      )}
+      {/* Steps */}
+      <ul className="steps" style={{ listStyle: 'none', margin: 0, padding: 0, display: 'grid', gap: 8 }}>
+        {steps.map((step, idx) => {
+          const icon = step.icon || MODE_ICONS[step.mode] || '🚌';
+          const cost = step.cost_range || `৳${step.cost}`;
+          const tm = step.time_range || `${step.time_minutes || '?'} মিনিট`;
+          const busNames = step.bus_names || [];
+          const landmarks = step.landmarks || [];
 
-      {route.aiExplanation && (
-        <div className="mt-3 bg-blue-50 border border-blue-200 rounded-xl p-3 text-xs text-blue-800">
-          🤖 {route.aiExplanation}
-        </div>
-      )}
+          return (
+            <li key={idx} className="step" style={{
+              border: '1px solid #e5e7eb', borderRadius: 12, padding: 10,
+              fontSize: '0.92rem', background: '#fcfffd'
+            }}>
+              <div className="step-top" style={{ fontWeight: 600, marginBottom: 4 }}>
+                {icon} ধাপ {idx + 1}: {step.from} → {step.to}
+              </div>
+              <div className="step-sub" style={{ color: '#6b7280', fontSize: '0.86rem' }}>
+                {step.mode?.toUpperCase()} • ভাড়া: {cost} • সময়: {tm}
+              </div>
+
+              {busNames.length > 0 && (
+                <div className="step-sub" style={{ marginTop: 4 }}>
+                  <b>বাস:</b>{' '}
+                  {busNames.map(b => (
+                    <span key={b} style={{
+                      display: 'inline-block', background: '#ecfdf3', color: '#166534',
+                      border: '1px solid #bbf7d0', padding: '2px 8px',
+                      borderRadius: 999, fontSize: '0.78rem', margin: '2px 4px 2px 0'
+                    }}>{b}</span>
+                  ))}
+                </div>
+              )}
+
+              {landmarks.length > 0 && (
+                <div className="step-sub" style={{ marginTop: 4, color: '#6b7280', fontSize: '0.86rem' }}>
+                  <b>Route:</b> {landmarks.join(' → ')}
+                </div>
+              )}
+
+              {step.fare_source === 'distance_calc' && step.distance_km && (
+                <div className="step-sub" style={{ marginTop: 4, fontStyle: 'italic', opacity: 0.8, color: '#6b7280', fontSize: '0.82rem' }}>
+                  📏 {step.distance_km} km • BRTA 2025 rate
+                </div>
+              )}
+
+              {step.fare_source === 'dmtcl_fare_matrix' && (
+                <div className="step-sub" style={{ marginTop: 4, fontStyle: 'italic', opacity: 0.8, color: '#6b7280', fontSize: '0.82rem' }}>
+                  🚇 DMTCL MRT-6 official fare
+                </div>
+              )}
+
+              {step.tip_bn && (
+                <div className="step-sub" style={{ marginTop: 6, color: '#6b7280', fontSize: '0.82rem' }}>
+                  <b>Tip:</b> {step.tip_bn}
+                </div>
+              )}
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }

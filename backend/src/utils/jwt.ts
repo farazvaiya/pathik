@@ -4,7 +4,7 @@ import { env } from '../config/env';
 export interface AccessPayload {
   sub: string;
   email: string;
-  role: 'user' | 'admin';
+  role: 'user' | 'admin' | 'police' | 'rab';
   type: 'access';
 }
 

@@ -41,6 +41,9 @@ const envSchema = z.object({
   SUPABASE_URL: z.string().optional(),
   SUPABASE_SERVICE_ROLE_KEY: z.string().optional(),
   USE_HYBRID_SEARCH: z.string().default('false'),
+  REDIS_URL: z.string().optional(),
+  DEVICE_ID_COOKIE_SECRET: z.string().optional(),
+  SUPABASE_STORAGE_BUCKET: z.string().default('pathik-media'),
 });
 
 const parsed = envSchema.safeParse(rawEnv);

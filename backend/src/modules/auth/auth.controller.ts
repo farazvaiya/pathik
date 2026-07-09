@@ -3,11 +3,14 @@ import { randomUUID } from 'crypto';
 import mongoose from 'mongoose';
 import { User } from '../../models/User';
 import { RefreshToken } from '../../models/RefreshToken';
+import { EmailVerificationToken } from '../../models/EmailVerificationToken';
 import { signAccess, signRefresh, verifyRefresh } from '../../utils/jwt';
 import { AppError } from '../../middleware/errorHandler';
 import { registerSchema, loginSchema } from './auth.schema';
+import { sendVerificationEmail } from '../../services/mail';
+import { auditLog } from '../../utils/auditLogger';
 
-function issueTokens(userId: string, email: string, role: 'user' | 'admin') {
+function issueTokens(userId: string, email: string, role: 'user' | 'admin' | 'police' | 'rab') {
   const tokenId = randomUUID();
   const family = randomUUID();
   const accessToken = signAccess({ sub: userId, email, role, type: 'access' });
@@ -174,8 +177,59 @@ export async function getMe(req: Request, res: Response, next: NextFunction): Pr
     if (!user || user.isDeleted) throw new AppError(404, 'USER_NOT_FOUND', 'User not found');
     res.json({
       success: true,
-      data: { id: user._id, email: user.email, displayName: user.displayName, role: user.role, avatarUrl: user.avatarUrl },
+      data: {
+        id: user._id,
+        email: user.email,
+        displayName: user.displayName,
+        role: user.role,
+        avatarUrl: user.avatarUrl,
+        trustScore: user.trustScore,
+        totalReports: user.totalReports,
+        verifiedReports: user.verifiedReports,
+        isPhoneVerified: user.isPhoneVerified,
+        isOfficiallyVerified: user.isOfficiallyVerified,
+      },
     });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function verifyEmail(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const { token } = req.body as { token?: string };
+    if (!token) throw new AppError(400, 'MISSING_TOKEN', 'Verification token is required');
+
+    const userId = await (EmailVerificationToken as any).verifyToken(token);
+    if (!userId) {
+      throw new AppError(400, 'TOKEN_INVALID', 'Invalid or expired verification token');
+    }
+
+    await User.findByIdAndUpdate(userId, { isEmailVerified: true });
+    await auditLog({ action: 'email_verified', req, actorId: String(userId) });
+
+    res.json({ success: true, message: 'Email verified successfully' });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function resendVerification(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const user = req.user ? await User.findById(req.user._id) : null;
+    if (!user) {
+      res.json({ success: true, message: 'If that email is registered, a verification link has been sent.' });
+      return;
+    }
+
+    if (user.isEmailVerified) {
+      throw new AppError(400, 'ALREADY_VERIFIED', 'Email is already verified');
+    }
+
+    const rawToken = await (EmailVerificationToken as any).createToken(user._id);
+    await sendVerificationEmail(user.email, rawToken, user.displayName);
+
+    res.json({ success: true, message: 'Verification email sent' });
   } catch (err) {
     next(err);
   }

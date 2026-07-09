@@ -1,13 +1,19 @@
 import { Router } from 'express';
-import { getPosts, createPost, voteOnPost, getComments, createComment } from './feed.controller';
-import { optionalAuth } from '../../middleware/requireAuth';
+import { getPosts, createPost, voteOnPost, getComments, createComment, getReplies, getNearbyPosts, getPostById, deletePost } from './feed.controller';
+import { optionalAuth, requireAuth } from '../../middleware/requireAuth';
+import { uploadSingle } from './feed.upload';
+import { voteRateLimiter } from '../../middleware/rateLimiters';
 
 const router = Router();
 
 router.get('/', getPosts);
-router.post('/', optionalAuth, createPost);
-router.post('/vote', optionalAuth, voteOnPost);
+router.get('/nearby', getNearbyPosts);
+router.get('/:id', getPostById);
+router.post('/', optionalAuth, uploadSingle('media'), createPost);
+router.post('/vote', optionalAuth, voteRateLimiter, voteOnPost);
+router.delete('/:id', requireAuth, deletePost);
 router.get('/comments', getComments);
-router.post('/comments', optionalAuth, createComment);
+router.get('/comments/:postId/replies', getReplies);
+router.post('/comments', optionalAuth, uploadSingle('media'), createComment);
 
 export { router as feedRouter };

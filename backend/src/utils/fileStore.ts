@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const DATA_DIR = path.join(__dirname, '../../../');
+const DATA_DIR = path.join(__dirname, '../../');
 
 function resolvePath(filename: string): string {
   return path.join(DATA_DIR, filename);

@@ -1,64 +1,54 @@
-import { TYPE_LABELS } from '../api';
-
-const MODE_COLORS = {
-  bus: 'bg-emerald-100 text-emerald-700',
-  metro: 'bg-blue-100 text-blue-700',
-  walk: 'bg-slate-100 text-slate-600',
-};
-
-const MODE_ICONS = {
-  bus: '🚌',
-  metro: '🚇',
-  walk: '🚶',
-};
+const MODE_ICONS = { bus: '🚌', ac_bus: '🚌', metro: '🚇', walk: '🚶' };
 
 export default function RouteCard({ route, selected, onClick, index }) {
   if (!route) return null;
 
-  const fare = route.fare ?? route.totalFare ?? route.estimatedFare;
-  const duration = route.duration ?? route.estimatedTime;
-  const legs = route.legs ?? route.steps ?? [];
-  const modes = [...new Set(legs.map((l) => l.mode).filter(Boolean))];
+  const steps = route.steps || [];
+  const stepsModes = steps.map(s => s.icon || MODE_ICONS[s.mode] || '🚌').join(' → ');
+  const cost = route.total_cost_range || `৳${route.total_cost}`;
+  const tm = route.total_time_range || `${route.total_time_minutes || '?'} min`;
+  const allBusNames = [...new Set(steps.flatMap(s => s.bus_names || []).filter(Boolean))];
 
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`w-full text-left rounded-2xl border p-4 transition ${
-        selected
-          ? 'border-emerald-500 bg-emerald-50 shadow-md'
-          : 'border-slate-200 bg-white hover:border-slate-300 hover:shadow-sm'
-      }`}
+      className={`route-card w-full text-left ${selected ? 'active' : ''}`}
     >
-      <div className="flex items-center justify-between mb-2">
-        <span className="text-xs font-bold text-slate-500">Option {index + 1}</span>
-        {fare != null && (
-          <span className="text-sm font-bold text-emerald-700">৳{fare}</span>
-        )}
+      <p className="route-title" style={{ margin: 0, marginBottom: 8, fontWeight: 700, fontSize: '0.95rem', color: '#1f2937' }}>
+        {route.label || `Option ${index + 1}`}
+      </p>
+
+      <div className="source-row" style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
+        <span className="source-pill" style={{
+          display: 'inline-flex', alignItems: 'center', minHeight: 26,
+          border: '1px solid #bbf7d0', background: '#f0fdf4', color: '#166534',
+          borderRadius: 999, padding: '4px 9px', fontSize: '0.78rem', fontWeight: 700
+        }}>
+          Local DB
+        </span>
+        <span className="source-pill" style={{
+          display: 'inline-flex', alignItems: 'center', minHeight: 26,
+          border: '1px solid #bbf7d0', background: '#f0fdf4', color: '#166534',
+          borderRadius: 999, padding: '4px 9px', fontSize: '0.78rem', fontWeight: 700
+        }}>
+          Confidence: High
+        </span>
       </div>
 
-      {modes.length > 0 && (
-        <div className="flex gap-1.5 flex-wrap mb-2">
-          {modes.map((mode) => (
-            <span
-              key={mode}
-              className={`text-xs font-semibold px-2 py-0.5 rounded-full ${MODE_COLORS[mode] ?? 'bg-slate-100 text-slate-600'}`}
-            >
-              {MODE_ICONS[mode] ?? '🚌'} {mode}
-            </span>
-          ))}
+      <div className="route-meta" style={{ display: 'flex', gap: 14, fontSize: '0.9rem', color: '#374151', marginBottom: 4 }}>
+        <span>💰 {cost}</span>
+        <span>⏱ {tm}</span>
+      </div>
+
+      <div style={{ marginTop: 8, fontSize: '1.05rem', color: '#374151' }}>
+        {stepsModes}
+      </div>
+
+      {allBusNames.length > 0 && (
+        <div style={{ marginTop: 6, fontSize: '0.9rem', color: '#166534', fontWeight: 600 }}>
+          🚌 {allBusNames.join(', ')}
         </div>
-      )}
-
-      <div className="flex items-center justify-between text-xs text-slate-500">
-        {duration && <span>⏱ {duration}</span>}
-        {legs.length > 0 && (
-          <span>{legs.length} step{legs.length !== 1 ? 's' : ''}</span>
-        )}
-      </div>
-
-      {route.summary && (
-        <p className="text-xs text-slate-500 mt-1 truncate">{route.summary}</p>
       )}
     </button>
   );

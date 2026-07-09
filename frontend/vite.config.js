@@ -1,35 +1,35 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import path from 'path';
-import { fileURLToPath } from 'url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const BACKEND = 'http://localhost:5000';
 
 export default defineConfig({
   plugins: [react()],
-  define: {
-    'process.env.NODE_ENV': JSON.stringify('production'),
-  },
   build: {
-    outDir: path.resolve(__dirname, '../dist'),
+    outDir: '../dist',
     emptyOutDir: true,
-    lib: {
-      entry: path.resolve(__dirname, 'src/main.jsx'),
-      name: 'PathikReact',
-      formats: ['iife'],
-      fileName: () => 'pathik-react.js',
-    },
-    rollupOptions: {
-      output: {
-        extend: true,
-        assetFileNames: 'pathik-react.[ext]',
-      },
-    },
   },
   server: {
+    host: '127.0.0.1',
     port: 5173,
+    strictPort: true,
+    // Explicit HMR so the client always targets this server (avoids failed WS when host/proxy differs)
+    hmr: {
+      protocol: 'ws',
+      host: '127.0.0.1',
+      port: 5173,
+      clientPort: 5173,
+    },
     proxy: {
-      '/api': 'http://localhost:5000',
+      '/api': {
+        target: BACKEND,
+        changeOrigin: true,
+      },
+      '/socket.io': {
+        target: BACKEND,
+        changeOrigin: true,
+        ws: true,
+      },
     },
   },
 });

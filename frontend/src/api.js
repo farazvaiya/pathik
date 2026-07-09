@@ -2,7 +2,9 @@
  * Pathik API Client — Modern Backend (v1 endpoints)
  */
 
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:5000';
+// Empty = same-origin (Vite proxies /api → backend in dev; backend serves SPA in prod).
+// Set VITE_API_BASE only when API is on a different host.
+const API_BASE = import.meta.env.VITE_API_BASE ?? '';
 
 const AUTH_KEY = 'pathik_auth_user_v1';
 const TOKEN_KEY = 'pathik_access_token_v1';
@@ -108,11 +110,37 @@ export async function fetchFeed({ page = 1, limit = 30, type, sort } = {}) {
   return Array.isArray(data.data) ? data.data : [];
 }
 
-export async function createPost(post) {
-  const data = await apiJson(`${API_BASE}/api/v1/feed`, {
+export async function createPost(post, file = null, location = null) {
+  const formData = new FormData();
+  formData.append('type', post.type || 'tip');
+  formData.append('from', post.from || '');
+  formData.append('to', post.to || '');
+  formData.append('message', post.message || '');
+  formData.append('deviceId', post.deviceId || getAnonUserId());
+  if (post.locationName) formData.append('locationName', post.locationName);
+  if (file) formData.append('media', file);
+  if (location) {
+    formData.append('lat', String(location.lat));
+    formData.append('lng', String(location.lng));
+  }
+
+  const headers = {};
+  const token = getAccessToken();
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  const res = await fetch(`${API_BASE}/api/v1/feed`, {
     method: 'POST',
-    body: JSON.stringify(post),
+    credentials: 'include',
+    headers,
+    body: formData,
   });
+  const text = await res.text();
+  let data = {};
+  try { data = text ? JSON.parse(text) : {}; } catch { throw new Error('Invalid server response'); }
+  if (!res.ok) {
+    const msg = data?.error?.message || data?.error || data?.message || `HTTP ${res.status}`;
+    throw new Error(msg);
+  }
   return data.data || post;
 }
 
@@ -130,11 +158,31 @@ export async function fetchComments(postId) {
   return Array.isArray(data.data) ? data.data : [];
 }
 
-export async function postComment({ postId, message, parentId }) {
-  const data = await apiJson(`${API_BASE}/api/v1/feed/comments`, {
+export async function postComment({ postId, message, parentId, file }) {
+  const formData = new FormData();
+  formData.append('postId', postId);
+  formData.append('message', message);
+  formData.append('parentId', parentId || '');
+  formData.append('deviceId', getAnonUserId());
+  if (file) formData.append('media', file);
+
+  const headers = {};
+  const token = getAccessToken();
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  const res = await fetch(`${API_BASE}/api/v1/feed/comments`, {
     method: 'POST',
-    body: JSON.stringify({ postId, message, parentId: parentId || null, deviceId: getAnonUserId() }),
+    credentials: 'include',
+    headers,
+    body: formData,
   });
+  const text = await res.text();
+  let data = {};
+  try { data = text ? JSON.parse(text) : {}; } catch { throw new Error('Invalid server response'); }
+  if (!res.ok) {
+    const msg = data?.error?.message || data?.error || data?.message || `HTTP ${res.status}`;
+    throw new Error(msg);
+  }
   return data.data;
 }
 
@@ -200,3 +248,111 @@ export const TYPE_LABELS = {
   event: '📅 Event',
   other: '📢 Update',
 };
+
+// Emergency API
+export async function createSOS({ message, lat, lng, locationName, type, isAnonymous = true }) {
+  const data = await apiJson(`${API_BASE}/api/v1/emergency/sos`, {
+    method: 'POST',
+    body: JSON.stringify({ message, lat, lng, locationName, type, isAnonymous, deviceId: getAnonUserId() }),
+  });
+  return data.data;
+}
+
+export async function fetchAlerts({ page = 1, limit = 20, status = 'active', type } = {}) {
+  const params = new URLSearchParams({ page: String(page), limit: String(limit), status });
+  if (type) params.set('type', type);
+  const data = await apiJson(`${API_BASE}/api/v1/emergency/alerts?${params}`);
+  return { alerts: Array.isArray(data.data) ? data.data : [], pagination: data.pagination };
+}
+
+export async function fetchNearbyAlerts(lat, lng, radiusKm = 5) {
+  const params = new URLSearchParams({ lat: String(lat), lng: String(lng), radius: String(radiusKm) });
+  const data = await apiJson(`${API_BASE}/api/v1/emergency/alerts/nearby?${params}`);
+  return Array.isArray(data.data) ? data.data : [];
+}
+
+export async function fetchAlertById(alertId) {
+  const data = await apiJson(`${API_BASE}/api/v1/emergency/alerts/${alertId}`);
+  return data.data;
+}
+
+export async function reportSighting(alertId, { lat, lng, locationName, description, isAnonymous = true }) {
+  const data = await apiJson(`${API_BASE}/api/v1/emergency/alerts/${alertId}/sighting`, {
+    method: 'POST',
+    body: JSON.stringify({ lat, lng, locationName, description, isAnonymous, deviceId: getAnonUserId() }),
+  });
+  return data.data;
+}
+
+export async function confirmSighting(alertId, sightingId) {
+  const data = await apiJson(`${API_BASE}/api/v1/emergency/alerts/${alertId}/confirm`, {
+    method: 'POST',
+    body: JSON.stringify({ sightingId, deviceId: getAnonUserId() }),
+  });
+  return data.data;
+}
+
+export async function flagAlert(alertId, reason = '') {
+  const data = await apiJson(`${API_BASE}/api/v1/emergency/alerts/${alertId}/flag`, {
+    method: 'POST',
+    body: JSON.stringify({ reason }),
+  });
+  return data.data;
+}
+
+export const ALERT_TYPE_LABELS = {
+  accident: '🚑 দুর্ঘটনা',
+  assault: '👊 মারধর',
+  robbery: '🔪 ছিনতাই',
+  harassment: '⚠️ হয়রানি',
+  medical: '🏥 চিকিৎসা',
+  fire: '🔥 আগুন',
+  missing_person: '🔍 নিখোঁজ',
+  stolen_vehicle: '🚗 চুরির গাড়ি',
+  escaped_criminal: '🚨 পালানো অপরাধী',
+  traffic_jam: '🚦 ট্রাফিক জ্যাম',
+  toll_extortion: '💰 চাঁদাবাজি',
+  police_checkpost: '👮 পুলিশ চেকপোস্ট',
+  natural_disaster: '🌊 প্রাকৃতিক দুর্ঘটনা',
+  road_hazard: '⛔ রাস্তার ঝুঁকি',
+  other: '📢 সাধারণ',
+};
+
+export const SEVERITY_COLORS = {
+  low: '#22c55e',
+  medium: '#eab308',
+  high: '#f97316',
+  critical: '#ef4444',
+};
+
+// User profile
+export async function fetchUserProfile() {
+  const data = await apiJson(`${API_BASE}/api/v1/auth/me`);
+  return data.data;
+}
+
+// Delete post
+export async function deletePost(postId) {
+  const data = await apiJson(`${API_BASE}/api/v1/feed/${postId}`, {
+    method: 'DELETE',
+  });
+  return data;
+}
+
+// Nearby posts
+export async function fetchNearbyPosts(lat, lng, radiusKm = 5) {
+  const params = new URLSearchParams({ lat: String(lat), lng: String(lng), radius: String(radiusKm) });
+  const data = await apiJson(`${API_BASE}/api/v1/feed/nearby?${params}`);
+  return Array.isArray(data.data) ? data.data : [];
+}
+
+// Notifications
+export async function fetchNotifications({ page = 1, limit = 20 } = {}) {
+  const params = new URLSearchParams({ page: String(page), limit: String(limit) });
+  const data = await apiJson(`${API_BASE}/api/v1/notifications?${params}`);
+  return { notifications: Array.isArray(data.data) ? data.data : [], unreadCount: data.unreadCount || 0, pagination: data.pagination };
+}
+
+export async function markNotificationsRead() {
+  return apiJson(`${API_BASE}/api/v1/notifications/read`, { method: 'PATCH' });
+}

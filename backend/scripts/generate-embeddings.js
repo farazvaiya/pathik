@@ -1,113 +1,125 @@
 #!/usr/bin/env node
+
 /**
- * Generate embeddings for routes and upsert to Supabase.
- * Run: node scripts/generate-embeddings.js
+ * Pathik — Generate Route Embeddings for Supabase (Hybrid RAG)
+ *
+ * Reads routes.json + metro.json, generates 384-dim embeddings via
+ * all-MiniLM-L6-v2 (@xenova/transformers), and upserts to Supabase.
+ *
+ * Usage:
+ *   node backend/scripts/generate-embeddings.js
+ *
+ * Prerequisites:
+ *   - SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY in backend/.env
+ *   - npm install @xenova/transformers (already in package.json)
  */
 
-require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
-const { createClient } = require('@supabase/supabase-js');
 
-const SUPABASE_URL = process.env.SUPABASE_URL?.trim();
-const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
-
-if (!SUPABASE_URL || !SUPABASE_KEY) {
-  console.error('SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be set in .env');
-  process.exit(1);
-}
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
-
-async function getEmbedding(text) {
-  const { pipeline } = await import('@xenova/transformers');
-  if (!getEmbedding._pipe) {
-    console.log('Loading embedding model...');
-    getEmbedding._pipe = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
-  }
-  const output = await getEmbedding._pipe(text, { pooling: 'mean', normalize: true });
-  return Array.from(output.data);
-}
-
-function loadJson(filename) {
-  const p = path.join(__dirname, '..', '..', filename);
-  if (!fs.existsSync(p)) { console.warn(`${filename} not found`); return null; }
-  return JSON.parse(fs.readFileSync(p, 'utf8'));
-}
+const ROOT = path.join(__dirname, '../../');
+const ROUTES_FILE = path.join(ROOT, 'routes.json');
+const METRO_FILE = path.join(ROOT, 'metro.json');
 
 async function main() {
-  const routes = loadJson('routes.json');
-  const metro = loadJson('metro.json');
+  require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
-  const records = [];
-  const seen = new Set();
+  const { env } = require('../src/config/env');
+  if (!env.SUPABASE_URL || !env.SUPABASE_SERVICE_ROLE_KEY) {
+    console.error('❌ SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be set in backend/.env');
+    process.exit(1);
+  }
 
-  if (routes?.corridors) {
-    for (const c of routes.corridors) {
-      const key = `${String(c.from).toLowerCase().trim()}::${String(c.to).toLowerCase().trim()}`;
-      if (seen.has(key)) continue;
-      seen.add(key);
-      const busNames = c.direct?.names || [];
-      const stops = c.direct?.stops || [];
-      records.push({
-        route_name: `${c.from} to ${c.to}`,
-        from_stop: String(c.from).trim(),
-        to_stop: String(c.to).trim(),
-        bus_names: busNames,
-        fare: c.direct?.fare ?? null,
-        stops,
-        content: [c.from, c.to, ...busNames, ...stops.slice(0, 5)].join(' '),
+  console.log('[embeddings] Loading transformer model...');
+  const { pipeline } = await import('@xenova/transformers');
+  const extractor = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
+  console.log('[embeddings] Model loaded.');
+
+  const { createClient } = require('@supabase/supabase-js');
+  const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
+
+  const embeddings = [];
+
+  // Process routes.json
+  if (fs.existsSync(ROUTES_FILE)) {
+    const routesData = JSON.parse(fs.readFileSync(ROUTES_FILE, 'utf8'));
+    const corridors = routesData.corridors || [];
+    console.log(`[embeddings] Processing ${corridors.length} corridors...`);
+
+    for (const corridor of corridors) {
+      const routeName = `${(corridor.from || '').toLowerCase().replace(/\s+/g, '_')}_to_${(corridor.to || '').toLowerCase().replace(/\s+/g, '_')}`;
+      const busNames = corridor.direct?.names || [];
+      const stops = corridor.direct?.stops || [];
+      const searchText = [
+        corridor.from,
+        corridor.to,
+        ...busNames,
+        ...stops,
+        corridor.direct?.mode || '',
+      ].filter(Boolean).join(' ');
+
+      const output = await extractor(searchText, { pooling: 'mean', normalize: true });
+      const vector = Array.from(output.data);
+
+      embeddings.push({
+        route_name: routeName,
+        embedding: `[${vector.join(',')}]`,
+        route_data: corridor,
+        search_text: searchText,
+        metadata: { source: 'routes.json', mode: corridor.direct?.mode || 'bus' },
       });
     }
   }
 
-  if (metro?.stations) {
-    const stations = metro.stations;
-    for (let i = 0; i < stations.length; i++) {
-      for (let j = i + 1; j < stations.length; j++) {
-        const key = `metro::${stations[i]}::${stations[j]}`;
-        if (seen.has(key)) continue;
-        seen.add(key);
-        records.push({
-          route_name: `Metro: ${stations[i]} to ${stations[j]}`,
-          from_stop: stations[i],
-          to_stop: stations[j],
-          bus_names: ['MRT-6'],
-          fare: metro?.fares?.[stations[i]]?.[stations[j]] ?? null,
-          stops: [],
-          content: `metro MRT-6 ${stations[i]} ${stations[j]}`,
-        });
-      }
+  // Process metro.json
+  if (fs.existsSync(METRO_FILE)) {
+    const metroData = JSON.parse(fs.readFileSync(METRO_FILE, 'utf8'));
+    const stations = metroData.stations || [];
+    console.log(`[embeddings] Processing ${stations.length} metro stations...`);
+
+    for (const station of stations) {
+      const routeName = `metro_${(station.name || '').toLowerCase().replace(/\s+/g, '_')}`;
+      const searchText = [
+        station.name,
+        'metro',
+        'MRT',
+        'Dhaka Metro',
+        ...(station.connections || []),
+      ].filter(Boolean).join(' ');
+
+      const output = await extractor(searchText, { pooling: 'mean', normalize: true });
+      const vector = Array.from(output.data);
+
+      embeddings.push({
+        route_name: routeName,
+        embedding: `[${vector.join(',')}]`,
+        route_data: station,
+        search_text: searchText,
+        metadata: { source: 'metro.json', mode: 'metro' },
+      });
     }
   }
 
-  console.log(`${records.length} unique routes to embed`);
+  console.log(`[embeddings] Upserting ${embeddings.length} embeddings to Supabase...`);
 
-  let success = 0, errors = 0;
-  const BATCH = 10;
+  const BATCH_SIZE = 50;
+  for (let i = 0; i < embeddings.length; i += BATCH_SIZE) {
+    const batch = embeddings.slice(i, i + BATCH_SIZE);
+    const { error } = await supabase
+      .from('route_embeddings')
+      .upsert(batch, { onConflict: 'route_name' });
 
-  for (let i = 0; i < records.length; i += BATCH) {
-    const batch = records.slice(i, i + BATCH);
-    await Promise.all(
-      batch.map(async (r) => {
-        try {
-          const embedding = await getEmbedding(r.content);
-          const { error } = await supabase.from('route_embeddings').upsert(
-            { ...r, embedding },
-            { onConflict: 'route_name' }
-          );
-          if (error) { console.error(`  FAIL ${r.route_name}: ${error.message}`); errors++; }
-          else { success++; process.stdout.write('.'); }
-        } catch (e) {
-          console.error(`  FAIL ${r.route_name}: ${e.message}`);
-          errors++;
-        }
-      })
-    );
-    console.log(` [${Math.min(i + BATCH, records.length)}/${records.length}]`);
+    if (error) {
+      console.error(`[embeddings] Batch ${Math.floor(i / BATCH_SIZE)} failed:`, error.message);
+    } else {
+      console.log(`[embeddings] Batch ${Math.floor(i / BATCH_SIZE) + 1}/${Math.ceil(embeddings.length / BATCH_SIZE)} done`);
+    }
   }
 
-  console.log(`\nDone. Success: ${success}, Errors: ${errors}`);
+  console.log(`[embeddings] ✅ Done! ${embeddings.length} embeddings upserted.`);
 }
 
-main().catch((e) => { console.error(e); process.exit(1); });
+main().catch((err) => {
+  console.error('[embeddings] Fatal error:', err);
+  process.exit(1);
+});
