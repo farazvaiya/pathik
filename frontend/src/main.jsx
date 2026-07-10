@@ -19,11 +19,13 @@ import NotificationBell from './components/NotificationBell';
 import ChatPanel from './components/ChatPanel';
 import { ToastContainer } from './components/Toast';
 import { useTransit } from './context/TransitContext';
+import useLocationSync from './hooks/useLocationSync';
 import { useState, useRef } from 'react';
 
 function AppContent() {
   const { routes, selectedRoute, setSelectedRoute, loading, searchRoutes, region, setRegion } = useTransit();
   const { user } = useAuth();
+  useLocationSync();
   const [commentPostId, setCommentPostId] = useState(null);
   const [aiRoute, setAiRoute] = useState(null);
   const [aiQuery, setAiQuery] = useState('');

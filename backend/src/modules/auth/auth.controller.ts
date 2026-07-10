@@ -234,3 +234,31 @@ export async function resendVerification(req: Request, res: Response, next: Next
     next(err);
   }
 }
+
+// POST /api/v1/auth/location — update last known location
+export async function updateLocation(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const { lat, lng } = req.body as { lat?: number; lng?: number };
+
+    if (lat == null || lng == null || typeof lat !== 'number' || typeof lng !== 'number') {
+      throw new AppError(400, 'VALIDATION_ERROR', 'lat and lng are required numbers');
+    }
+    if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+      throw new AppError(400, 'VALIDATION_ERROR', 'lat must be -90..90, lng must be -180..180');
+    }
+
+    const userId = req.user?._id;
+    if (!userId) {
+      throw new AppError(401, 'UNAUTHORIZED', 'Authentication required');
+    }
+
+    await User.findByIdAndUpdate(userId, {
+      lastKnownLocation: { type: 'Point', coordinates: [lng, lat] },
+      lastLocationUpdatedAt: new Date(),
+    });
+
+    res.json({ success: true, message: 'Location updated' });
+  } catch (err) {
+    next(err);
+  }
+}

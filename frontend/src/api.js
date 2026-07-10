@@ -399,6 +399,14 @@ export async function fetchSafetyScore(stops) {
   return data.data;
 }
 
+// User location sync
+export async function updateLocation(lat, lng) {
+  return apiJson(`${API_BASE}/api/v1/auth/location`, {
+    method: 'POST',
+    body: JSON.stringify({ lat, lng }),
+  });
+}
+
 // Chatbot
 export async function chatWithAI(message, history = []) {
   const data = await apiJson(`${API_BASE}/api/v1/transit/chat`, {

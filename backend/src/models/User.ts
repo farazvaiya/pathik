@@ -37,6 +37,10 @@ export interface IUser extends Document {
   jurisdictionValue?: string;
   jurisdictionLocation?: { type: 'Point'; coordinates: [number, number] };
 
+  // Last known location (for SOS proximity notifications)
+  lastKnownLocation?: { type: 'Point'; coordinates: [number, number] };
+  lastLocationUpdatedAt?: Date;
+
   createdAt: Date;
   updatedAt: Date;
   comparePassword(candidate: string): Promise<boolean>;
@@ -89,6 +93,10 @@ const UserSchema = new Schema<IUser>(
     jurisdictionType: { type: String, enum: ['division', 'district', 'thana', null], default: null },
     jurisdictionValue: { type: String, default: null },
     jurisdictionLocation: { type: PointSchema, default: null },
+
+    // Last known location (for SOS proximity)
+    lastKnownLocation: { type: PointSchema, default: null },
+    lastLocationUpdatedAt: { type: Date, default: null },
   },
   { timestamps: true }
 );
@@ -96,6 +104,7 @@ const UserSchema = new Schema<IUser>(
 UserSchema.index({ trustScore: -1 });
 UserSchema.index({ role: 1 });
 UserSchema.index({ jurisdictionLocation: '2dsphere' });
+UserSchema.index({ lastKnownLocation: '2dsphere' });
 UserSchema.index({ phone: 1 }, { sparse: true });
 
 UserSchema.pre('save', async function (next) {

@@ -5,31 +5,14 @@ import { Sighting } from '../../models/Sighting';
 import { FeedPost } from '../../models/FeedPost';
 import { Notification } from '../../models/Notification';
 import { User } from '../../models/User';
-import { RefreshToken } from '../../models/RefreshToken';
 import { AppError } from '../../middleware/errorHandler';
 import { createAlertSchema, sightingSchema, confirmSightingSchema, flagAlertSchema, resolveAlertSchema } from './emergency.schema';
 import { cleanInput } from '../../utils/cleaners';
 import { emitNewAlert, emitSighting, emitAlertUpdate, emitNotification, broadcastNotification, emitAdminEvent } from '../../sockets/socketServer';
 import { uploadToSupabase } from '../feed/feed.upload';
 
-// Emergency radius by alert type (meters)
-const EMERGENCY_RADIUS: Record<string, number> = {
-  accident: 2000,
-  assault: 2000,
-  robbery: 2000,
-  harassment: 2000,
-  medical: 1000,
-  fire: 2000,
-  missing_person: 5000,
-  stolen_vehicle: 5000,
-  escaped_criminal: 5000,
-  natural_disaster: 2000,
-  traffic_jam: 0,
-  toll_extortion: 0,
-  police_checkpost: 0,
-  road_hazard: 0,
-  other: 0,
-};
+// Emergency radius — 5km for all SOS types
+const EMERGENCY_RADIUS = 5000;
 
 const EMERGENCY_TYPES = new Set([
   'accident', 'assault', 'robbery', 'harassment', 'medical',
@@ -68,7 +51,7 @@ export async function createSOS(req: Request, res: Response, next: NextFunction)
     // Determine alert type — AI will classify later, for now use user input or default
     const alertType = body.type || 'other';
     const isEmergency = EMERGENCY_TYPES.has(alertType);
-    const radius = EMERGENCY_RADIUS[alertType] || 2000;
+    const radius = EMERGENCY_RADIUS;
 
     // Create the alert
     const alert = await Alert.create({
@@ -114,9 +97,22 @@ export async function createSOS(req: Request, res: Response, next: NextFunction)
     // Find nearby users for notification (best-effort, don't fail SOS if notification breaks)
     let notifiedCount = 0;
     try {
-      // 1. Users with jurisdictionLocation nearby (police/RAB)
+      // Find users whose lastKnownLocation is within 5km radius
+      const creatorIdStr = userId ? String(userId) : null;
+      const nearbyUsers = await User.find({
+        _id: { $ne: userId },
+        lastKnownLocation: {
+          $near: {
+            $geometry: { type: 'Point', coordinates: [body.lng, body.lat] },
+            $maxDistance: radius,
+          },
+        },
+      }).select('_id').limit(500);
+
+      // Also find police/RAB with jurisdictionLocation nearby
       const nearbyJurisdictionUsers = await User.find({
         _id: { $ne: userId },
+        role: { $in: ['police', 'rab'] },
         jurisdictionLocation: {
           $near: {
             $geometry: { type: 'Point', coordinates: [body.lng, body.lat] },
@@ -125,22 +121,14 @@ export async function createSOS(req: Request, res: Response, next: NextFunction)
         },
       }).select('_id').limit(100);
 
-      // 2. All recently active users (logged in within 7 days) — so regular users also get alerts
-      const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-      const activeUserTokenIds = await RefreshToken.distinct('userId', {
-        isRevoked: false,
-        expiresAt: { $gt: sevenDaysAgo },
-      });
-
       // Merge both sets, exclude the creator
-      const creatorIdStr = userId ? String(userId) : null;
       const nearbyUserIds = new Set<string>();
-      for (const u of nearbyJurisdictionUsers) {
+      for (const u of nearbyUsers) {
         const id = String(u._id);
         if (id !== creatorIdStr) nearbyUserIds.add(id);
       }
-      for (const uid of activeUserTokenIds) {
-        const id = String(uid);
+      for (const u of nearbyJurisdictionUsers) {
+        const id = String(u._id);
         if (id !== creatorIdStr) nearbyUserIds.add(id);
       }
 

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { register, login, refresh, logout, getMe, verifyEmail, resendVerification } from './auth.controller';
+import { register, login, refresh, logout, getMe, verifyEmail, resendVerification, updateLocation } from './auth.controller';
 import { requireAuth, optionalAuth } from './auth.middleware';
 
 const router = Router();
@@ -11,5 +11,6 @@ router.post('/logout', logout);
 router.get('/me', requireAuth, getMe);
 router.post('/verify-email', verifyEmail);
 router.post('/resend-verification', optionalAuth, resendVerification);
+router.post('/location', requireAuth, updateLocation);
 
 export { router as authRouter };
