@@ -18,6 +18,7 @@ import { notificationsRouter } from './modules/notifications/notifications.route
 import { isDBConnected } from './config/db';
 
 const app = express();
+app.set('trust proxy', 1);
 
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' }, contentSecurityPolicy: false }));
 
