@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>পথিক - Pathik Bangladesh Public Transport</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="style.css?v=8" />
+</head>
+<body>
+  <div class="app">
+    <!-- Division/District Selector -->
+    <div class="card region-card">
+      <div class="region-selector">
+        <div class="region-field">
+          <label for="divisionSelect">বিভাগ (Division)</label>
+          <select id="divisionSelect">
+            <option value="">— বিভাগ নির্বাচন করুন —</option>
+          </select>
+        </div>
+        <div class="region-field">
+          <label for="districtSelect">জেলা (District)</label>
+          <select id="districtSelect">
+            <option value="">— জেলা নির্বাচন করুন —</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <header class="card header-card" id="mainHeader">
+      <div>
+        <h1>পথিক <span class="region-badge" id="regionBadge">ঢাকা</span></h1>
+        <p class="tagline" id="mainTagline">Verified low-cost public transport routes for Dhaka Metro area</p>
+      </div>
+      <div class="saved-wrap">
+        <label for="savedRoutes">Saved Routes</label>
+        <select id="savedRoutes">
+          <option value="">Select a saved route</option>
+        </select>
+      </div>
+    </header>
+
+    <!-- Coming Soon overlay for non-Dhaka regions -->
+    <div class="card coming-soon-card" id="comingSoonCard" hidden>
+      <div class="coming-soon-content">
+        <div class="coming-soon-icon">🚧</div>
+        <h2 id="comingSoonTitle">পথিক শীঘ্রই আসছে!</h2>
+        <p id="comingSoonDesc">
+          আমরা বর্তমানে শুধুমাত্র <b>ঢাকা বিভাগ</b>-এর জন্য রুট তথ্য সংগ্রহ করেছি। 
+          আপনি যে জেলা নির্বাচন করেছেন সেটির জন্য এখনও ডাটা সংগ্রহ করা হয়নি।
+        </p>
+        <div class="data-status-box" id="dataStatusBox">
+          <div class="data-status-icon">📊</div>
+          <div>
+            <p class="data-status-title" id="dataStatusTitle">ঢাকা বিভাগের জন্য সম্পূর্ণ ডাটা উপলব্ধ</p>
+            <p class="data-status-text" id="dataStatusText">
+              বাস রুট, মেট্রো লাইন, ভাড়ার তথ্য — সবকিছুই প্রস্তুত।
+            </p>
+          </div>
+        </div>
+        <div class="collection-box" id="collectionBox">
+          <div class="collection-icon">🤝</div>
+          <div>
+            <p class="collection-title">আপনি কি সাহায্য করতে পারেন?</p>
+            <p class="collection-text">
+              আপনার এলাকার বাস রুট, স্টপেজ ও ভাড়ার তথ্য আমাদের জানান। 
+              নিচের ফর্ম ব্যবহার করে ডাটা সাবমিট করুন, আমরা তা ভেরিফাই করে যোগ করবো।
+            </p>
+          </div>
+        </div>
+        <div class="quick-submit" id="quickSubmit">
+          <textarea id="dataSubmitText" rows="3" placeholder="আপনার এলাকার পরিবহন তথ্য লিখুন (যেমন: বাস রুট, স্টপেজের নাম, ভাড়া...)"></textarea>
+          <button id="dataSubmitBtn" class="secondary-btn" type="button">📩 তথ্য পাঠান</button>
+          <div id="dataSubmitStatus" class="submit-status"></div>
+        </div>
+      </div>
+    </div>
+
+    <section class="card search-card">
+      <h2>Find a low-cost route</h2>
+      <div class="search-row">
+        <label class="place-field" for="fromInput">
+          <span>From</span>
+          <input type="text" id="fromInput" list="placeSuggestions" placeholder="Start point" autocomplete="off" />
+          <button id="useLocationBtn" type="button" class="loc-btn" title="আপনার বর্তমান অবস্থান ব্যবহার করুন">📍 Use my location</button>
+        </label>
+        <label class="place-field" for="toInput">
+          <span>To</span>
+          <input type="text" id="toInput" list="placeSuggestions" placeholder="Destination" autocomplete="off" />
+        </label>
+        <button id="searchBtn">Find Route</button>
+      </div>
+      <datalist id="placeSuggestions"></datalist>
+      <div class="tools-row" hidden>
+        <label for="providerSelect" class="muted-text">AI:</label>
+        <select id="providerSelect" class="provider-select">
+          <option value="groq">Groq — Llama 3.3 70B (fast)</option>
+          <option value="openrouter:google/gemini-2.0-flash-exp:free">OpenRouter — Gemini 2.0 Flash (free)</option>
+          <option value="openrouter:deepseek/deepseek-chat:free">OpenRouter — DeepSeek V3 (free)</option>
+          <option value="openrouter:meta-llama/llama-3.3-70b-instruct:free">OpenRouter — Llama 3.3 70B (free)</option>
+          <option value="openrouter:mistralai/mistral-small-3.1-24b-instruct:free">OpenRouter — Mistral Small 3.1 (free)</option>
+          <option value="openrouter:auto">OpenRouter — Auto (pick best free)</option>
+        </select>
+        <button id="testKeyBtn" class="secondary-btn" type="button" hidden>Test API Key</button>
+        <span id="activeModel" class="muted-text" hidden></span>
+      </div>
+      <div id="statusArea" class="status-area" aria-live="polite"></div>
+    </section>
+
+    <section class="card nearby-card" id="nearbyCard" hidden>
+      <div class="section-title-row">
+        <h2>📍 Nearby Transit Points</h2>
+        <span id="nearbyCount" class="badge"></span>
+      </div>
+      <p class="nearby-intro" id="nearbyIntro">আপনার অবস্থান থেকে নিকটবর্তী পাবলিক ট্রান্সপোর্ট পয়েন্টগুলো নিচে দেওয়া হলো। একটি পয়েন্ট সিলেক্ট করলে সেটি "From" হিসেবে সেট হবে ও সেখান থেকে রুট দেখাবে।</p>
+      <div id="nearbyList" class="nearby-list"></div>
+    </section>
+
+    <section class="card savings-card">
+      <div class="section-title-row">
+        <h2>Cost Comparison</h2>
+        <span id="saveBadge" class="badge">Save 90%</span>
+      </div>
+      <div class="bar-group">
+<div class="bar-label">Uber/Pathao (৳500)</div>
+      <div class="bar-track"><div class="bar bar-uber" id="barUber" style="width:100%"></div></div>
+      <div class="bar-spacer"></div>
+
+      <div class="bar-label" id="pathikLabel">Pathik (৳45)</div>
+        <div class="bar-track"><div class="bar bar-pathik" id="barPathik" style="width:5%"></div></div>
+      </div>
+    </section>
+
+    <section class="card routes-card">
+      <h2>Route Options</h2>
+      <div id="routesContainer" class="routes-grid"></div>
+    </section>
+
+    <!-- ⭐ Rating Section (inside details card) -->
+    <section class="card details-card">
+      <div class="section-title-row">
+        <h2>Selected Route Details</h2>
+        <button id="saveRouteBtn" class="secondary-btn" disabled>Save Route</button>
+      </div>
+      <div id="routeRatingArea" class="rating-area" hidden>
+        <div class="rating-header">
+          <span>Route Safety Rating</span>
+          <div class="stars" id="starDisplay">
+            <span class="star" data-value="1">☆</span>
+            <span class="star" data-value="2">☆</span>
+            <span class="star" data-value="3">☆</span>
+            <span class="star" data-value="4">☆</span>
+            <span class="star" data-value="5">☆</span>
+          </div>
+          <span id="ratingCount" class="rating-count"></span>
+        </div>
+        <div id="ratingStatus" class="rating-status"></div>
+      </div>
+      <div id="routeDetails" class="route-details empty">Search to view route steps.</div>
+    </section>
+
+    <!-- 🌍 Crowdsourced Data: Add Stop / Route -->
+    <section class="card crowdsource-card" id="crowdsourceCard">
+      <div class="section-title-row">
+        <h2>🌍 Community Data</h2>
+        <div class="crowdsource-tabs">
+          <button id="tabAddStop" class="tab-btn active-tab" type="button">➕ Add Stop</button>
+          <button id="tabAddRoute" class="tab-btn" type="button">➕ Add Route</button>
+          <button id="tabMyData" class="tab-btn" type="button">📦 My Submissions</button>
+        </div>
+      </div>
+      <!-- Add Stop Form -->
+      <div id="addStopForm" class="crowd-form">
+        <div class="form-row">
+          <input type="text" id="newStopName" placeholder="Stop name (e.g. Rampura Bridge)" />
+          <input type="text" id="newStopArea" placeholder="Area / Thana" />
+        </div>
+        <div class="form-row">
+          <input type="text" id="newStopLat" placeholder="Latitude (optional - click map)" />
+          <input type="text" id="newStopLng" placeholder="Longitude (optional - click map)" />
+        </div>
+        <div class="form-row">
+          <label class="form-tip">💡 Click on the map to auto-fill coordinates, or type them manually.</label>
+        </div>
+        <button id="submitStopBtn" class="secondary-btn" type="button">✅ Submit Stop</button>
+        <div id="submitStopStatus" class="submit-status"></div>
+      </div>
+      <!-- Add Route Form -->
+      <div id="addRouteForm" class="crowd-form" hidden>
+        <div class="form-row">
+          <input type="text" id="newRouteFrom" placeholder="Start stop name" list="placeSuggestions" />
+          <input type="text" id="newRouteTo" placeholder="End stop name" list="placeSuggestions" />
+        </div>
+        <div class="form-row">
+          <input type="text" id="newRouteBusName" placeholder="Bus name (e.g. Anabil, BRTC)" />
+          <input type="number" id="newRouteFare" placeholder="Fare (৳)" min="0" />
+        </div>
+        <div class="form-row">
+          <textarea id="newRouteStops" rows="2" placeholder="Stops in order (comma separated)"></textarea>
+        </div>
+        <button id="submitRouteBtn" class="secondary-btn" type="button">✅ Submit Route</button>
+        <div id="submitRouteStatus" class="submit-status"></div>
+      </div>
+      <!-- My Submissions -->
+      <div id="mySubmissionsArea" class="crowd-form" hidden>
+        <div id="mySubmissionsList"></div>
+        <p class="muted-text" id="mySubmissionsEmpty">You haven't submitted any data yet.</p>
+      </div>
+    </section>
+
+    <!-- 📰 Transport News Feed -->
+    <section class="card feed-card" id="feedCard">
+      <div class="section-title-row">
+        <h2>📰 Transport News Feed</h2>
+        <button id="toggleFeedFormBtn" class="secondary-btn" type="button">+ New Post</button>
+      </div>
+      <!-- New Post Form -->
+      <div id="newPostForm" class="feed-post-form" hidden>
+        <div class="form-row">
+          <input type="text" id="postFrom" placeholder="From stop" list="placeSuggestions" />
+          <input type="text" id="postTo" placeholder="To stop" list="placeSuggestions" />
+        </div>
+        <div class="form-row">
+          <select id="postType">
+            <option value="traffic_jam">🚦 Traffic Jam</option>
+            <option value="road_closure">🚧 Road Closure</option>
+            <option value="accident">🚑 Accident</option>
+            <option value="alternative">🔄 Alternative Route</option>
+            <option value="bus_delay">⏰ Bus Delay</option>
+            <option value="general">📢 General Update</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <textarea id="postMessage" rows="2" placeholder="Describe the situation... (Bangla or English)"></textarea>
+        </div>
+        <button id="submitPostBtn" class="secondary-btn" type="button">📤 Post Update</button>
+        <div id="postSubmitStatus" class="submit-status"></div>
+      </div>
+      <!-- Feed Filters -->
+      <div class="feed-filters">
+        <button class="feed-filter-btn active-filter" data-filter="all">🔁 All</button>
+        <button class="feed-filter-btn" data-filter="traffic_jam">🚦 Jam</button>
+        <button class="feed-filter-btn" data-filter="road_closure">🚧 Closed</button>
+        <button class="feed-filter-btn" data-filter="accident">🚑 Accident</button>
+        <button class="feed-filter-btn" data-filter="alternative">🔄 Alt</button>
+        <button class="feed-filter-btn" data-filter="my">👤 My Posts</button>
+      </div>
+      <!-- Feed Items -->
+      <div id="feedList" class="feed-list">
+        <div class="feed-empty" id="feedEmpty">Be the first to post a transport update! 🚌</div>
+      </div>
+    </section>
+
+    <!-- 📌 Route-Related Feed Section (shows below results when searching) -->
+    <section class="card route-feed-card" id="routeFeedCard" hidden>
+      <div class="section-title-row">
+        <h2 id="routeFeedTitle">📍 Related Community Updates</h2>
+        <span id="routeFeedCount" class="badge"></span>
+      </div>
+      <div id="routeFeedList" class="feed-list"></div>
+    </section>
+
+    <section class="card map-card">
+      <div class="section-title-row">
+        <h2>Map</h2>
+        <button id="locateBtn" class="secondary-btn" type="button">Locate me</button>
+      </div>
+      <div id="mapStatus" class="map-status">Search to preview the road route.</div>
+      <div id="map"></div>
+    </section>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="config.js?v=4"></script>
+  <script src="script.js?v=10"></script>
+</body>
+</html>

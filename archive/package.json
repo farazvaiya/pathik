@@ -1,0 +1,12 @@
+{
+  "name": "pathik",
+  "version": "2.0.0",
+  "description": "Pathik - Dhaka Public Transit Route Finder",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

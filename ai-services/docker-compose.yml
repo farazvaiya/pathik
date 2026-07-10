@@ -1,0 +1,68 @@
+services:
+  ai-nlp:
+    build:
+      context: .
+      dockerfile: Dockerfile.nlp
+    ports:
+      - "8001:8000"
+    environment:
+      - REDIS_URL=redis://redis:6379
+    volumes:
+      - nlp-models:/models
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+    depends_on:
+      - redis
+
+  ai-image:
+    build:
+      context: .
+      dockerfile: Dockerfile.image
+    ports:
+      - "8002:8000"
+    environment:
+      - REDIS_URL=redis://redis:6379
+    volumes:
+      - image-models:/models
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+    depends_on:
+      - redis
+
+  ai-clustering:
+    build:
+      context: .
+      dockerfile: Dockerfile.clustering
+    ports:
+      - "8004:8000"
+    environment:
+      - REDIS_URL=redis://redis:6379
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2G
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+
+volumes:
+  nlp-models:
+  image-models:
+  redis-data:

@@ -1,0 +1,23 @@
+node_modules/
+.DS_Store
+
+# Build output
+dist/
+*.js.map
+*.d.ts.map
+
+# Keep real API keys out of public repos.
+config.js
+config.local.js
+.env
+.env.*
+!.env.example
+feedback.json
+benchmark-result-*.json
+benchmark-all-result-*.json
+.aye/
+config.js
+dist/
+backend/dist/
+node_modules/
+*.png
