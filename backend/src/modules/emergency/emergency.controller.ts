@@ -8,7 +8,7 @@ import { User } from '../../models/User';
 import { AppError } from '../../middleware/errorHandler';
 import { createAlertSchema, sightingSchema, confirmSightingSchema, flagAlertSchema, resolveAlertSchema } from './emergency.schema';
 import { cleanInput } from '../../utils/cleaners';
-import { emitSighting, emitAlertUpdate, emitNotification, emitAdminEvent } from '../../sockets/socketServer';
+import { emitNewAlert, emitSighting, emitAlertUpdate, emitNotification, broadcastNotification, emitAdminEvent } from '../../sockets/socketServer';
 import { uploadToSupabase } from '../feed/feed.upload';
 
 // Emergency radius — 5km for all SOS types
@@ -160,8 +160,18 @@ export async function createSOS(req: Request, res: Response, next: NextFunction)
       console.error('[SOS] Notification failed (SOS still saved):', (notifErr as Error).message);
     }
 
-    // Notify admins only (no global broadcast)
+    // Emit real-time alert to all connected clients
+    emitNewAlert(alert.toJSON());
     emitAdminEvent('admin:new_alert', { alertId: alert._id, type: alertType, severity: alert.severity });
+
+    // Broadcast SOS notification to ALL connected sockets
+    broadcastNotification({
+      type: 'sos_alert',
+      title: isEmergency ? 'জরুরি অ্যালার্ট!' : 'নতুন রিপোর্ট',
+      body: `${alertType} - ${body.locationName || 'আপনার এলাকায়'}`,
+      alertId: alert._id,
+      createdAt: alert.createdAt,
+    });
 
     res.status(201).json({
       success: true,
