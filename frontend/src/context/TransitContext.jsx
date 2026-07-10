@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useCallback, useEffect, useRef } from 'react';
 import { findRoutes, titleCase, annotateSafetyScores } from '../routeEngine';
+import { fetchCommunityRoutes } from '../api';
 
 const TransitContext = createContext(null);
 
@@ -32,6 +33,21 @@ export function TransitProvider({ children }) {
           const stops = c.direct?.stops || c.legs?.[0]?.stops || [];
           stops.forEach((s) => names.add(titleCase(s)));
         });
+
+        try {
+          const communityResult = await fetchCommunityRoutes({ limit: 1000 });
+          const communityRoutes = Array.isArray(communityResult) ? communityResult : [];
+          communityRoutes.forEach((r) => {
+            if (r.status === 'active') {
+              if (r.from) names.add(titleCase(r.fromDisplay || r.from));
+              if (r.to) names.add(titleCase(r.toDisplay || r.to));
+              (r.stops || []).forEach((s) => names.add(titleCase(s)));
+            }
+          });
+        } catch {
+          // community fetch failed, skip
+        }
+
         setPlaceNames([...names].sort());
         setDataReady(true);
       } catch (e) {
@@ -59,8 +75,56 @@ export function TransitProvider({ children }) {
         corridorDataRef.current = corridorData;
       }
 
-      const result = findRoutes(fromTrimmed, toTrimmed, corridorData);
+      // Merge community routes into corridor data
+      let mergedData = corridorData;
+      try {
+        const communityResult = await fetchCommunityRoutes({ limit: 1000 });
+        const communityRoutes = Array.isArray(communityResult) ? communityResult : [];
+        console.log('[TransitContext] community routes fetched:', communityRoutes.length);
+        if (communityRoutes.length > 0) {
+          const existingCorridors = Array.isArray(corridorData?.corridors) ? corridorData.corridors : [];
+          const mergedPlaces = { ...(corridorData?.places || {}) };
+          const communityCorridors = communityRoutes
+            .filter(r => r.status === 'active' && r.from && r.to)
+            .map(r => {
+              const fromKey = String(r.from || '').trim().toLowerCase();
+              const toKey = String(r.to || '').trim().toLowerCase();
+              if (fromKey && !mergedPlaces[fromKey]) mergedPlaces[fromKey] = [];
+              if (toKey && !mergedPlaces[toKey]) mergedPlaces[toKey] = [];
+              return {
+                from: fromKey,
+                to: toKey,
+                source: 'community',
+                direct: {
+                  mode: 'bus',
+                  names: r.busName ? [r.busName] : [],
+                  stops: [titleCase(r.fromDisplay || r.from), ...(r.stops || []).map(titleCase), titleCase(r.toDisplay || r.to)],
+                },
+              };
+            });
+          console.log('[TransitContext] community corridors merged:', communityCorridors.length, communityCorridors.map(c => `${c.from}→${c.to}`));
+          mergedData = {
+            corridors: [...existingCorridors, ...communityCorridors],
+            places: mergedPlaces,
+          };
+
+          setPlaceNames(prev => {
+            const nameSet = new Set(prev);
+            communityCorridors.forEach(c => {
+              nameSet.add(titleCase(c.from));
+              nameSet.add(titleCase(c.to));
+              (c.direct?.stops || []).forEach(s => nameSet.add(titleCase(s)));
+            });
+            return [...nameSet].sort();
+          });
+        }
+      } catch (e) {
+        console.warn('[TransitContext] community routes fetch failed:', e.message);
+      }
+
+      const result = findRoutes(fromTrimmed, toTrimmed, mergedData);
       const routeList = result.routes || [];
+      console.log('[TransitContext] search result:', result._source, 'routes:', routeList.length, routeList.map(r => `${r.label}(${r.source})`));
       setRoutes(routeList);
       setSearchQuery(`${fromTrimmed} → ${toTrimmed}`);
 

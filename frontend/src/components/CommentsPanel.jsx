@@ -77,12 +77,12 @@ export default function CommentsPanel({ postId, onClose }) {
   });
 
   function CommentItem({ comment, depth = 0 }) {
-    const replies = repliesMap[String(comment._id || comment.id)] || [];
+    const replies = repliesMap[String(comment.id || comment._id)] || [];
     return (
       <div className={`${depth > 0 ? 'ml-4 pl-3 border-l-2 border-slate-100' : ''} py-2`}>
         <div className="flex items-center gap-2 mb-1">
           <span className="text-xs font-bold text-slate-700">
-            {comment.authorId ? '👤 User' : `anon:${(comment.deviceId || '').slice(0, 8)}`}
+            {comment.authorId ? (comment.displayName || '👤 User') : `anon:${(comment.deviceId || '').slice(0, 8)}`}
           </span>
           <span className="text-xs text-slate-400">{timeAgo(comment.createdAt)}</span>
         </div>
@@ -95,13 +95,13 @@ export default function CommentsPanel({ postId, onClose }) {
         )}
         <button
           type="button"
-          onClick={() => setReplyTo(replyTo === comment._id ? null : comment._id)}
+          onClick={() => setReplyTo(replyTo === (comment.id || comment._id) ? null : (comment.id || comment._id))}
           className="text-xs text-emerald-600 font-semibold mt-1 hover:underline"
         >
           {replyTo === comment._id ? 'Cancel reply' : 'Reply'}
         </button>
         {replies.map((r) => (
-          <CommentItem key={r._id || r.id} comment={r} depth={depth + 1} />
+          <CommentItem key={r.id || r._id} comment={r} depth={depth + 1} />
         ))}
       </div>
     );
@@ -123,7 +123,7 @@ export default function CommentsPanel({ postId, onClose }) {
           ) : topLevel.length === 0 ? (
             <div className="text-center text-sm text-slate-400 py-8">No comments yet</div>
           ) : (
-            topLevel.map((c) => <CommentItem key={c._id || c.id} comment={c} />)
+            topLevel.map((c) => <CommentItem key={c.id || c._id} comment={c} />)
           )}
         </div>
 

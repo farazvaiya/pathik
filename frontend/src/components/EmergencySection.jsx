@@ -252,9 +252,9 @@ export default function EmergencySection({ user, onOpenComments }) {
       ) : (
         <div className="space-y-3">
           {alerts.map(alert => {
-            const id = alert.id || alert._id;
+            const id = (alert.id || alert._id || '').toString();
             const myVote = votes[`${id}::${actorId}`];
-            const feedPostId = alert.originalPostId || id;
+            const feedPostId = (alert.originalPostId || id).toString();
 
             return (
               <div key={id} className="bg-white border rounded-xl p-4 shadow-sm">

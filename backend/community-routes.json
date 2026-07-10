@@ -1,0 +1,128 @@
+[
+  {
+    "id": "crowdroute_1783709830155_994zs0",
+    "from": "adabor",
+    "to": "amin bazar",
+    "fromDisplay": "Adabor",
+    "toDisplay": "Amin Bazar",
+    "busName": "auto",
+    "fare": 40,
+    "stops": [],
+    "authorId": "device_1783615636995_7qlxlnny",
+    "votes": {
+      "agree": 0,
+      "disagree": 0
+    },
+    "voters": {},
+    "status": "active",
+    "createdAt": "2026-07-10T18:57:10.155Z"
+  },
+  {
+    "id": "crowdroute_1783709408683_qm1s7m",
+    "from": "abdullahpur",
+    "to": "airport",
+    "fromDisplay": "Abdullahpur",
+    "toDisplay": "Airport",
+    "busName": "auto",
+    "fare": 50,
+    "stops": [],
+    "authorId": "device_1783615636995_7qlxlnny",
+    "votes": {
+      "agree": 0,
+      "disagree": 0
+    },
+    "voters": {},
+    "status": "active",
+    "createdAt": "2026-07-10T18:50:08.684Z"
+  },
+  {
+    "id": "crowdroute_1783708332629_1ju2xe",
+    "from": "abdullahpur",
+    "to": "airport",
+    "fromDisplay": "Abdullahpur",
+    "toDisplay": "Airport",
+    "busName": "auto",
+    "fare": 50,
+    "stops": [],
+    "authorId": "device_1783615636995_7qlxlnny",
+    "votes": {
+      "agree": 0,
+      "disagree": 0
+    },
+    "voters": {},
+    "status": "active",
+    "createdAt": "2026-07-10T18:32:12.629Z"
+  },
+  {
+    "id": "crowdroute_1783705049789_0h1506",
+    "from": "abdullahpur",
+    "to": "adamjee school",
+    "fromDisplay": "Abdullahpur",
+    "toDisplay": "Adamjee School",
+    "busName": "ksf",
+    "fare": 40,
+    "stops": [],
+    "authorId": "device_1783615636995_7qlxlnny",
+    "votes": {
+      "agree": 0,
+      "disagree": 0
+    },
+    "voters": {},
+    "status": "active",
+    "createdAt": "2026-07-10T17:37:29.790Z"
+  },
+  {
+    "id": "crowdroute_1783703025967_ddt9fe",
+    "from": "ashulia",
+    "to": "abdullahpur",
+    "fromDisplay": "Ashulia",
+    "toDisplay": "Abdullahpur",
+    "busName": "auto rickshaw",
+    "fare": 40,
+    "stops": [],
+    "authorId": "device_1783615636995_7qlxlnny",
+    "votes": {
+      "agree": 0,
+      "disagree": 0
+    },
+    "voters": {},
+    "status": "active",
+    "createdAt": "2026-07-10T17:03:45.968Z"
+  },
+  {
+    "id": "crowdroute_1783702452208_mtkkhs",
+    "from": "abdullahpur",
+    "to": "ashulia",
+    "fromDisplay": "Abdullahpur",
+    "toDisplay": "Ashulia",
+    "busName": "auto rickshaw",
+    "fare": 40,
+    "stops": [],
+    "authorId": "device_1783615636995_7qlxlnny",
+    "votes": {
+      "agree": 0,
+      "disagree": 0
+    },
+    "voters": {},
+    "status": "active",
+    "createdAt": "2026-07-10T16:54:12.208Z"
+  },
+  {
+    "id": "crowdroute_1783701694463_4o4h4o",
+    "from": "ashulia bazar",
+    "to": "abdullahpur",
+    "fromDisplay": "Ashulia Bazar",
+    "toDisplay": "Abdullahpur",
+    "busName": "rickshaw",
+    "fare": 40,
+    "stops": [],
+    "authorId": "device_1783615636995_7qlxlnny",
+    "votes": {
+      "agree": 0,
+      "disagree": 0
+    },
+    "voters": {},
+    "status": "active",
+    "createdAt": "2026-07-10T16:41:34.464Z"
+  }
+]

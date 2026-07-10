@@ -165,7 +165,12 @@ function routeOverlapScore(aStops, bStops) {
 function groupSimilarMatches(matches) {
   const groups = [];
   (matches || []).forEach((m) => {
-    const existing = groups.find(g => routeOverlapScore(g.rep.subStops, m.subStops) >= 0.35);
+    const existing = groups.find(g => {
+      if (g.rep.source === 'community' && m.source === 'community') {
+        return g.rep.from === m.from && g.rep.to === m.to;
+      }
+      return g.rep.source === m.source && routeOverlapScore(g.rep.subStops, m.subStops) >= 0.35;
+    });
     if (existing) {
       existing.items.push(m);
       existing.rep.names = [...new Set([...existing.rep.names, ...m.names])];
@@ -264,6 +269,9 @@ function findRouteFromStops(originRaw, destRaw, corridorData) {
       stopsBetween: hi - lo,
       names: (Array.isArray(leg.names) && leg.names.length) ? leg.names : (Array.isArray(corridor.direct?.names) ? corridor.direct.names : []),
       mode: leg.mode || 'bus',
+      source: corridor?.source || 'local',
+      from: corridor?.from,
+      to: corridor?.to,
     });
   };
   corridorData.corridors.forEach(c => {
@@ -359,16 +367,16 @@ function buildRoutesFromStopMatch(match, originDisplay, destinationDisplay, corr
     const similarGroups = grouped.filter(g => routeOverlapScore(g.subStops, best.subStops) >= 0.45);
     const mergedDirect = { ...best, names: [...new Set(similarGroups.flatMap(g => g.names || []))] };
     const step = makePublicBusStep(mergedDirect, origin, destination);
-    routes.push({ id: 1, label: 'Direct Bus', total_cost: step.cost, total_cost_range: step.cost_range, total_time_minutes: step.time_minutes, total_time_range: step.time_range, steps: [step] });
+    routes.push({ id: 1, label: 'Direct Bus', total_cost: step.cost, total_cost_range: step.cost_range, total_time_minutes: step.time_minutes, total_time_range: step.time_range, steps: [step], source: best.source || 'local' });
   }
 
   const metroOpt = buildMetroOption(origin, destination, distKm, places);
-  if (metroOpt) routes.push(metroOpt);
+  if (metroOpt) { metroOpt.source = 'local'; routes.push(metroOpt); }
 
   const altPath = grouped.find((m, i) => i > 0 && routeOverlapScore(m.subStops, best?.subStops || []) < 0.3);
   if (altPath && routes.length < 3) {
     const altStep = makePublicBusStep(altPath, origin, destination);
-    routes.push({ id: routes.length + 1, label: 'Alternative Path', total_cost: altStep.cost, total_cost_range: altStep.cost_range, total_time_minutes: altStep.time_minutes, total_time_range: altStep.time_range, steps: [altStep] });
+    routes.push({ id: routes.length + 1, label: 'Alternative Path', total_cost: altStep.cost, total_cost_range: altStep.cost_range, total_time_minutes: altStep.time_minutes, total_time_range: altStep.time_range, steps: [altStep], source: altPath.source || 'local' });
   }
 
   const usedBusNames = new Set(routes.flatMap(r => r.steps.flatMap(s => s.bus_names || [])));
@@ -388,6 +396,7 @@ function buildRoutesFromStopMatch(match, originDisplay, destinationDisplay, corr
       total_cost: total, total_cost_range: `৳${Math.max(10, total - 10)}–${total + 15}`,
       total_time_minutes: totalTime, total_time_range: `${Math.max(10, totalTime - 8)}–${totalTime + 15} মিনিট`,
       steps: [first, second],
+      source: 'local',
     });
   });
 
@@ -431,6 +440,7 @@ export function findRoutes(origin, destination, corridorData) {
         total_cost: total, total_cost_range: `৳${Math.max(10, total - 10)}–${total + 15}`,
         total_time_minutes: totalTime, total_time_range: `${Math.max(10, totalTime - 8)}–${totalTime + 15} মিনিট`,
         steps: [first, second],
+        source: 'local',
       });
     });
     if (routes.length > 0) {

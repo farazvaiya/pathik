@@ -8,13 +8,15 @@ const COMMUNITY_STOPS_FILE = 'community-stops.json';
 interface CommunityRoute {
   id: string; from: string; to: string; fromDisplay: string; toDisplay: string;
   busName: string; fare: number | null; stops: string[]; authorId: string;
+  userId: string | null; displayName: string | null;
   votes: { agree: number; disagree: number }; voters: Record<string, string>;
   status: string; createdAt: string;
 }
 
 interface CommunityStop {
   id: string; name: string; area: string; lat: number | null; lng: number | null;
-  authorId: string; status: string; createdAt: string;
+  authorId: string; userId: string | null; displayName: string | null;
+  status: string; createdAt: string;
 }
 
 function sanitizeRoute(input: any, existing?: any): CommunityRoute {
@@ -29,6 +31,8 @@ function sanitizeRoute(input: any, existing?: any): CommunityRoute {
     fare: cleanNumber(input.fare ?? existing?.fare, { min: 0, max: 1000 }),
     stops: cleanStringList(input.stops || existing?.stops),
     authorId: cleanInput(input.authorId || existing?.authorId || 'anonymous', 100),
+    userId: input.userId || existing?.userId || null,
+    displayName: input.displayName || existing?.displayName || null,
     votes: {
       agree: Math.max(0, Number(existing?.votes?.agree ?? input.votes?.agree ?? 0) || 0),
       disagree: Math.max(0, Number(existing?.votes?.disagree ?? input.votes?.disagree ?? 0) || 0),
@@ -47,6 +51,8 @@ function sanitizeStop(input: any, existing?: any): CommunityStop {
     lat: cleanNumber(input.lat ?? existing?.lat, { min: -90, max: 90 }),
     lng: cleanNumber(input.lng ?? existing?.lng, { min: -180, max: 180 }),
     authorId: cleanInput(input.authorId || existing?.authorId || 'anonymous', 100),
+    userId: input.userId || existing?.userId || null,
+    displayName: input.displayName || existing?.displayName || null,
     status: cleanInput(existing?.status || input.status || 'active', 30),
     createdAt: existing?.createdAt || input.createdAt || new Date().toISOString(),
   };
@@ -80,12 +86,17 @@ function applyVote(items: any[], id: string, vote: string, userId: string) {
 
 export function getRoutes(_req: Request, res: Response): void {
   const routes = readJsonArray<CommunityRoute>(COMMUNITY_ROUTES_FILE).filter((r) => r.status !== 'deleted').map(publicItem);
-  res.json({ success: true, data: routes });
+  res.set('Cache-Control', 'no-store').json({ success: true, data: routes });
 }
 
 export function createRoute(req: Request, res: Response, next: NextFunction): void {
   try {
-    const route = sanitizeRoute(req.body);
+    const input = { ...req.body };
+    if (req.user) {
+      input.userId = req.user._id;
+      input.displayName = req.user.displayName || null;
+    }
+    const route = sanitizeRoute(input);
     if (!route.from || !route.to) { res.status(400).json({ success: false, error: { code: 'VALIDATION_ERROR', message: 'from and to are required' } }); return; }
     const routes = readJsonArray<CommunityRoute>(COMMUNITY_ROUTES_FILE).map((r: any) => sanitizeRoute(r, r));
     routes.unshift(route);
@@ -106,12 +117,17 @@ export function voteOnRoute(req: Request, res: Response, next: NextFunction): vo
 
 export function getStops(_req: Request, res: Response): void {
   const stops = readJsonArray<CommunityStop>(COMMUNITY_STOPS_FILE).filter((s) => s.status !== 'deleted').map(publicItem);
-  res.json({ success: true, data: stops });
+  res.set('Cache-Control', 'no-store').json({ success: true, data: stops });
 }
 
 export function createStop(req: Request, res: Response, next: NextFunction): void {
   try {
-    const stop = sanitizeStop(req.body);
+    const input = { ...req.body };
+    if (req.user) {
+      input.userId = req.user._id;
+      input.displayName = req.user.displayName || null;
+    }
+    const stop = sanitizeStop(input);
     if (!stop.name) { res.status(400).json({ success: false, error: { code: 'VALIDATION_ERROR', message: 'name is required' } }); return; }
     const stops = readJsonArray<CommunityStop>(COMMUNITY_STOPS_FILE).map((s: any) => sanitizeStop(s, s));
     stops.unshift(stop);

@@ -1,14 +1,18 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useTransit } from '../context/TransitContext';
-import { createCommunityRoute, getAnonUserId } from '../api';
+import { useAuth } from '../context/AuthContext';
+import { createCommunityRoute, fetchCommunityRoutes, getAnonUserId } from '../api';
 import { toast } from './Toast';
 
 export default function CrowdsourceSection() {
   const { placeNames } = useTransit();
+  const { user } = useAuth();
   const csDatalistRef = useRef(null);
   const [tab, setTab] = useState('addRoute');
   const [form, setForm] = useState({ from: '', to: '', busName: '', fare: '', stops: '' });
   const [submitting, setSubmitting] = useState(false);
+  const [myRoutes, setMyRoutes] = useState([]);
+  const [myRoutesLoading, setMyRoutesLoading] = useState(false);
 
   useEffect(() => {
     if (!csDatalistRef.current) return;
@@ -19,6 +23,23 @@ export default function CrowdsourceSection() {
       csDatalistRef.current.appendChild(opt);
     });
   }, [placeNames]);
+
+  const loadMyRoutes = useCallback(async () => {
+    setMyRoutesLoading(true);
+    try {
+      const allRoutes = await fetchCommunityRoutes({ limit: 1000 });
+      const myId = user?.id || getAnonUserId();
+      setMyRoutes(allRoutes.filter((r) => r.authorId === myId || r.userId === myId));
+    } catch {
+      setMyRoutes([]);
+    } finally {
+      setMyRoutesLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (tab === 'mySubmissions') loadMyRoutes();
+  }, [tab, loadMyRoutes]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -31,7 +52,7 @@ export default function CrowdsourceSection() {
         busName: form.busName.trim(),
         fare: form.fare ? parseFloat(form.fare) : null,
         stops: form.stops.split(',').map((s) => s.trim()).filter(Boolean),
-        authorId: getAnonUserId(),
+        authorId: user?.id || getAnonUserId(),
       });
       setForm({ from: '', to: '', busName: '', fare: '', stops: '' });
       toast('Route submitted! Thank you.', 'success');
@@ -115,9 +136,32 @@ export default function CrowdsourceSection() {
       )}
 
       {tab === 'mySubmissions' && (
-        <div className="text-center py-6" style={{ color: '#6b7280' }}>
-          You haven't submitted any data yet.
-        </div>
+        myRoutesLoading ? (
+          <div className="text-center py-6" style={{ color: '#6b7280' }}>Loading...</div>
+        ) : myRoutes.length === 0 ? (
+          <div className="text-center py-6" style={{ color: '#6b7280' }}>
+            You haven't submitted any routes yet.
+          </div>
+        ) : (
+          <div className="space-y-2">
+            {myRoutes.map((r) => (
+              <div key={r.id} className="p-3 rounded-lg bg-white border border-slate-200">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <span className="text-sm font-semibold text-slate-800">
+                      {r.fromDisplay || r.from} → {r.toDisplay || r.to}
+                    </span>
+                    {r.busName && <span className="text-xs text-slate-500 ml-2">🚌 {r.busName}</span>}
+                    {r.fare != null && <span className="text-xs text-emerald-600 ml-2">৳{r.fare}</span>}
+                  </div>
+                  <span className={`text-[0.65rem] px-2 py-0.5 rounded-full font-bold ${r.status === 'active' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500'}`}>
+                    {r.status}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )
       )}
     </section>
   );

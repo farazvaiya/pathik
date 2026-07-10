@@ -109,27 +109,6 @@ function AppContent() {
             </div>
           )}
 
-          {routes.length > 0 && (
-            <section className="card">
-              <div className="flex justify-between items-center mb-2.5">
-                <h2 className="m-0 text-[1.05rem] font-bold" style={{ color: '#1f2937' }}>Cost Comparison</h2>
-                <span className="badge-amber">Save {Math.round((1 - (routes[0]?.total_cost || 45) / 500) * 100)}%</span>
-              </div>
-              <div className="mb-2.5">
-                <div className="text-[0.88rem] mb-1.5" style={{ color: '#374151' }}>Uber/Pathao (৳500)</div>
-                <div className="bar-track"><div className="bar bar-uber" style={{ width: '100%' }} /></div>
-              </div>
-              <div>
-                <div className="text-[0.88rem] mb-1.5 font-semibold" style={{ color: '#2E7D32' }}>
-                  পথিক (Pathik) (৳{routes[0]?.total_cost || '?'})
-                </div>
-                <div className="bar-track">
-                  <div className="bar bar-pathik" style={{ width: `${Math.max(3, ((routes[0]?.total_cost || 45) / 500) * 100)}%` }} />
-                </div>
-              </div>
-            </section>
-          )}
-
           {!loading && routes.length > 0 && (
             <section className="card">
               <h2 className="m-0 mb-3 text-[1.05rem] font-bold" style={{ color: '#1f2937' }}>Route Options</h2>

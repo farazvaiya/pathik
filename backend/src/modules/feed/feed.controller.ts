@@ -87,6 +87,7 @@ export async function createPost(req: Request, res: Response, next: NextFunction
     const body = createPostSchema.parse(req.body);
     const deviceId = body.deviceId || req.deviceId || (req.body.deviceId as string) || null;
     const authorId = req.user ? new mongoose.Types.ObjectId(req.user._id) : null;
+    const displayName = req.user?.displayName || null;
 
     if (!authorId && !deviceId) {
       throw new AppError(400, 'MISSING_IDENTITY', 'Post requires an authenticated user or a deviceId');
@@ -114,6 +115,7 @@ export async function createPost(req: Request, res: Response, next: NextFunction
       location,
       locationName: body.locationName ? cleanInput(body.locationName, 200) : undefined,
       authorId,
+      displayName,
       deviceId,
       isAnonymous: body.isAnonymous,
       status: 'active',
@@ -248,7 +250,7 @@ export async function getComments(req: Request, res: Response, next: NextFunctio
       postId: toObjectId(postId),
       status: 'active',
       isDeleted: false,
-    }).sort({ createdAt: 1 }).lean();
+    }).sort({ createdAt: 1 });
 
     res.json({ success: true, data: comments });
   } catch (err) {
@@ -262,6 +264,7 @@ export async function createComment(req: Request, res: Response, next: NextFunct
     const body = createCommentSchema.parse(req.body);
     const deviceId = body.deviceId || req.deviceId || null;
     const authorId = req.user ? new mongoose.Types.ObjectId(req.user._id) : null;
+    const displayName = req.user?.displayName || null;
 
     if (!authorId && !deviceId) {
       throw new AppError(400, 'MISSING_IDENTITY', 'Comment requires an authenticated user or a deviceId');
@@ -282,6 +285,7 @@ export async function createComment(req: Request, res: Response, next: NextFunct
       media: mediaUrl,
       mediaType,
       authorId,
+      displayName,
       deviceId,
     });
 
@@ -302,7 +306,7 @@ export async function getReplies(req: Request, res: Response, next: NextFunction
       parentId: { $ne: null },
       status: 'active',
       isDeleted: false,
-    }).sort({ createdAt: 1 }).lean();
+    }).sort({ createdAt: 1 });
 
     res.json({ success: true, data: comments });
   } catch (err) {

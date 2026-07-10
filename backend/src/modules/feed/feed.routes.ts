@@ -7,13 +7,13 @@ import { voteRateLimiter } from '../../middleware/rateLimiters';
 const router = Router();
 
 router.get('/', getPosts);
+router.get('/comments', getComments);
+router.get('/comments/:postId/replies', getReplies);
 router.get('/nearby', getNearbyPosts);
 router.get('/:id', getPostById);
 router.post('/', optionalAuth, uploadSingle('media'), createPost);
 router.post('/vote', optionalAuth, voteRateLimiter, voteOnPost);
-router.delete('/:id', requireAuth, deletePost);
-router.get('/comments', getComments);
-router.get('/comments/:postId/replies', getReplies);
 router.post('/comments', optionalAuth, uploadSingle('media'), createComment);
+router.delete('/:id', requireAuth, deletePost);
 
 export { router as feedRouter };

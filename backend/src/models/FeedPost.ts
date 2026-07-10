@@ -21,6 +21,7 @@ export interface IFeedPost extends Document {
   locationName?: string;
   image: string | null;
   authorId: mongoose.Types.ObjectId | null;
+  displayName: string | null;
   deviceId: string | null;
   isAnonymous: boolean;
   upvotes: number;
@@ -65,6 +66,7 @@ const FeedPostSchema = new Schema<IFeedPost>(
     locationName: { type: String, default: null, maxlength: 200 },
     image: { type: String, default: null, maxlength: 500 },
     authorId: { type: Schema.Types.ObjectId, ref: 'User', default: null, index: true },
+    displayName: { type: String, default: null, maxlength: 80 },
     deviceId: { type: String, default: null, index: true },
     isAnonymous: { type: Boolean, default: true },
     upvotes: { type: Number, default: 0, min: 0 },

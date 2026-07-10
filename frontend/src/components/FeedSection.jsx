@@ -290,7 +290,7 @@ export default function FeedSection({ onOpenComments }) {
           </div>
         )}
         {posts.slice(0, 30).map((post) => {
-          const id = post.id || post._id;
+          const id = (post.id || post._id || '').toString();
           const verdict = getVerdict(post);
           const myVote = votes[`${id}::${actorId}`];
           const upvotes = post.upvotes ?? post.votes?.agree ?? 0;
@@ -316,7 +316,7 @@ export default function FeedSection({ onOpenComments }) {
                   <div>
                     <div className="flex items-center gap-2">
                       <span className="text-sm font-bold text-slate-900">
-                        {post.authorId ? 'User' : `anon:${(post.deviceId || '').slice(0, 8)}`}
+                        {post.authorId ? (post.displayName || 'User') : `anon:${(post.deviceId || '').slice(0, 8)}`}
                       </span>
                       <span className={`text-[0.65rem] font-bold px-2 py-0.5 rounded-full ${
                         verdict === 'verified' ? 'bg-emerald-100 text-emerald-700' :

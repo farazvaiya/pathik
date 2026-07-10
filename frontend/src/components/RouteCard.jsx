@@ -32,10 +32,12 @@ export default function RouteCard({ route, selected, onClick, index }) {
       <div className="source-row" style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
         <span className="source-pill" style={{
           display: 'inline-flex', alignItems: 'center', minHeight: 26,
-          border: '1px solid #bbf7d0', background: '#f0fdf4', color: '#166534',
+          border: route.source === 'community' ? '1px solid #c4b5fd' : '1px solid #bbf7d0',
+          background: route.source === 'community' ? '#f5f3ff' : '#f0fdf4',
+          color: route.source === 'community' ? '#5b21b6' : '#166534',
           borderRadius: 999, padding: '4px 9px', fontSize: '0.78rem', fontWeight: 700
         }}>
-          Local DB
+          {route.source === 'community' ? '👥 Community' : 'Local DB'}
         </span>
         <span className="source-pill" style={{
           display: 'inline-flex', alignItems: 'center', minHeight: 26,

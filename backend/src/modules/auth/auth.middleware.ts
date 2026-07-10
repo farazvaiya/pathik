@@ -6,7 +6,7 @@ import { AppError } from '../../middleware/errorHandler';
 declare global {
   namespace Express {
     interface Request {
-      user?: { _id: string; email: string; role: 'user' | 'admin' | 'police' | 'rab' };
+      user?: { _id: string; email: string; role: 'user' | 'admin' | 'police' | 'rab'; displayName?: string };
       deviceId?: string;
     }
   }
@@ -21,12 +21,12 @@ export async function requireAuth(req: Request, res: Response, next: NextFunctio
 
   try {
     const payload = verifyAccess(authHeader.slice(7));
-    const user = await User.findById(payload.sub).select('isDeleted');
+    const user = await User.findById(payload.sub).select('isDeleted displayName');
     if (!user || user.isDeleted) {
       res.status(401).json({ success: false, error: { code: 'USER_NOT_FOUND', message: 'User not found' } });
       return;
     }
-    req.user = { _id: payload.sub, email: payload.email, role: payload.role };
+    req.user = { _id: payload.sub, email: payload.email, role: payload.role, displayName: user.displayName };
     next();
   } catch {
     res.status(401).json({ success: false, error: { code: 'TOKEN_INVALID', message: 'Invalid or expired token' } });
@@ -77,12 +77,15 @@ export function requireTrustScore(minScore: number) {
   };
 }
 
-export function optionalAuth(req: Request, _res: Response, next: NextFunction): void {
+export async function optionalAuth(req: Request, _res: Response, next: NextFunction): Promise<void> {
   const authHeader = req.headers.authorization;
   if (authHeader?.startsWith('Bearer ')) {
     try {
       const payload = verifyAccess(authHeader.slice(7));
-      req.user = { _id: payload.sub, email: payload.email, role: payload.role };
+      const user = await User.findById(payload.sub).select('isDeleted displayName');
+      if (user && !user.isDeleted) {
+        req.user = { _id: payload.sub, email: payload.email, role: payload.role, displayName: user.displayName };
+      }
     } catch {
       // ignore — optional
     }

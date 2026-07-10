@@ -47,7 +47,7 @@ export function errorHandler(err: any, req: Request, res: Response, _next: NextF
     return;
   }
 
-  if (err.name === 'CastError') {
+  if (err.name === 'CastError' || err.name === 'BSONError') {
     res.status(400).json({ success: false, error: { code: 'INVALID_ID', message: 'Invalid resource ID format' } });
     return;
   }

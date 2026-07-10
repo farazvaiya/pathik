@@ -1,17 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifyAccess } from '../utils/jwt';
 import { env } from '../config/env';
+import { User } from '../models/User';
 
 declare global {
   namespace Express {
     interface Request {
-      user?: { _id: string; email: string; role: 'user' | 'admin' | 'police' | 'rab' };
+      user?: { _id: string; email: string; role: 'user' | 'admin' | 'police' | 'rab'; displayName?: string };
       deviceId?: string;
     }
   }
 }
 
-export function requireAuth(req: Request, res: Response, next: NextFunction): void {
+export async function requireAuth(req: Request, res: Response, next: NextFunction): Promise<void> {
   // Anonymous mode: allow requests with deviceId cookie/header
   if (env.ANONYMOUS_MODE === '1') {
     const deviceId =
@@ -32,19 +33,27 @@ export function requireAuth(req: Request, res: Response, next: NextFunction): vo
 
   try {
     const payload = verifyAccess(authHeader.slice(7));
-    req.user = { _id: payload.sub, email: payload.email, role: payload.role };
+    const user = await User.findById(payload.sub).select('isDeleted displayName');
+    if (!user || user.isDeleted) {
+      res.status(401).json({ success: false, error: { code: 'USER_NOT_FOUND', message: 'User not found' } });
+      return;
+    }
+    req.user = { _id: payload.sub, email: payload.email, role: payload.role, displayName: user.displayName };
     next();
   } catch {
     res.status(401).json({ success: false, error: { code: 'TOKEN_INVALID', message: 'Invalid or expired token' } });
   }
 }
 
-export function optionalAuth(req: Request, _res: Response, next: NextFunction): void {
+export async function optionalAuth(req: Request, _res: Response, next: NextFunction): Promise<void> {
   const authHeader = req.headers.authorization;
   if (authHeader?.startsWith('Bearer ')) {
     try {
       const payload = verifyAccess(authHeader.slice(7));
-      req.user = { _id: payload.sub, email: payload.email, role: payload.role };
+      const user = await User.findById(payload.sub).select('isDeleted displayName');
+      if (user && !user.isDeleted) {
+        req.user = { _id: payload.sub, email: payload.email, role: payload.role, displayName: user.displayName };
+      }
     } catch {
       // ignore — optional
     }

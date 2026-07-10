@@ -5,6 +5,7 @@ export interface IFeedComment extends Document {
   postId: mongoose.Types.ObjectId;
   parentId: mongoose.Types.ObjectId | null;
   authorId: mongoose.Types.ObjectId | null;
+  displayName: string | null;
   deviceId: string | null;
   message: string;
   media: string | null;
@@ -20,6 +21,7 @@ const FeedCommentSchema = new Schema<IFeedComment>(
     postId: { type: Schema.Types.ObjectId, ref: 'FeedPost', required: true, index: true },
     parentId: { type: Schema.Types.ObjectId, ref: 'FeedComment', default: null, index: true },
     authorId: { type: Schema.Types.ObjectId, ref: 'User', default: null, index: true },
+    displayName: { type: String, default: null, maxlength: 80 },
     deviceId: { type: String, default: null, index: true },
     message: { type: String, required: true, trim: true, maxlength: 600 },
     media: { type: String, default: null, maxlength: 500 },
