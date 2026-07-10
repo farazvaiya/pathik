@@ -14,7 +14,10 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.1",
+    "@types/bcryptjs": "^2.4.6",
     "@types/cookie-parser": "^1.4.10",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/morgan": "^1.9.10",
     "@types/multer": "^2.2.0",
     "@types/nodemailer": "^8.0.1",
     "@types/zxcvbn": "^4.4.5",
@@ -42,12 +45,9 @@
   },
   "devDependencies": {
     "@types/axios": "^0.9.36",
-    "@types/bcryptjs": "^2.4.6",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/jest": "^30.0.0",
-    "@types/jsonwebtoken": "^9.0.7",
-    "@types/morgan": "^1.9.10",
     "@types/node": "^22.10.1",
     "@types/socket.io": "^3.0.1",
     "ts-node": "^10.9.2",
