@@ -1,5 +1,11 @@
 const MODE_ICONS = { bus: '🚌', ac_bus: '🚌', metro: '🚇', walk: '🚶' };
 
+const SAFETY_STYLES = {
+  safe: { bg: '#dcfce7', border: '#bbf7d0', text: '#166534', icon: '✅' },
+  moderate: { bg: '#fef3c7', border: '#fde68a', text: '#92400e', icon: '⚠️' },
+  caution: { bg: '#fee2e2', border: '#fecaca', text: '#991b1b', icon: '🚨' },
+};
+
 export default function RouteDetails({ route, origin, destination }) {
   if (!route) {
     return <div className="route-details empty" style={{ color: '#6b7280', textAlign: 'center', padding: '32px 0' }}>Search to view route steps.</div>;
@@ -8,6 +14,10 @@ export default function RouteDetails({ route, origin, destination }) {
   const steps = route.steps || [];
   const costStr = route.total_cost_range || `৳${route.total_cost}`;
   const tmStr = route.total_time_range || `${route.total_time_minutes || '?'} মিনিট`;
+
+  const safetyScore = route.safetyScore;
+  const safetyLabel = route.safetyLabel || 'moderate';
+  const sc = SAFETY_STYLES[safetyLabel] || SAFETY_STYLES.moderate;
 
   return (
     <div className="route-details">
@@ -28,12 +38,34 @@ export default function RouteDetails({ route, origin, destination }) {
           border: '1px solid #bbf7d0', background: '#f0fdf4', color: '#166534',
           borderRadius: 999, padding: '4px 9px', fontSize: '0.78rem', fontWeight: 700
         }}>Fare logic: BRTA/DMTCL</span>
+        {safetyScore != null && (
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', minHeight: 26,
+            border: `1px solid ${sc.border}`, background: sc.bg, color: sc.text,
+            borderRadius: 999, padding: '4px 9px', fontSize: '0.78rem', fontWeight: 700
+          }}>{sc.icon} Safety: {safetyScore}/10</span>
+        )}
       </div>
 
       {/* Header */}
       <div style={{ marginBottom: 12, fontWeight: 700, fontSize: '0.95rem', color: '#1f2937' }}>
         {origin || route.origin || ''} → {destination || route.destination || ''} | মোট খরচ: {costStr} | সময়: {tmStr}
       </div>
+
+      {/* Safety Breakdown */}
+      {safetyScore != null && route.safetyRisks && route.safetyRisks.length > 0 && (
+        <div style={{
+          background: sc.bg, border: `1px solid ${sc.border}`, borderRadius: 10,
+          padding: '8px 12px', marginBottom: 12, fontSize: '0.86rem', color: sc.text
+        }}>
+          <b>{sc.icon} Route Safety Report ({route.safetyIncidents || 0} recent incidents)</b>
+          <ul style={{ margin: '4px 0 0 0', paddingLeft: 18 }}>
+            {route.safetyRisks.map((risk, i) => (
+              <li key={i} style={{ marginBottom: 2 }}>{risk}</li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {/* Steps */}
       <ul className="steps" style={{ listStyle: 'none', margin: 0, padding: 0, display: 'grid', gap: 8 }}>

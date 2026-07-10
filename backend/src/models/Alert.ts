@@ -23,6 +23,10 @@ export interface IAlert extends Document {
   originalPostId: mongoose.Types.ObjectId;
   originalText?: string;
 
+  // Route info (optional)
+  from?: string;
+  to?: string;
+
   // Location
   location: { type: 'Point'; coordinates: [number, number] };
   locationName?: string;
@@ -46,6 +50,10 @@ export interface IAlert extends Document {
   // Creator
   creatorId?: mongoose.Types.ObjectId;
   creatorDeviceId?: string;
+
+  // Vote counts (synced from linked FeedPost)
+  upvotes: number;
+  downvotes: number;
 
   createdAt: Date;
   updatedAt: Date;
@@ -78,6 +86,9 @@ const AlertSchema = new Schema<IAlert>(
     originalPostId: { type: Schema.Types.ObjectId, ref: 'FeedPost', required: true, index: true },
     originalText: { type: String, default: null },
 
+    from: { type: String, default: null, trim: true, maxlength: 120 },
+    to: { type: String, default: null, trim: true, maxlength: 120 },
+
     location: { type: PointSchema, required: true },
     locationName: { type: String, default: null, maxlength: 200 },
     radius: { type: Number, default: 2000, min: 100, max: 10000 },
@@ -104,6 +115,9 @@ const AlertSchema = new Schema<IAlert>(
 
     creatorId: { type: Schema.Types.ObjectId, ref: 'User', default: null },
     creatorDeviceId: { type: String, default: null },
+
+    upvotes: { type: Number, default: 0, min: 0 },
+    downvotes: { type: Number, default: 0, min: 0 },
   },
   { timestamps: true }
 );

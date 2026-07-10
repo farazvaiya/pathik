@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useCallback, useEffect, useRef } from 'react';
-import { findRoutes, titleCase } from '../routeEngine';
+import { findRoutes, titleCase, annotateSafetyScores } from '../routeEngine';
 
 const TransitContext = createContext(null);
 
@@ -60,8 +60,16 @@ export function TransitProvider({ children }) {
       }
 
       const result = findRoutes(fromTrimmed, toTrimmed, corridorData);
-      setRoutes(result.routes || []);
+      const routeList = result.routes || [];
+      setRoutes(routeList);
       setSearchQuery(`${fromTrimmed} → ${toTrimmed}`);
+
+      // Non-blocking safety annotation
+      if (routeList.length > 0) {
+        annotateSafetyScores(routeList).then(annotated => {
+          setRoutes([...annotated]);
+        }).catch(() => {});
+      }
     } catch (err) {
       console.warn('[TransitContext] search failed:', err.message);
       setRoutes([]);

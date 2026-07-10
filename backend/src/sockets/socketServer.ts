@@ -96,6 +96,11 @@ export function emitNotification(userId: string, notification: any) {
   io.to(`user:${userId}`).emit('notification:new', notification);
 }
 
+export function broadcastNotification(notification: any) {
+  if (!io) return;
+  io.emit('notification:new', notification);
+}
+
 export function emitAdminEvent(event: string, data: any) {
   if (!io) return;
   io.to('admins').emit(event, data);

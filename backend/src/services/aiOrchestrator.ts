@@ -39,7 +39,59 @@ export interface ClusteringResult {
   movement_speed_kmh?: number;
 }
 
+// === Groq-based text classification (no Docker needed) ===
+export async function classifyTextWithGroq(text: string): Promise<NLPResult | null> {
+  const apiKey = process.env.GROQ_API_KEY;
+  if (!apiKey) return null;
+
+  try {
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        messages: [{
+          role: 'user',
+          content: `You are a classification API for a Dhaka transport safety app called Pathik. Classify this user post and return ONLY valid JSON (no markdown, no explanation).
+
+Post: "${text}"
+
+Return this exact JSON structure:
+{
+  "category": "accident|assault|robbery|harassment|medical|fire|missing_person|stolen_vehicle|escaped_criminal|traffic_jam|toll_extortion|police_checkpost|natural_disaster|road_hazard|other",
+  "severity": "low|medium|high|critical",
+  "is_emergency": true|false,
+  "confidence": 0.0-1.0,
+  "language": "bn|en|mixed",
+  "sentiment": "positive|negative|neutral",
+  "entities": { "locations": [], "vehicles": [], "persons": [] }
+}`
+        }],
+        temperature: 0.1,
+        max_tokens: 500,
+      }),
+    });
+
+    if (!response.ok) return null;
+    const data: any = await response.json();
+    const content = data?.choices?.[0]?.message?.content;
+    if (!content) return null;
+
+    return JSON.parse(content);
+  } catch {
+    return null;
+  }
+}
+
 export async function classifyText(text: string, referenceType: string, referenceId: string): Promise<NLPResult | null> {
+  // Try Groq first (no Docker needed)
+  const groqResult = await classifyTextWithGroq(text);
+  if (groqResult) return { ...groqResult, processing_time_ms: 0 };
+
+  // Fallback to Docker container (if running)
   try {
     const response = await axios.post<{ result: NLPResult }>(`${AI_SERVICES.nlp}/classify`, {
       text,

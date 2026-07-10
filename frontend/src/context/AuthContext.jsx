@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { authLogin, authRegister, authLogout, getStoredUser, storeUser, fetchUserProfile } from '../api';
+import { subscribeToPush } from '../hooks/useSocket';
 
 const AuthContext = createContext(null);
 
@@ -36,6 +37,8 @@ export function AuthProvider({ children }) {
     storeUser(u);
     setUser(u);
     setStatus('');
+    // Subscribe to push notifications
+    subscribeToPush().catch(() => {});
     return u;
   }
 
@@ -46,6 +49,8 @@ export function AuthProvider({ children }) {
     storeUser(u);
     setUser(u);
     setStatus('');
+    // Subscribe to push notifications
+    subscribeToPush().catch(() => {});
     return u;
   }
 

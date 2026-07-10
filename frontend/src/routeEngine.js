@@ -94,10 +94,11 @@ function haversineKm(p1, p2) {
 
 function computeFareForLeg(mode, distanceKm) {
   if (!Number.isFinite(distanceKm) || distanceKm <= 0) return { fare: 10, fare_range: '৳10', computed: false };
-  const raw = Math.round(distanceKm * 2.53);
-  const fare = Math.max(10, raw);
-  const lo = Math.max(10, Math.round(fare * 0.9));
-  const hi = Math.round(fare * 1.1);
+  const table = FARE_TABLE[mode] || FARE_TABLE.bus;
+  const raw = Math.round(distanceKm * table.perKm + table.base);
+  const fare = Math.max(table.min, table.max ? Math.min(table.max, raw) : raw);
+  const lo = Math.max(table.min, Math.round(fare * 0.9));
+  const hi = table.max ? Math.min(table.max, Math.round(fare * 1.1)) : Math.round(fare * 1.1);
   return { fare, fare_range: lo === hi ? `৳${fare}` : `৳${lo}–${hi}`, computed: true };
 }
 
@@ -404,5 +405,81 @@ export function findRoutes(origin, destination, corridorData) {
   if (match && match.matches.length > 0) {
     return buildRoutesFromStopMatch(match, origin, destination, corridorData);
   }
+  // Fallback: try transfer routes even when no direct corridor connects both stops
+  const places = corridorData.places || {};
+  const o = normalizePlace(origin, places);
+  const d = normalizePlace(destination, places);
+  if (!o || !d || o === d) return { origin, destination, routes: [], _source: 'no_match' };
+
+  const transfers = findBestTransferRoutes(origin, destination, corridorData, new Set(), 5);
+  if (transfers && transfers.length > 0) {
+    const originLabel = titleCase(origin);
+    const destinationLabel = titleCase(destination);
+    const routes = [];
+    const usedHubs = new Set();
+    transfers.forEach((transfer) => {
+      if (routes.length >= 5) return;
+      if (usedHubs.has(transfer.hub)) return;
+      usedHubs.add(transfer.hub);
+      const hub = titleCase(transfer.hub);
+      const first = makePublicBusStep(transfer.first, originLabel, hub);
+      const second = makePublicBusStep(transfer.second, hub, destinationLabel);
+      const total = first.cost + second.cost;
+      const totalTime = first.time_minutes + second.time_minutes;
+      routes.push({
+        id: routes.length + 1, label: `Bus Change via ${hub}`,
+        total_cost: total, total_cost_range: `৳${Math.max(10, total - 10)}–${total + 15}`,
+        total_time_minutes: totalTime, total_time_range: `${Math.max(10, totalTime - 8)}–${totalTime + 15} মিনিট`,
+        steps: [first, second],
+      });
+    });
+    if (routes.length > 0) {
+      routes.forEach((r, i) => { r.id = i + 1; r.origin = originLabel; r.destination = destinationLabel; });
+      return { origin: originLabel, destination: destinationLabel, routes: routes.slice(0, 8), _source: 'transfer_search' };
+    }
+  }
   return { origin, destination, routes: [], _source: 'no_match' };
+}
+
+export { KNOWN_COORDS, haversineKm, resolveCoords };
+
+export function findNearbyStops(userLat, userLng, maxKm = 15) {
+  const results = [];
+  for (const [name, coords] of Object.entries(KNOWN_COORDS)) {
+    const dist = haversineKm([userLat, userLng], coords);
+    if (dist !== null && dist > 0 && dist <= maxKm) {
+      results.push({ name: titleCase(name), lat: coords[0], lng: coords[1], distanceKm: Number(dist.toFixed(2)) });
+    }
+  }
+  results.sort((a, b) => a.distanceKm - b.distanceKm);
+  return results.slice(0, 15);
+}
+
+// Post-process routes with safety scores from the backend
+export async function annotateSafetyScores(routes) {
+  if (!routes || routes.length === 0) return routes;
+  try {
+    const allStops = new Set();
+    for (const route of routes) {
+      const steps = route.steps || [];
+      for (const step of steps) {
+        if (step.from) allStops.add(step.from);
+        if (step.to) allStops.add(step.to);
+      }
+    }
+    if (allStops.size === 0) return routes;
+
+    const { fetchSafetyScore } = await import('./api');
+    const scoreData = await fetchSafetyScore([...allStops]);
+
+    for (const route of routes) {
+      route.safetyScore = scoreData.safetyScore;
+      route.safetyLabel = scoreData.scoreLabel;
+      route.safetyIncidents = scoreData.incidentCount;
+      route.safetyRisks = scoreData.topRisks;
+    }
+  } catch (err) {
+    console.warn('[safety] Failed to annotate routes:', err.message);
+  }
+  return routes;
 }

@@ -1,11 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useTransit } from '../context/TransitContext';
 import { createCommunityRoute, getAnonUserId } from '../api';
 import { toast } from './Toast';
 
 export default function CrowdsourceSection() {
+  const { placeNames } = useTransit();
+  const csDatalistRef = useRef(null);
   const [tab, setTab] = useState('addRoute');
   const [form, setForm] = useState({ from: '', to: '', busName: '', fare: '', stops: '' });
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (!csDatalistRef.current) return;
+    csDatalistRef.current.innerHTML = '';
+    (placeNames || []).forEach((name) => {
+      const opt = document.createElement('option');
+      opt.value = name;
+      csDatalistRef.current.appendChild(opt);
+    });
+  }, [placeNames]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -56,19 +69,20 @@ export default function CrowdsourceSection() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <input
               type="text"
-              list="placeSuggestions"
+              list="csPlaceSuggestions"
               placeholder="From"
               value={form.from}
               onChange={(e) => setForm({ ...form, from: e.target.value })}
             />
             <input
               type="text"
-              list="placeSuggestions"
+              list="csPlaceSuggestions"
               placeholder="To"
               value={form.to}
               onChange={(e) => setForm({ ...form, to: e.target.value })}
             />
           </div>
+          <datalist ref={csDatalistRef} id="csPlaceSuggestions" />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <input
               type="text"

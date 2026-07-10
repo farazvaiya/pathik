@@ -16,9 +16,10 @@ import AiExplainPanel from './components/AiExplainPanel';
 import EmergencySection from './components/EmergencySection';
 import MobileNav from './components/MobileNav';
 import NotificationBell from './components/NotificationBell';
+import ChatPanel from './components/ChatPanel';
 import { ToastContainer } from './components/Toast';
 import { useTransit } from './context/TransitContext';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 function AppContent() {
   const { routes, selectedRoute, setSelectedRoute, loading, searchRoutes, region, setRegion } = useTransit();
@@ -27,8 +28,11 @@ function AppContent() {
   const [aiRoute, setAiRoute] = useState(null);
   const [aiQuery, setAiQuery] = useState('');
   const [showAi, setShowAi] = useState(false);
+  const [showChat, setShowChat] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [searchQuery, setSearchQuery] = useState('');
+  const [nearbyCoords, setNearbyCoords] = useState(null);
+  const setFromRef = useRef(null);
 
   const handleSearch = ({ from, to }) => {
     setSearchQuery(`${from} → ${to}`);
@@ -53,6 +57,13 @@ function AppContent() {
         </div>
         <div className="flex items-center gap-1">
           <NotificationBell />
+          <button
+            type="button"
+            onClick={() => setShowChat(true)}
+            className="btn-secondary text-xs"
+          >
+            💬 AI Chat
+          </button>
           <nav className="hidden sm:flex gap-1">
             {[
               { id: 'home', label: '🏠 Home' },
@@ -82,8 +93,10 @@ function AppContent() {
       {/* ===== HOME SECTION ===== */}
       {activeSection === 'home' && (
         <>
-          <SearchSection onSearch={handleSearch} loading={loading} />
-          <NearbyTransit onSelect={(point) => searchRoutes(point.name, '')} />
+          <SearchSection onSearch={handleSearch} loading={loading} onShowNearby={setNearbyCoords} onSetFrom={setFromRef} />
+          <NearbyTransit visible={!!nearbyCoords} coords={nearbyCoords} onSelect={(point) => {
+            if (setFromRef.current) setFromRef.current(point.name);
+          }} />
 
           {loading && (
             <div className="card text-center">
@@ -167,7 +180,7 @@ function AppContent() {
       {/* ===== EMERGENCY SECTION ===== */}
       {activeSection === 'emergency' && (
         <section className="card" style={{ background: '#fff', border: '1px solid #e5e7eb' }}>
-          <EmergencySection user={user} />
+          <EmergencySection user={user} onOpenComments={setCommentPostId} />
         </section>
       )}
 
@@ -192,6 +205,9 @@ function AppContent() {
       )}
       {showAi && (
         <AiExplainPanel route={aiRoute} query={aiQuery} onClose={() => setShowAi(false)} />
+      )}
+      {showChat && (
+        <ChatPanel onClose={() => setShowChat(false)} />
       )}
 
       {/* Mobile Nav */}

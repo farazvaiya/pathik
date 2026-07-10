@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import mongoose from 'mongoose';
 import { env } from '../../config/env';
 import { logger } from '../../utils/logger';
 import { readJsonFile, readJsonArray, writeJsonFile, writeJsonArray } from '../../utils/fileStore';
@@ -177,4 +178,290 @@ export function createFeedback(req: Request, res: Response, next: NextFunction):
     writeJsonArray('feedback.json', items, 1000);
     res.status(201).json({ success: true, data: item });
   } catch (err) { next(err); }
+}
+
+// === Safety Score ===
+
+const SAFETY_CACHE = new Map<string, { score: number; data: any; ts: number }>();
+const SAFETY_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
+const DANGER_CATEGORIES = new Set([
+  'accident', 'assault', 'robbery', 'harassment', 'escaped_criminal',
+  'toll_extortion', 'road_hazard', 'fire', 'natural_disaster',
+]);
+
+// Map user-selected post types to AI categories for posts not yet classified
+const TYPE_TO_CATEGORY: Record<string, string> = {
+  traffic: 'traffic_jam',
+  accident: 'accident',
+  danger: 'other',
+  tip: 'other',
+  event: 'other',
+  other: 'other',
+};
+
+const SEVERITY_WEIGHTS: Record<string, number> = {
+  critical: 4, high: 3, medium: 2, low: 1,
+};
+
+const safetyScoreSchema = z.object({
+  stops: z.array(z.string().max(120)).min(2).max(20),
+});
+
+export async function getSafetyScore(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const { stops } = safetyScoreSchema.parse(req.body);
+    const cacheKey = stops.map(s => s.toLowerCase().trim()).sort().join('|');
+
+    const cached = SAFETY_CACHE.get(cacheKey);
+    if (cached && Date.now() - cached.ts < SAFETY_CACHE_TTL) {
+      res.json({ success: true, data: cached.data });
+      return;
+    }
+
+    const FeedPost = mongoose.model('FeedPost');
+    const Alert = mongoose.model('Alert');
+
+    const now = Date.now();
+    const sevenDays = 7 * 24 * 60 * 60 * 1000;
+    const thirtyDays = 30 * 24 * 60 * 60 * 1000;
+
+    // Normalize stop names for exact matching
+    const normalizedStops = stops.map(s => s.toLowerCase().trim());
+    const normalizedStopSet = new Set(normalizedStops);
+
+    let incidentCount = 0;
+    let totalPenalty = 0;
+    const topRisks: string[] = [];
+
+    // === FeedPost query ===
+    try {
+      const posts = await FeedPost.find({
+        status: 'active',
+        isDeleted: false,
+        $or: [
+          { from: { $exists: true, $ne: '' } },
+          { to: { $exists: true, $ne: '' } },
+          { locationName: { $exists: true, $ne: '' } },
+        ],
+        createdAt: { $gte: new Date(now - thirtyDays) },
+      }).select('from to type aiCategory aiSeverity upvotes downvotes createdAt message locationName').lean();
+
+      for (const post of posts) {
+        const p = post as any;
+
+        // Exact match: check from/to fields
+        const fromNorm = String(p.from || '').toLowerCase().trim();
+        const toNorm = String(p.to || '').toLowerCase().trim();
+        const locNorm = String(p.locationName || '').toLowerCase().trim();
+        const matchesStop =
+          normalizedStopSet.has(fromNorm) ||
+          normalizedStopSet.has(toNorm) ||
+          (locNorm && normalizedStops.some(s => locNorm === s || s === locNorm));
+
+        if (!matchesStop) continue;
+
+        // Determine category: use aiCategory if available, else fallback to user type
+        let cat = p.aiCategory;
+        if (!cat && p.type) {
+          cat = TYPE_TO_CATEGORY[p.type] || 'other';
+        }
+        if (!cat || !DANGER_CATEGORIES.has(cat)) continue;
+
+        const severity = p.aiSeverity || 'medium';
+        const age = now - new Date(p.createdAt).getTime();
+        const timeDecay = age < sevenDays ? 1.0 : age < thirtyDays ? 0.5 : 0.2;
+        const upvotes = p.upvotes || 0;
+        const downvotes = p.downvotes || 0;
+        const communityFactor = 1 + (downvotes * 0.1) - (upvotes * 0.05);
+
+        const penalty = (SEVERITY_WEIGHTS[severity] || 2) * timeDecay * Math.max(0.1, communityFactor);
+        totalPenalty += penalty;
+        incidentCount++;
+
+        if (topRisks.length < 3 && p.message) {
+          topRisks.push(`${cat}: ${String(p.message).slice(0, 80)}`);
+        }
+      }
+    } catch (err: any) {
+      logger.warn(`[safety] FeedPost query failed: ${err.message}`);
+    }
+
+    // === Alert query ===
+    try {
+      const alerts = await Alert.find({
+        status: 'active',
+        $or: [
+          { from: { $exists: true, $ne: '' } },
+          { to: { $exists: true, $ne: '' } },
+        ],
+        createdAt: { $gte: new Date(now - thirtyDays) },
+      }).select('type severity from to sightingCount createdAt').lean();
+
+      for (const alert of alerts) {
+        const a = alert as any;
+        const fromNorm = String(a.from || '').toLowerCase().trim();
+        const toNorm = String(a.to || '').toLowerCase().trim();
+        const matchesStop = normalizedStopSet.has(fromNorm) || normalizedStopSet.has(toNorm);
+        if (!matchesStop) continue;
+
+        const age = now - new Date(a.createdAt).getTime();
+        const timeDecay = age < sevenDays ? 1.0 : age < thirtyDays ? 0.5 : 0.2;
+        const sightingBoost = 1 + (a.sightingCount || 0) * 0.15;
+
+        const penalty = (SEVERITY_WEIGHTS[a.severity] || 2) * timeDecay * sightingBoost;
+        totalPenalty += penalty;
+        incidentCount++;
+
+        if (topRisks.length < 3) {
+          topRisks.push(`${a.type}: Alert active near this corridor`);
+        }
+      }
+    } catch (err: any) {
+      logger.warn(`[safety] Alert query failed: ${err.message}`);
+    }
+
+    const safetyScore = Math.max(1, Math.min(10, Math.round(10 - totalPenalty)));
+
+    const result = {
+      safetyScore,
+      incidentCount,
+      topRisks: topRisks.slice(0, 3),
+      scoreLabel: safetyScore >= 7 ? 'safe' : safetyScore >= 4 ? 'moderate' : 'caution',
+    };
+
+    SAFETY_CACHE.set(cacheKey, { score: safetyScore, data: result, ts: Date.now() });
+
+    res.json({ success: true, data: result });
+  } catch (err) {
+    next(err);
+  }
+}
+
+// === Chatbot ===
+
+const chatSchema = z.object({
+  message: z.string().min(1).max(500),
+  history: z.array(z.object({
+    role: z.enum(['user', 'assistant']),
+    content: z.string().max(1000),
+  })).max(10).optional().default([]),
+});
+
+const CHAT_SYSTEM_PROMPT = `You are Pathik, a friendly Dhaka public transit assistant. Answer in Bangla (Banglish is fine). Be concise (2-3 sentences max). Use real-time incident data provided in context. Always mention safety concerns if any. If you don't know, say "আমার কাছে এই তথ্য নেই" (I don't have this info). Return strict JSON: {"response_bn": "your answer"}`;
+
+export async function handleChat(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const { message, history } = chatSchema.parse(req.body);
+
+    // Gather real-time context
+    let contextStr = '';
+
+    try {
+      const FeedPost = mongoose.model('FeedPost');
+      const Alert = mongoose.model('Alert');
+
+      // Recent posts mentioning the query keywords
+      const keywords = message.split(/\s+/).filter(w => w.length > 2).slice(0, 5);
+      if (keywords.length > 0) {
+        const keywordRegex = keywords.map(k => new RegExp(k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'));
+        const recentPosts = await FeedPost.find({
+          status: 'active',
+          isDeleted: false,
+          $or: [
+            { message: { $in: keywordRegex } },
+            { from: { $in: keywordRegex } },
+            { to: { $in: keywordRegex } },
+          ],
+          createdAt: { $gte: new Date(Date.now() - 24 * 60 * 60 * 1000) },
+        }).select('type from to message aiCategory aiSeverity locationName createdAt').limit(5).lean();
+
+        if (recentPosts.length > 0) {
+          contextStr += 'Recent incidents in relevant area:\n';
+          recentPosts.forEach((p: any) => {
+            contextStr += `- ${p.aiCategory || p.type}: ${p.from || ''} → ${p.to || ''} (${p.aiSeverity || 'unknown'}). "${String(p.message).slice(0, 100)}"\n`;
+          });
+        }
+
+        const recentAlerts = await Alert.find({
+          status: 'active',
+          $or: [
+            { from: { $in: keywordRegex } },
+            { to: { $in: keywordRegex } },
+          ],
+        }).select('type severity from to locationName sightingCount').limit(3).lean();
+
+        if (recentAlerts.length > 0) {
+          contextStr += 'Active alerts:\n';
+          recentAlerts.forEach((a: any) => {
+            contextStr += `- ${a.type} (${a.severity}): ${a.from || ''} → ${a.to || ''}. Sightings: ${a.sightingCount || 0}\n`;
+          });
+        }
+      }
+    } catch (err: any) {
+      logger.warn(`[chat] Context gathering failed: ${err.message}`);
+    }
+
+    const provider = env.PATHIK_AI_PROVIDER;
+    const base = AI_BASES[provider];
+    const key = provider === 'nvidia' ? env.NVIDIA_API_KEY : provider === 'openrouter' ? env.OPENROUTER_API_KEY : env.GROQ_API_KEY;
+
+    if (!key) {
+      res.status(503).json({ success: false, error: { code: 'AI_NOT_CONFIGURED', message: 'AI provider key is not configured' } });
+      return;
+    }
+
+    const models = (env.PATHIK_AI_MODELS || DEFAULT_MODELS[provider]).split(',').map(m => m.trim()).filter(Boolean);
+
+    const messages: Array<{ role: string; content: string }> = [
+      { role: 'system', content: CHAT_SYSTEM_PROMPT },
+    ];
+
+    // Add conversation history
+    for (const h of history.slice(-6)) {
+      messages.push({ role: h.role, content: h.content });
+    }
+
+    // Add current message with context
+    const userMessage = contextStr
+      ? `User question: "${message}"\n\nReal-time context:\n${contextStr}`
+      : `User question: "${message}"`;
+    messages.push({ role: 'user', content: userMessage });
+
+    const headers: Record<string, string> = { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' };
+    if (provider === 'openrouter' || provider === 'nvidia') {
+      headers['HTTP-Referer'] = env.PATHIK_PUBLIC_URL || 'http://localhost:5000';
+      headers['X-Title'] = 'Pathik Transit';
+    }
+
+    let lastError: Error | null = null;
+    for (const model of models) {
+      try {
+        const aiRes = await fetch(`${base}/chat/completions`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            model,
+            messages,
+            temperature: 0.3,
+            max_tokens: 512,
+            response_format: { type: 'json_object' },
+          }),
+        });
+        const text = await aiRes.text();
+        if (!aiRes.ok) { lastError = new Error(`${model} HTTP ${aiRes.status}`); continue; }
+        const data = JSON.parse(text);
+        const content = data?.choices?.[0]?.message?.content || '{}';
+        const parsed = JSON.parse(content);
+        res.json({ success: true, data: { response_bn: parsed.response_bn || 'Sorry, I could not understand.', _model: model } });
+        return;
+      } catch (err) {
+        lastError = err instanceof Error ? err : new Error(String(err));
+      }
+    }
+
+    res.status(502).json({ success: false, error: { code: 'AI_UPSTREAM_ERROR', message: lastError?.message || 'AI failed' } });
+  } catch (err) {
+    next(err);
+  }
 }

@@ -1,57 +1,42 @@
 import { useState, useEffect } from 'react';
+import { findNearbyStops } from '../routeEngine';
 
-export default function NearbyTransit({ onSelect }) {
+export default function NearbyTransit({ visible, coords, onSelect }) {
   const [nearby, setNearby] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
 
   useEffect(() => {
-    if (!navigator.geolocation) {
-      setError('Geolocation not supported');
+    if (!visible || !coords) {
+      setNearby([]);
       return;
     }
-
     setLoading(true);
-    navigator.geolocation.getCurrentPosition(
-      async (pos) => {
-        try {
-          const { latitude, longitude } = pos.coords;
-          const res = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&addressdetails=1`
-          );
-          const data = await res.json();
-          const area = data.address?.suburb || data.address?.neighbourhood || data.address?.city || '';
-          setNearby([
-            { name: 'Your Location', area, lat: latitude, lng: longitude },
-          ]);
-        } catch {
-          setError('Could not determine nearby transit');
-        } finally {
-          setLoading(false);
-        }
-      },
-      () => {
-        setError('Location access denied');
-        setLoading(false);
-      },
-      { enableHighAccuracy: false, timeout: 10000 }
-    );
-  }, []);
+    try {
+      const stops = findNearbyStops(coords.lat, coords.lng, 15);
+      setNearby(stops);
+    } catch {
+      setNearby([]);
+    } finally {
+      setLoading(false);
+    }
+  }, [visible, coords]);
+
+  if (!visible || !coords) return null;
 
   if (loading) {
     return (
       <section className="card" style={{ background: '#fafffe', border: '1px solid #bbf7d0' }}>
-        <p className="text-[0.9rem]" style={{ color: '#6b7280' }}>Detecting nearby transit...</p>
+        <p className="text-[0.9rem]" style={{ color: '#6b7280' }}>আপনার কাছের ট্রানজিট পয়েন্ট খুঁজছে...</p>
       </section>
     );
   }
 
-  if (error || nearby.length === 0) return null;
+  if (nearby.length === 0) return null;
 
   return (
     <section className="card" style={{ background: '#fafffe', border: '1px solid #bbf7d0' }}>
       <div className="flex justify-between items-center mb-2">
-        <h2 className="m-0 text-[1.05rem] font-bold" style={{ color: '#1f2937' }}>📍 Nearby Transit Points</h2>
+        <h2 className="m-0 text-[1.05rem] font-bold" style={{ color: '#1f2937' }}>📍 কাছের ট্রানজিট পয়েন্ট</h2>
         <span className="badge-green">{nearby.length}</span>
       </div>
       <p className="text-[0.9rem] mb-2.5" style={{ color: '#374151' }}>
@@ -63,15 +48,17 @@ export default function NearbyTransit({ onSelect }) {
             key={i}
             type="button"
             onClick={() => onSelect?.(point)}
-            className="w-full text-left grid grid-cols-[1fr_auto_auto] gap-2 items-center px-3 py-2.5 rounded-[10px] border transition"
+            className="w-full text-left grid grid-cols-[1fr_auto] gap-2 items-center px-3 py-2.5 rounded-[10px] border transition"
             style={{ borderColor: '#e5e7eb', background: '#fff' }}
           >
-            <span className="font-semibold text-[0.95rem]" style={{ color: '#1f2937' }}>{point.name}</span>
-            {point.area && (
-              <span className="badge-green">{point.area}</span>
-            )}
+            <div>
+              <span className="font-semibold text-[0.95rem]" style={{ color: '#1f2937' }}>{point.name}</span>
+              <span className="block text-[0.75rem] mt-0.5" style={{ color: '#9ca3af' }}>
+                ~{point.distanceKm} km
+              </span>
+            </div>
             <span
-              className="px-2.5 py-1 rounded-full text-[0.78rem] font-semibold text-white"
+              className="px-2.5 py-1 rounded-full text-[0.78rem] font-semibold text-white shrink-0"
               style={{ background: '#2E7D32' }}
             >
               Select

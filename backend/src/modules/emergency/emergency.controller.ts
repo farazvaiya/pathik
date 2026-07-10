@@ -9,7 +9,8 @@ import { RefreshToken } from '../../models/RefreshToken';
 import { AppError } from '../../middleware/errorHandler';
 import { createAlertSchema, sightingSchema, confirmSightingSchema, flagAlertSchema, resolveAlertSchema } from './emergency.schema';
 import { cleanInput } from '../../utils/cleaners';
-import { emitNewAlert, emitSighting, emitAlertUpdate, emitNotification, emitAdminEvent } from '../../sockets/socketServer';
+import { emitNewAlert, emitSighting, emitAlertUpdate, emitNotification, broadcastNotification, emitAdminEvent } from '../../sockets/socketServer';
+import { uploadToSupabase } from '../feed/feed.upload';
 
 // Emergency radius by alert type (meters)
 const EMERGENCY_RADIUS: Record<string, number> = {
@@ -42,12 +43,26 @@ function toObjectId(val: string): mongoose.Types.ObjectId {
 // POST /api/v1/emergency/sos
 export async function createSOS(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
+    // Pre-parse FormData string values before Zod validation
+    if (req.body.lat != null) req.body.lat = parseFloat(req.body.lat);
+    if (req.body.lng != null) req.body.lng = parseFloat(req.body.lng);
+    if (req.body.isAnonymous != null) req.body.isAnonymous = req.body.isAnonymous === 'true' || req.body.isAnonymous === true;
+
     const body = createAlertSchema.parse(req.body);
     const userId = req.user ? new mongoose.Types.ObjectId(req.user._id) : null;
     const deviceId = req.deviceId || req.body.deviceId || null;
 
     if (!userId && !deviceId) {
       throw new AppError(400, 'MISSING_IDENTITY', 'SOS requires an authenticated user or a deviceId');
+    }
+
+    // Handle media upload (photo/video)
+    let mediaUrl: string | null = null;
+    let mediaType: 'image' | 'video' | null = null;
+    if (req.file) {
+      const uploaded = await uploadToSupabase(req.file, 'sos');
+      mediaUrl = uploaded.url;
+      mediaType = uploaded.mediaType;
     }
 
     // Determine alert type — AI will classify later, for now use user input or default
@@ -64,6 +79,8 @@ export async function createSOS(req: Request, res: Response, next: NextFunction)
       originalPostId: new mongoose.Types.ObjectId(), // placeholder, will be linked after feed post
       location: { type: 'Point', coordinates: [body.lng, body.lat] },
       locationName: body.locationName ? cleanInput(body.locationName, 200) : undefined,
+      from: body.from ? cleanInput(body.from, 120) : undefined,
+      to: body.to ? cleanInput(body.to, 120) : undefined,
       radius,
       status: 'active',
       creatorId: userId,
@@ -73,10 +90,12 @@ export async function createSOS(req: Request, res: Response, next: NextFunction)
     // Create associated feed post
     const feedPost = await FeedPost.create({
       type: alertType === 'other' ? 'danger' : 'accident',
+      from: body.from ? cleanInput(body.from, 120) : '',
+      to: body.to ? cleanInput(body.to, 120) : '',
       message: cleanInput(body.message, 1200),
       location: { type: 'Point', coordinates: [body.lng, body.lat] },
       locationName: body.locationName ? cleanInput(body.locationName, 200) : undefined,
-      image: body.image || null,
+      image: mediaUrl,
       authorId: userId,
       deviceId,
       isAnonymous: body.isAnonymous,
@@ -156,6 +175,15 @@ export async function createSOS(req: Request, res: Response, next: NextFunction)
     // Emit real-time alert to all connected clients
     emitNewAlert(alert.toJSON());
     emitAdminEvent('admin:new_alert', { alertId: alert._id, type: alertType, severity: alert.severity });
+
+    // Broadcast SOS notification to ALL connected sockets (emergency = everyone should know)
+    broadcastNotification({
+      type: 'sos_alert',
+      title: isEmergency ? 'জরুরি অ্যালার্ট!' : 'নতুন রিপোর্ট',
+      body: `${alertType} - ${body.locationName || 'আপনার এলাকায়'}`,
+      alertId: alert._id,
+      createdAt: alert.createdAt,
+    });
 
     res.status(201).json({
       success: true,
@@ -415,6 +443,81 @@ export async function resolveAlert(req: Request, res: Response, next: NextFuncti
     emitAdminEvent('admin:alert_resolved', { alertId: alert._id, status: body.status });
 
     res.json({ success: true, data: alert.toJSON() });
+  } catch (err) {
+    next(err);
+  }
+}
+
+// POST /api/v1/emergency/alerts/:id/vote
+export async function voteAlert(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const alertId = req.params.id as string;
+    const { vote, deviceId: bodyDeviceId } = req.body;
+    const deviceId = bodyDeviceId || req.deviceId || null;
+    const userId = req.user ? new mongoose.Types.ObjectId(req.user._id) : null;
+
+    if (!userId && !deviceId) {
+      throw new AppError(400, 'MISSING_IDENTITY', 'Vote requires an authenticated user or a deviceId');
+    }
+
+    if (!vote || !['up', 'down'].includes(vote)) {
+      throw new AppError(400, 'VALIDATION_ERROR', 'vote must be "up" or "down"');
+    }
+
+    // Find the alert and its linked feed post
+    const alert = await Alert.findById(toObjectId(alertId));
+    if (!alert || alert.status !== 'active') {
+      throw new AppError(404, 'NOT_FOUND', 'Alert not found or not active');
+    }
+
+    const feedPost = await FeedPost.findById(alert.originalPostId);
+    if (!feedPost) {
+      throw new AppError(404, 'NOT_FOUND', 'Linked feed post not found');
+    }
+
+    // Apply vote to the linked feed post
+    const value = vote === 'up' ? 1 : -1;
+    const existingIdx = feedPost.votedBy.findIndex(
+      (v) => (userId && v.userId?.equals(userId)) || (deviceId && v.deviceId === deviceId)
+    );
+
+    if (existingIdx >= 0) {
+      const existing = feedPost.votedBy[existingIdx];
+      if (existing.value === value) {
+        // Toggle off
+        feedPost.votedBy.splice(existingIdx, 1);
+        if (value === 1) feedPost.upvotes = Math.max(0, feedPost.upvotes - 1);
+        else feedPost.downvotes = Math.max(0, feedPost.downvotes - 1);
+      } else {
+        // Switch vote
+        if (existing.value === 1) { feedPost.upvotes = Math.max(0, feedPost.upvotes - 1); feedPost.downvotes++; }
+        else { feedPost.downvotes = Math.max(0, feedPost.downvotes - 1); feedPost.upvotes++; }
+        feedPost.votedBy[existingIdx].value = value as 1 | -1;
+      }
+    } else {
+      feedPost.votedBy.push({ userId, deviceId, value: value as 1 | -1 });
+      if (value === 1) feedPost.upvotes++;
+      else feedPost.downvotes++;
+    }
+
+    await feedPost.save();
+
+    // Sync vote counts back to the alert
+    alert.upvotes = feedPost.upvotes;
+    alert.downvotes = feedPost.downvotes;
+    await alert.save();
+
+    // Emit real-time update
+    emitAlertUpdate({ ...alert.toJSON(), upvotes: feedPost.upvotes, downvotes: feedPost.downvotes });
+
+    res.json({
+      success: true,
+      data: {
+        upvotes: feedPost.upvotes,
+        downvotes: feedPost.downvotes,
+        feedPostId: feedPost._id,
+      },
+    });
   } catch (err) {
     next(err);
   }

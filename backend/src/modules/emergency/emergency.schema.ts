@@ -13,7 +13,8 @@ export const createAlertSchema = z.object({
   lat: z.number().min(-90).max(90),
   lng: z.number().min(-180).max(180),
   locationName: z.string().max(200).optional(),
-  image: z.string().max(500).optional(),
+  from: z.string().max(120).optional(),
+  to: z.string().max(120).optional(),
   isAnonymous: z.boolean().default(true),
 });
 

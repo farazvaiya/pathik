@@ -250,10 +250,43 @@ export const TYPE_LABELS = {
 };
 
 // Emergency API
-export async function createSOS({ message, lat, lng, locationName, type, isAnonymous = true }) {
-  const data = await apiJson(`${API_BASE}/api/v1/emergency/sos`, {
+export async function createSOS({ message, lat, lng, locationName, type, from, to, isAnonymous = true }, file = null) {
+  const formData = new FormData();
+  formData.append('message', message || '');
+  formData.append('lat', String(lat));
+  formData.append('lng', String(lng));
+  if (locationName) formData.append('locationName', locationName);
+  if (type) formData.append('type', type);
+  if (from) formData.append('from', from);
+  if (to) formData.append('to', to);
+  formData.append('isAnonymous', String(isAnonymous));
+  formData.append('deviceId', getAnonUserId());
+  if (file) formData.append('media', file);
+
+  const headers = {};
+  const token = getAccessToken();
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  const res = await fetch(`${API_BASE}/api/v1/emergency/sos`, {
     method: 'POST',
-    body: JSON.stringify({ message, lat, lng, locationName, type, isAnonymous, deviceId: getAnonUserId() }),
+    credentials: 'include',
+    headers,
+    body: formData,
+  });
+  const text = await res.text();
+  let data = {};
+  try { data = text ? JSON.parse(text) : {}; } catch { throw new Error('Invalid server response'); }
+  if (!res.ok) {
+    const msg = data?.error?.message || data?.error || data?.message || `HTTP ${res.status}`;
+    throw new Error(msg);
+  }
+  return data.data;
+}
+
+export async function voteAlert(alertId, vote) {
+  const data = await apiJson(`${API_BASE}/api/v1/emergency/alerts/${alertId}/vote`, {
+    method: 'POST',
+    body: JSON.stringify({ vote, deviceId: getAnonUserId() }),
   });
   return data.data;
 }
@@ -355,4 +388,22 @@ export async function fetchNotifications({ page = 1, limit = 20 } = {}) {
 
 export async function markNotificationsRead() {
   return apiJson(`${API_BASE}/api/v1/notifications/read`, { method: 'PATCH' });
+}
+
+// Safety Score
+export async function fetchSafetyScore(stops) {
+  const data = await apiJson(`${API_BASE}/api/v1/transit/safety-score`, {
+    method: 'POST',
+    body: JSON.stringify({ stops }),
+  });
+  return data.data;
+}
+
+// Chatbot
+export async function chatWithAI(message, history = []) {
+  const data = await apiJson(`${API_BASE}/api/v1/transit/chat`, {
+    method: 'POST',
+    body: JSON.stringify({ message, history }),
+  });
+  return data.data;
 }

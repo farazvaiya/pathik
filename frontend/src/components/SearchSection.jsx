@@ -1,8 +1,9 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { useTransit } from '../context/TransitContext';
+import { findNearbyStops } from '../routeEngine';
 import { toast } from './Toast';
 
-export default function SearchSection({ onSearch, loading }) {
+export default function SearchSection({ onSearch, loading, onShowNearby, onSetFrom }) {
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
   const { placeNames } = useTransit();
@@ -17,6 +18,48 @@ export default function SearchSection({ onSearch, loading }) {
       datalistRef.current.appendChild(opt);
     });
   }, [placeNames]);
+
+  useEffect(() => {
+    if (onSetFrom) {
+      // Expose setFrom to parent via ref-like callback
+      onSetFrom.current = (val) => setFrom(val);
+    }
+  }, [onSetFrom]);
+
+  function isPlaceInDB(text) {
+    const t = text.trim().toLowerCase();
+    if (!t) return false;
+    return (placeNames || []).some(name => name.toLowerCase() === t);
+  }
+
+  async function geocodeAndShowNearby(text) {
+    try {
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(text)}&format=json&limit=1`
+      );
+      const data = await res.json();
+      if (data && data.length > 0) {
+        const { lat, lon } = data[0];
+        onShowNearby?.({ lat: parseFloat(lat), lng: parseFloat(lon) });
+      }
+    } catch {
+      // geocoding failed, skip
+    }
+  }
+
+  function handleFromBlur() {
+    const t = from.trim();
+    if (t && !isPlaceInDB(t)) {
+      geocodeAndShowNearby(t);
+    }
+  }
+
+  function handleToBlur() {
+    const t = to.trim();
+    if (t && !isPlaceInDB(t)) {
+      geocodeAndShowNearby(t);
+    }
+  }
 
   const handleSubmit = useCallback(
     (e) => {
@@ -39,13 +82,20 @@ export default function SearchSection({ onSearch, loading }) {
       async (pos) => {
         try {
           const { latitude, longitude } = pos.coords;
-          const res = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&addressdetails=1`
-          );
-          const data = await res.json();
-          const area = data.address?.suburb || data.address?.neighbourhood || data.address?.city || 'My Location';
-          setFrom(area);
-          toast('Location detected!', 'success');
+          const stops = findNearbyStops(latitude, longitude, 5);
+          if (stops.length > 0) {
+            setFrom(stops[0].name);
+            toast(`Location: ${stops[0].name} (~${stops[0].distanceKm} km)`, 'success');
+          } else {
+            const res = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&addressdetails=1`
+            );
+            const data = await res.json();
+            const area = data.address?.suburb || data.address?.neighbourhood || data.address?.city || 'My Location';
+            setFrom(area);
+            toast('Location detected!', 'success');
+          }
+          onShowNearby?.({ lat: latitude, lng: longitude });
         } catch {
           setFrom('My Location');
         }
@@ -68,6 +118,7 @@ export default function SearchSection({ onSearch, loading }) {
               placeholder="Start point"
               value={from}
               onChange={(e) => setFrom(e.target.value)}
+              onBlur={handleFromBlur}
               className="search-input"
             />
             <button
@@ -86,6 +137,7 @@ export default function SearchSection({ onSearch, loading }) {
               placeholder="Destination"
               value={to}
               onChange={(e) => setTo(e.target.value)}
+              onBlur={handleToBlur}
               className="search-input"
             />
           </div>

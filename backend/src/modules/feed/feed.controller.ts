@@ -8,6 +8,8 @@ import { AppError } from '../../middleware/errorHandler';
 import { cleanInput } from '../../utils/cleaners';
 import { uploadToSupabase } from './feed.upload';
 import { getIO, emitNotification } from '../../sockets/socketServer';
+import { sendBulkPushNotification } from '../../services/pushNotifications';
+import { classifyText } from '../../services/aiOrchestrator';
 import { z } from 'zod';
 
 const ALLOWED_TYPES = ['traffic', 'accident', 'danger', 'tip', 'event', 'other'] as const;
@@ -59,9 +61,19 @@ export async function getPosts(req: Request, res: Response, next: NextFunction):
       FeedPost.countDocuments(filter),
     ]);
 
+    // Attach comment counts
+    const postIds = posts.map(p => p._id);
+    const commentCounts = await FeedComment.aggregate([
+      { $match: { postId: { $in: postIds }, status: 'active', isDeleted: false } },
+      { $group: { _id: '$postId', count: { $sum: 1 } } },
+    ]);
+    const countMap: Record<string, number> = {};
+    commentCounts.forEach(c => { countMap[String(c._id)] = c.count; });
+    const postsWithCounts = posts.map(p => ({ ...p, commentCount: countMap[String(p._id)] || 0 }));
+
     res.json({
       success: true,
-      data: posts,
+      data: postsWithCounts,
       pagination: { page, limit, total, totalPages: Math.ceil(total / limit), hasMore: page < Math.ceil(total / limit) },
     });
   } catch (err) {
@@ -142,6 +154,15 @@ export async function createPost(req: Request, res: Response, next: NextFunction
             postId: post._id,
           });
         }
+
+        // Send push notification to nearby users (browser popup)
+        const userIds = nearbyUsers.map(u => String(u._id));
+        sendBulkPushNotification(userIds, {
+          title: isEmergency ? '🚨 জরুরি পোস্ট!' : '📢 নতুন পোস্ট',
+          body: `${body.type} - ${body.locationName || 'আপনার এলাকায়'}`,
+          url: '/',
+          data: { postId: post._id, type: body.type },
+        }).catch(() => {}); // Non-blocking
       }
     }
 
@@ -154,6 +175,19 @@ export async function createPost(req: Request, res: Response, next: NextFunction
     }
 
     res.status(201).json({ success: true, data: post.toJSON() });
+
+    // Non-blocking AI classification via Groq (response already sent, user doesn't wait)
+    classifyText(body.message, 'feed', String(post._id))
+      .then((aiResult) => {
+        if (!aiResult) return;
+        FeedPost.findByIdAndUpdate(post._id, {
+          aiCategory: aiResult.category,
+          aiSeverity: aiResult.severity,
+          aiIsEmergency: aiResult.is_emergency,
+          aiConfidence: aiResult.confidence,
+        }).catch(() => {});
+      })
+      .catch(() => {});
   } catch (err) {
     next(err);
   }

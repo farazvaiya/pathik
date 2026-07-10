@@ -1,20 +1,33 @@
-import { useState, useEffect, useCallback } from 'react';
-import { createSOS, fetchAlerts, fetchNearbyAlerts, reportSighting, confirmSighting, flagAlert, ALERT_TYPE_LABELS, SEVERITY_COLORS, getAnonUserId } from '../api';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { useTransit } from '../context/TransitContext';
+import { createSOS, fetchAlerts, fetchNearbyAlerts, voteAlert, ALERT_TYPE_LABELS, SEVERITY_COLORS, getAnonUserId, getFeedVotes, setFeedVotes } from '../api';
 import { toast } from './Toast';
 
-export default function EmergencySection({ user }) {
+export default function EmergencySection({ user, onOpenComments }) {
+  const { placeNames } = useTransit();
+  const sosDatalistRef = useRef(null);
   const [alerts, setAlerts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
   const [location, setLocation] = useState(null);
   const [locationLoading, setLocationLoading] = useState(false);
   const [locationError, setLocationError] = useState('');
-  const [form, setForm] = useState({ message: '', type: 'other', locationName: '' });
+  const [form, setForm] = useState({ message: '', type: 'other', locationName: '', from: '', to: '' });
   const [submitting, setSubmitting] = useState(false);
+  const [mediaFile, setMediaFile] = useState(null);
+  const [mediaPreview, setMediaPreview] = useState(null);
+  const [mediaType, setMediaType] = useState(null);
+  const [votes, setVotes] = useState(() => getFeedVotes());
 
   useEffect(() => {
-    loadAlerts();
-  }, []);
+    if (!sosDatalistRef.current) return;
+    sosDatalistRef.current.innerHTML = '';
+    (placeNames || []).forEach((name) => {
+      const opt = document.createElement('option');
+      opt.value = name;
+      sosDatalistRef.current.appendChild(opt);
+    });
+  }, [placeNames]);
 
   function handleGetLocation() {
     if (!navigator.geolocation) {
@@ -31,7 +44,6 @@ export default function EmergencySection({ user }) {
         setLocationLoading(false);
         setLocationError('');
         toast('Location detected!', 'success');
-        // Auto-fill location name via reverse geocoding (best-effort)
         try {
           const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
           const data = await res.json();
@@ -43,7 +55,7 @@ export default function EmergencySection({ user }) {
             }
           }
         } catch {
-          // Reverse geocoding failed — leave locationName as-is
+          // Reverse geocoding failed
         }
       },
       (err) => {
@@ -76,6 +88,19 @@ export default function EmergencySection({ user }) {
     loadAlerts();
   }, [loadAlerts]);
 
+  function handleMediaSelect(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const isImage = file.type.startsWith('image/');
+    const isVideo = file.type.startsWith('video/');
+    if (!isImage && !isVideo) { toast('Only images and videos allowed', 'error'); return; }
+    if (isImage && file.size > 5 * 1024 * 1024) { toast('Image must be under 5MB', 'error'); return; }
+    if (isVideo && file.size > 20 * 1024 * 1024) { toast('Video must be under 20MB', 'error'); return; }
+    setMediaFile(file);
+    setMediaPreview(URL.createObjectURL(file));
+    setMediaType(isImage ? 'image' : 'video');
+  }
+
   async function handleCreateSOS(e) {
     e.preventDefault();
     if (!form.message.trim()) return;
@@ -91,9 +116,14 @@ export default function EmergencySection({ user }) {
         lat: location.lat,
         lng: location.lng,
         locationName: form.locationName,
+        from: form.from,
+        to: form.to,
         isAnonymous: true,
-      });
-      setForm({ message: '', type: 'other', locationName: '' });
+      }, mediaFile);
+      setForm({ message: '', type: 'other', locationName: '', from: '', to: '' });
+      setMediaFile(null);
+      setMediaPreview(null);
+      setMediaType(null);
       setShowCreate(false);
       toast('SOS Alert sent! Nearby users will be notified.', 'success');
       loadAlerts();
@@ -103,20 +133,23 @@ export default function EmergencySection({ user }) {
     setSubmitting(false);
   }
 
-  async function handleSighting(alertId) {
-    const desc = prompt('বিস্তারিত লিখুন (ঐচ্ছিক):');
-    if (desc === null) return;
+  const actorId = getAnonUserId();
+
+  async function handleVote(alertId, vote) {
+    const key = `${alertId}::${actorId}`;
+    const newVotes = { ...votes };
+    if (newVotes[key] === vote) {
+      delete newVotes[key];
+    } else {
+      newVotes[key] = vote;
+    }
+    setVotes(newVotes);
+    setFeedVotes(newVotes);
     try {
-      await reportSighting(alertId, {
-        lat: location?.lat || 23.8103,
-        lng: location?.lng || 90.4125,
-        description: desc || undefined,
-        isAnonymous: true,
-      });
-      toast('Sighting reported!', 'success');
+      await voteAlert(alertId, vote);
       loadAlerts();
-    } catch (err) {
-      toast(err.message || 'Failed to report sighting', 'error');
+    } catch (e) {
+      toast('Vote failed', 'error');
     }
   }
 
@@ -157,6 +190,15 @@ export default function EmergencySection({ user }) {
           </button>
           {locationError && <p className="text-xs text-red-600">{locationError}</p>}
 
+          <div className="grid grid-cols-2 gap-2">
+            <input value={form.from} onChange={e => setForm({ ...form, from: e.target.value })}
+              list="sosPlaceSuggestions"
+              placeholder="From (ঐচ্ছিক — যেমন: মিরপুর ১০)" className="w-full p-2 border rounded-lg text-sm" />
+            <input value={form.to} onChange={e => setForm({ ...form, to: e.target.value })}
+              list="sosPlaceSuggestions"
+              placeholder="To (ঐচ্ছিক — যেমন: গুলশান ১)" className="w-full p-2 border rounded-lg text-sm" />
+          </div>
+
           <select value={form.type} onChange={e => setForm({ ...form, type: e.target.value })}
             className="w-full p-2 border rounded-lg text-sm">
             {Object.entries(ALERT_TYPE_LABELS).map(([key, label]) => (
@@ -168,6 +210,31 @@ export default function EmergencySection({ user }) {
             className="w-full p-2 border rounded-lg text-sm" required />
           <input value={form.locationName} onChange={e => setForm({ ...form, locationName: e.target.value })}
             placeholder="স্থানের নাম (ঐচ্ছিক — যেমন: মিরপুর ১০)" className="w-full p-2 border rounded-lg text-sm" />
+
+          {/* Media upload */}
+          <div className="flex gap-2 flex-wrap">
+            <label className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition border border-red-200 hover:bg-red-50 text-red-700">
+              📷 ছবি/ভিডিও
+              <input type="file" accept="image/jpeg,image/png,image/webp,video/mp4,video/quicktime,video/webm" className="hidden" onChange={handleMediaSelect} />
+            </label>
+          </div>
+          {mediaPreview && (
+            <div className="relative inline-block">
+              {mediaType === 'video' ? (
+                <video src={mediaPreview} className="h-24 rounded-lg border border-red-200" />
+              ) : (
+                <img src={mediaPreview} alt="Preview" className="h-24 rounded-lg object-cover border border-red-200" />
+              )}
+              <button
+                type="button"
+                onClick={() => { setMediaFile(null); setMediaPreview(null); setMediaType(null); }}
+                className="absolute -top-1.5 -right-1.5 bg-red-500 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center"
+              >
+                ✕
+              </button>
+            </div>
+          )}
+
           <button type="submit" disabled={submitting || !form.message.trim() || !location}
             className="w-full py-2.5 bg-red-600 text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed">
             {submitting ? 'পাঠানো হচ্ছে...' : '🚨 SOS পাঠান'}
@@ -176,41 +243,73 @@ export default function EmergencySection({ user }) {
         </form>
       )}
 
+      <datalist ref={sosDatalistRef} id="sosPlaceSuggestions" />
+
       {loading ? (
         <div className="text-center py-8 text-gray-500">লোড হচ্ছে...</div>
       ) : alerts.length === 0 ? (
         <div className="text-center py-8 text-gray-500">কোনো অ্যালার্ট নেই 👍</div>
       ) : (
         <div className="space-y-3">
-          {alerts.map(alert => (
-            <div key={alert.id || alert._id} className="bg-white border rounded-xl p-4 shadow-sm">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-sm font-medium" style={{ color: SEVERITY_COLORS[alert.severity] }}>
-                      {alert.severity?.toUpperCase()}
-                    </span>
-                    <span className="text-xs text-gray-500">{ALERT_TYPE_LABELS[alert.type] || alert.type}</span>
+          {alerts.map(alert => {
+            const id = alert.id || alert._id;
+            const myVote = votes[`${id}::${actorId}`];
+            const feedPostId = alert.originalPostId || id;
+
+            return (
+              <div key={id} className="bg-white border rounded-xl p-4 shadow-sm">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-sm font-medium" style={{ color: SEVERITY_COLORS[alert.severity] }}>
+                        {alert.severity?.toUpperCase()}
+                      </span>
+                      <span className="text-xs text-gray-500">{ALERT_TYPE_LABELS[alert.type] || alert.type}</span>
+                    </div>
+                    <p className="text-sm text-gray-800">{alert.originalText}</p>
+                    {(alert.from || alert.to) && (
+                      <p className="text-xs text-gray-600 mt-1">
+                        📍 {alert.from || '?'} → {alert.to || '?'}
+                      </p>
+                    )}
+                    {alert.locationName && <p className="text-xs text-gray-500 mt-1">📍 {alert.locationName}</p>}
+                    <p className="text-xs text-gray-400 mt-1">
+                      {new Date(alert.createdAt).toLocaleString('bn-BD')}
+                    </p>
                   </div>
-                  <p className="text-sm text-gray-800">{alert.originalText}</p>
-                  {alert.locationName && <p className="text-xs text-gray-500 mt-1">📍 {alert.locationName}</p>}
-                  <p className="text-xs text-gray-400 mt-1">
-                    {alert.sightingCount || 0} সাইটিং • {new Date(alert.createdAt).toLocaleString('bn-BD')}
-                  </p>
+                  <div className="flex flex-col gap-1 ml-2">
+                    {onOpenComments && (
+                      <button onClick={() => onOpenComments(feedPostId)}
+                        className="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-xs font-medium hover:bg-blue-200">
+                        💬 কমেন্ট
+                      </button>
+                    )}
+                  </div>
                 </div>
-                <div className="flex flex-col gap-1 ml-2">
-                  <button onClick={() => handleSighting(alert.id || alert._id)}
-                    className="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-xs font-medium hover:bg-blue-200">
-                    👁️ দেখেছি
+                {/* Like/Dislike buttons */}
+                <div className="flex items-center gap-2.5 mt-3 pt-2 border-t border-gray-100">
+                  <button
+                    type="button"
+                    onClick={() => handleVote(id, 'up')}
+                    className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[0.8rem] font-semibold transition border ${
+                      myVote === 'up' ? 'bg-emerald-100 text-emerald-700 border-emerald-200' : 'bg-[#f3f4f6] border-[#d1d5db] hover:bg-[#e5e7eb]'
+                    }`}
+                  >
+                    👍 {alert.upvotes || 0}
                   </button>
-                  <button onClick={() => flagAlert(alert.id || alert._id, 'মিথ্যা')}
-                    className="px-3 py-1 bg-gray-100 text-gray-600 rounded-lg text-xs hover:bg-gray-200">
-                    🚩 ফ্ল্যাগ
+                  <button
+                    type="button"
+                    onClick={() => handleVote(id, 'down')}
+                    className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[0.8rem] font-semibold transition border ${
+                      myVote === 'down' ? 'bg-red-100 text-red-700 border-red-200' : 'bg-[#f3f4f6] border-[#d1d5db] hover:bg-[#e5e7eb]'
+                    }`}
+                  >
+                    👎 {alert.downvotes || 0}
                   </button>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>

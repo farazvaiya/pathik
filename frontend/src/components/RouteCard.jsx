@@ -1,5 +1,11 @@
 const MODE_ICONS = { bus: '🚌', ac_bus: '🚌', metro: '🚇', walk: '🚶' };
 
+const SAFETY_COLORS = {
+  safe: { bg: '#dcfce7', border: '#bbf7d0', text: '#166534' },
+  moderate: { bg: '#fef3c7', border: '#fde68a', text: '#92400e' },
+  caution: { bg: '#fee2e2', border: '#fecaca', text: '#991b1b' },
+};
+
 export default function RouteCard({ route, selected, onClick, index }) {
   if (!route) return null;
 
@@ -8,6 +14,10 @@ export default function RouteCard({ route, selected, onClick, index }) {
   const cost = route.total_cost_range || `৳${route.total_cost}`;
   const tm = route.total_time_range || `${route.total_time_minutes || '?'} min`;
   const allBusNames = [...new Set(steps.flatMap(s => s.bus_names || []).filter(Boolean))];
+
+  const safetyScore = route.safetyScore;
+  const safetyLabel = route.safetyLabel || 'moderate';
+  const sc = SAFETY_COLORS[safetyLabel] || SAFETY_COLORS.moderate;
 
   return (
     <button
@@ -34,6 +44,15 @@ export default function RouteCard({ route, selected, onClick, index }) {
         }}>
           Confidence: High
         </span>
+        {safetyScore != null && (
+          <span className="source-pill" style={{
+            display: 'inline-flex', alignItems: 'center', minHeight: 26,
+            border: `1px solid ${sc.border}`, background: sc.bg, color: sc.text,
+            borderRadius: 999, padding: '4px 9px', fontSize: '0.78rem', fontWeight: 700
+          }}>
+            🛡️ Safety: {safetyScore}/10
+          </span>
+        )}
       </div>
 
       <div className="route-meta" style={{ display: 'flex', gap: 14, fontSize: '0.9rem', color: '#374151', marginBottom: 4 }}>

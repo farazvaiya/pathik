@@ -1,16 +1,39 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { fetchNearbyPosts, fetchNearbyAlerts, TYPE_LABELS, ALERT_TYPE_LABELS, SEVERITY_COLORS } from '../api';
+import { resolveCoords } from '../routeEngine';
+
+const OSRM_CACHE = new Map();
+
+async function fetchOSRMRoute(fromCoords, toCoords, profile, signal) {
+  const cacheKey = `${fromCoords[1]},${fromCoords[0]};${toCoords[1]},${toCoords[0]}`;
+  if (OSRM_CACHE.has(cacheKey)) return OSRM_CACHE.get(cacheKey);
+
+  const url = `https://router.project-osrm.org/route/v1/${profile}/${fromCoords[1]},${fromCoords[0]};${toCoords[1]},${toCoords[0]}?overview=full&geometries=geojson`;
+  try {
+    const res = await fetch(url, { signal });
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (data.code !== 'Ok' || !data.routes?.[0]?.geometry?.coordinates) return null;
+    const coords = data.routes[0].geometry.coordinates;
+    OSRM_CACHE.set(cacheKey, coords);
+    return coords;
+  } catch (e) {
+    if (e.name === 'AbortError') return null;
+    return null;
+  }
+}
 
 export default function MapView({ selectedRoute }) {
   const mapRef = useRef(null);
   const mapInstance = useRef(null);
   const markersRef = useRef([]);
+  const polylineRef = useRef([]);
+  const abortRef = useRef(null);
   const [status, setStatus] = useState('Search to preview the road route.');
   const [nearbyPosts, setNearbyPosts] = useState([]);
   const [nearbyAlerts, setNearbyAlerts] = useState([]);
   const [showPosts, setShowPosts] = useState(true);
   const [showAlerts, setShowAlerts] = useState(true);
-  const [userLocation, setUserLocation] = useState(null);
 
   useEffect(() => {
     if (mapInstance.current) return;
@@ -94,30 +117,150 @@ export default function MapView({ selectedRoute }) {
   }, [nearbyPosts, nearbyAlerts, showPosts, showAlerts]);
 
   useEffect(() => {
-    if (!mapInstance.current || !selectedRoute) return;
+    if (!mapInstance.current) return;
 
+    // Cancel previous OSRM fetches
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+
+    // Clear previous route polylines
+    polylineRef.current.forEach((p) => p.remove());
+    polylineRef.current = [];
+
+    // Clear previous route markers
     markersRef.current.forEach((m) => m.remove());
     markersRef.current = [];
 
-    const stops = selectedRoute.stops || selectedRoute.steps || [];
-    const coords = [];
+    if (!selectedRoute) {
+      setStatus('Search to preview the road route.');
+      return;
+    }
 
-    stops.forEach((stop, i) => {
-      if (stop.lat && stop.lng) {
-        const marker = window.L.marker([stop.lat, stop.lng])
+    const steps = selectedRoute.steps || [];
+    if (steps.length === 0) {
+      setStatus('No route data to display.');
+      return;
+    }
+
+    const modeColors = {
+      bus: '#2E7D32',
+      ac_bus: '#1565C0',
+      metro: '#7B1FA2',
+      rickshaw: '#F57C00',
+      leguna: '#00838F',
+      walking: '#616161',
+    };
+
+    const allCoords = [];
+
+    // Draw markers + landmarks (sync, immediate)
+    steps.forEach((step, i) => {
+      const fromCoords = resolveCoords(step.from);
+      const toCoords = resolveCoords(step.to);
+      const color = modeColors[step.mode] || '#2E7D32';
+
+      if (fromCoords) {
+        const isStart = i === 0;
+        const icon = window.L.divIcon({
+          className: 'custom-marker',
+          html: `<div style="background:${isStart ? '#2E7D32' : color};width:${isStart ? 16 : 12}px;height:${isStart ? 16 : 12}px;border-radius:50%;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;font-size:${isStart ? 10 : 8}px;color:white;font-weight:bold">${isStart ? 'A' : ''}</div>`,
+          iconSize: [isStart ? 16 : 12, isStart ? 16 : 12],
+          iconAnchor: [isStart ? 8 : 6, isStart ? 8 : 6],
+        });
+        const marker = window.L.marker(fromCoords, { icon })
           .addTo(mapInstance.current)
-          .bindPopup(stop.name || `Stop ${i + 1}`);
+          .bindPopup(`<b>${step.from}</b>${step.bus_names?.length ? `<br/>🚌 ${step.bus_names.join(', ')}` : ''}`);
         markersRef.current.push(marker);
-        coords.push([stop.lat, stop.lng]);
+        allCoords.push(fromCoords);
+      }
+
+      if (toCoords) {
+        const isEnd = i === steps.length - 1;
+        const icon = window.L.divIcon({
+          className: 'custom-marker',
+          html: `<div style="background:${isEnd ? '#C62828' : color};width:${isEnd ? 16 : 12}px;height:${isEnd ? 16 : 12}px;border-radius:50%;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;font-size:${isEnd ? 10 : 8}px;color:white;font-weight:bold">${isEnd ? 'B' : ''}</div>`,
+          iconSize: [isEnd ? 16 : 12, isEnd ? 16 : 12],
+          iconAnchor: [isEnd ? 8 : 6, isEnd ? 8 : 6],
+        });
+        const marker = window.L.marker(toCoords, { icon })
+          .addTo(mapInstance.current)
+          .bindPopup(`<b>${step.to}</b>${isEnd ? ' (Destination)' : ''}`);
+        markersRef.current.push(marker);
+        allCoords.push(toCoords);
+      }
+
+      // Draw intermediate landmark stops
+      if (step.landmarks && step.landmarks.length > 0) {
+        step.landmarks.forEach((lm) => {
+          const lmCoords = resolveCoords(lm);
+          if (lmCoords) {
+            const icon = window.L.divIcon({
+              className: 'custom-marker',
+              html: `<div style="background:${color};width:6px;height:6px;border-radius:50%;border:1px solid white;opacity:0.7"></div>`,
+              iconSize: [6, 6],
+              iconAnchor: [3, 3],
+            });
+            const m = window.L.marker(lmCoords, { icon })
+              .addTo(mapInstance.current)
+              .bindPopup(`<small>${lm}</small>`);
+            markersRef.current.push(m);
+          }
+        });
       }
     });
 
-    if (coords.length > 0) {
-      mapInstance.current.fitBounds(coords, { padding: [30, 30] });
+    if (allCoords.length > 0) {
+      mapInstance.current.fitBounds(allCoords, { padding: [40, 40] });
       setStatus('');
     } else {
       setStatus('No map coordinates available for this route.');
+      return;
     }
+
+    // Fetch OSRM road paths (async, with abort protection)
+    async function drawRoadPaths() {
+      for (let i = 0; i < steps.length; i++) {
+        if (controller.signal.aborted) return;
+
+        const step = steps[i];
+        const fromCoords = resolveCoords(step.from);
+        const toCoords = resolveCoords(step.to);
+        if (!fromCoords || !toCoords) continue;
+
+        const profile = step.mode === 'walking' ? 'walking' : 'driving';
+        const roadCoords = await fetchOSRMRoute(fromCoords, toCoords, profile, controller.signal);
+
+        if (controller.signal.aborted) return;
+
+        const color = modeColors[step.mode] || '#2E7D32';
+
+        if (roadCoords && roadCoords.length > 0) {
+          // OSRM returns [lng, lat] arrays — Leaflet expects [lat, lng]
+          const latLngs = roadCoords.map(c => [c[1], c[0]]);
+          const line = window.L.polyline(latLngs, {
+            color,
+            weight: 5,
+            opacity: 0.85,
+            dashArray: step.mode === 'walking' ? '6, 8' : null,
+          }).addTo(mapInstance.current);
+          polylineRef.current.push(line);
+        } else {
+          // Fallback: straight line
+          const line = window.L.polyline([fromCoords, toCoords], {
+            color,
+            weight: 4,
+            opacity: 0.7,
+            dashArray: '4, 8',
+          }).addTo(mapInstance.current);
+          polylineRef.current.push(line);
+        }
+      }
+    }
+
+    drawRoadPaths();
+
+    return () => controller.abort();
   }, [selectedRoute]);
 
   const handleLocate = () => {
@@ -125,9 +268,14 @@ export default function MapView({ selectedRoute }) {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         const { latitude, longitude } = pos.coords;
-        setUserLocation({ lat: latitude, lng: longitude });
         mapInstance.current.setView([latitude, longitude], 14);
-        window.L.marker([latitude, longitude])
+        const icon = window.L.divIcon({
+          className: 'custom-marker',
+          html: `<div style="background:#2E7D32;width:16px;height:16px;border-radius:50%;border:3px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.4)"></div>`,
+          iconSize: [16, 16],
+          iconAnchor: [8, 8],
+        });
+        window.L.marker([latitude, longitude], { icon })
           .addTo(mapInstance.current)
           .bindPopup('📍 You are here')
           .openPopup();

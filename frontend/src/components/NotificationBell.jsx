@@ -16,12 +16,11 @@ export default function NotificationBell() {
       setNotifications(data);
       setUnreadCount(count);
     } catch (e) {
-      // Silently ignore 401 (expired/invalid token) — user may have logged out
+      // Silently ignore 401 (expired/invalid token)
     }
   }, [user?.id]);
 
   useEffect(() => {
-    if (!user?.id) return;
     loadNotifications();
 
     const s = getSocket();
@@ -31,14 +30,16 @@ export default function NotificationBell() {
     };
     s.on('notification:new', handleNotif);
     return () => s.off('notification:new', handleNotif);
-  }, [user?.id, loadNotifications]);
+  }, [loadNotifications]);
 
   async function handleMarkRead() {
     setUnreadCount(0);
-    await markNotificationsRead();
+    if (user?.id) {
+      try { await markNotificationsRead(); } catch {}
+    }
   }
 
-  if (!user?.id) return null;
+  const total = notifications.length;
 
   return (
     <div className="relative">
@@ -49,9 +50,9 @@ export default function NotificationBell() {
         title="Notifications"
       >
         🔔
-        {unreadCount > 0 && (
+        {(user?.id ? unreadCount : total) > 0 && (
           <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center">
-            {unreadCount > 9 ? '9+' : unreadCount}
+            {(user?.id ? unreadCount : total) > 9 ? '9+' : (user?.id ? unreadCount : total)}
           </span>
         )}
       </button>
@@ -62,16 +63,22 @@ export default function NotificationBell() {
           <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-xl shadow-xl border border-slate-200 z-50 max-h-96 overflow-y-auto">
             <div className="p-3 border-b border-slate-100 flex justify-between items-center">
               <h3 className="text-sm font-bold text-slate-800 m-0">Notifications</h3>
-              <button onClick={handleMarkRead} className="text-[11px] text-emerald-600 hover:underline">
-                Mark all read
-              </button>
+              {user?.id && (
+                <button onClick={handleMarkRead} className="text-[11px] text-emerald-600 hover:underline">
+                  Mark all read
+                </button>
+              )}
             </div>
-            {notifications.length === 0 ? (
+            {!user?.id && notifications.length === 0 ? (
+              <div className="p-4 text-center text-sm text-slate-400">
+                Login to see personalized notifications
+              </div>
+            ) : notifications.length === 0 ? (
               <div className="p-4 text-center text-sm text-slate-400">No notifications yet</div>
             ) : (
               <div>
                 {notifications.map((n, i) => (
-                  <div key={n._id || i} className="px-3 py-2.5 border-b border-slate-50 hover:bg-slate-50 transition">
+                  <div key={n.alertId || n._id || i} className="px-3 py-2.5 border-b border-slate-50 hover:bg-slate-50 transition">
                     <div className="flex items-start gap-2">
                       <span className="text-lg mt-0.5">
                         {n.type === 'sos_alert' ? '🚨' : n.type === 'sighting_nearby' ? '👁️' : n.type === 'sighting_confirmed' ? '✅' : '🔔'}
