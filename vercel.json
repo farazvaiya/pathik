@@ -9,7 +9,7 @@
     "archive": {
       "root": "archive",
       "runtime": "node",
-      "entrypoint": "server.js"  
+      "entrypoint": "script.js"  
     },
    
     
