@@ -6,6 +6,11 @@
       "framework": "fastapi",
       "entrypoint": "main:app"
     },
+    "archive": {
+      "root": "archive",
+      "runtime": "node",
+      "entrypoint": "server.js"  
+    },
    
     
     "backend": {
