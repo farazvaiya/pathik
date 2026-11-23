@@ -3,11 +3,13 @@
   "services": {
     "ai-services": {
       "root": "ai-services",
-      "framework": "fastapi"
+      "framework": "fastapi",
+      "entrypoint": "main:app"
     },
     "archive": {
       "root": "archive",
-      "runtime": "node"
+      "runtime": "node",
+      "entrypoint": "index.js"  // <-- Add this line (replace "index.js" with your actual main file)
     },
     "backend": {
       "root": "backend",
