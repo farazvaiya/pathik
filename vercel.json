@@ -7,7 +7,7 @@
       "entrypoint": "main:app"
     },
    
-    ,
+    
     "backend": {
       "root": "backend",
       "framework": "express"
